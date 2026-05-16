@@ -1,0 +1,48 @@
+# ------ uv ------
+# Виртуальное окружение (uv создаёт .venv по умолчанию)
+.venv/
+
+# ------ Python ------
+# Байт-код и кэш
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Артефакты сборки и дистрибуции
+build/
+dist/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# ------ Тестирование и покрытие ------
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+htmlcov/
+coverage.xml
+.mypy_cache/
+.ruff_cache/
+
+# ------ IDE и редакторы ------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ------ Файлы окружения ------
+# Файлы с переменными окружения (никогда не коммитить!)
+.env
+.env.local
+.env.*.local
+
+# Логи
+*.log
+
+# ------ Системные файлы ------
+.DS_Store          # macOS
+Thumbs.db          # Windows

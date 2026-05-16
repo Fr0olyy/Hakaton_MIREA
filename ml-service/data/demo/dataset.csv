@@ -1,0 +1,1201 @@
+id  , file_path            , label    , predicted_label, confidence, split, source   , annotator, true_label_for_demo
+   1, butterfly_000001.jpeg, butterfly, butterfly      ,      0.918, train, animals10, ann_4    , butterfly
+   2, butterfly_000002.jpeg, butterfly, butterfly      ,      0.972, train, animals10, ann_1    , butterfly
+   3, butterfly_000003.jpeg, butterfly, butterfly      ,      0.902, train, animals10, ann_2    , butterfly
+   4, butterfly_000004.jpeg, butterfly, butterfly      ,      0.917, train, animals10, ann_4    , butterfly
+   5, butterfly_000005.jpeg, chicken  , butterfly      ,      0.923, train, animals10, ann_3    , butterfly
+   6, butterfly_000006.jpeg, butterfly, butterfly      ,      0.917, train, animals10, ann_4    , butterfly
+   7, butterfly_000007.jpeg, butterfly, butterfly      ,      0.942, train, animals10, ann_2    , butterfly
+   8, butterfly_000008.jpeg, butterfly, butterfly      ,      0.924, train, animals10, ann_2    , butterfly
+   9, butterfly_000009.jpg , butterfly, chicken        ,      0.565, train, animals10, ann_4    , butterfly
+  10, butterfly_000010.png , butterfly, dog            ,      0.612, train, animals10, ann_2    , butterfly
+  11, butterfly_000011.jpeg, butterfly, butterfly      ,      0.967, train, animals10, ann_4    , butterfly
+  12, butterfly_000012.jpeg, butterfly, butterfly      ,      0.832, train, animals10, ann_2    , butterfly
+  13, butterfly_000013.jpeg, butterfly, butterfly      ,      0.834, train, animals10, ann_3    , butterfly
+  14, butterfly_000014.jpg , butterfly, butterfly      ,      0.908, train, animals10, ann_3    , butterfly
+  15, butterfly_000015.jpeg, butterfly, butterfly      ,      0.934, train, animals10, ann_2    , butterfly
+  16, butterfly_000016.jpeg, butterfly, butterfly      ,      0.839, train, animals10, ann_2    , butterfly
+  17, butterfly_000017.jpg , butterfly, butterfly      ,      0.899, train, animals10, ann_3    , butterfly
+  18, butterfly_000018.jpeg, butterfly, butterfly      ,      0.949, train, animals10, ann_2    , butterfly
+  19, butterfly_000019.jpeg, butterfly, dog            ,      0.542, train, animals10, ann_4    , butterfly
+  20, butterfly_000020.jpeg, butterfly, butterfly      ,      0.952, train, animals10, ann_1    , butterfly
+  21, butterfly_000021.jpeg, butterfly, butterfly      ,      0.832, train, animals10, ann_4    , butterfly
+  22, butterfly_000022.jpeg, butterfly, butterfly      ,      0.96 , train, animals10, ann_2    , butterfly
+  23, butterfly_000023.jpeg, butterfly, butterfly      ,      0.9  , train, animals10, ann_1    , butterfly
+  24, butterfly_000024.jpeg, butterfly, butterfly      ,      0.869, train, animals10, ann_2    , butterfly
+  25, butterfly_000025.jpeg, butterfly, butterfly      ,      0.875, train, animals10, ann_3    , butterfly
+  26, butterfly_000026.jpeg, butterfly, butterfly      ,      0.922, train, animals10, ann_3    , butterfly
+  27, butterfly_000027.jpeg, butterfly, butterfly      ,      0.905, train, animals10, ann_2    , butterfly
+  28, butterfly_000028.jpeg, butterfly, butterfly      ,      0.847, train, animals10, ann_3    , butterfly
+  29, butterfly_000029.jpeg, butterfly, butterfly      ,      0.952, train, animals10, ann_1    , butterfly
+  30, butterfly_000030.jpeg, butterfly, butterfly      ,      0.943, train, animals10, ann_3    , butterfly
+  31, butterfly_000031.jpeg, butterfly, butterfly      ,      0.887, train, animals10, ann_1    , butterfly
+  32, butterfly_000032.jpg , butterfly, butterfly      ,      0.866, train, animals10, ann_3    , butterfly
+  33, butterfly_000033.jpeg, butterfly, butterfly      ,      0.93 , train, animals10, ann_3    , butterfly
+  34, butterfly_000034.jpg , butterfly, butterfly      ,      0.845, train, animals10, ann_4    , butterfly
+  35, butterfly_000035.jpeg, butterfly, butterfly      ,      0.917, train, animals10, ann_3    , butterfly
+  36, butterfly_000036.jpeg, butterfly, butterfly      ,      0.978, train, animals10, ann_3    , butterfly
+  37, butterfly_000037.jpeg, butterfly, butterfly      ,      0.879, train, animals10, ann_1    , butterfly
+  38, butterfly_000038.jpeg, butterfly, butterfly      ,      0.863, train, animals10, ann_2    , butterfly
+  39, butterfly_000039.jpeg, butterfly, horse          ,      0.649, train, animals10, ann_4    , butterfly
+  40, butterfly_000040.jpeg, butterfly, butterfly      ,      0.846, train, animals10, ann_3    , butterfly
+  41, butterfly_000041.jpg , butterfly, butterfly      ,      0.85 , train, animals10, ann_2    , butterfly
+  42, butterfly_000042.jpeg, butterfly, butterfly      ,      0.9  , train, animals10, ann_3    , butterfly
+  43, butterfly_000043.jpg , butterfly, horse          ,      0.566, train, animals10, ann_2    , butterfly
+  44, butterfly_000044.jpg , butterfly, butterfly      ,      0.828, train, animals10, ann_4    , butterfly
+  45, butterfly_000045.jpeg, butterfly, butterfly      ,      0.928, train, animals10, ann_3    , butterfly
+  46, butterfly_000046.jpeg, butterfly, butterfly      ,      0.889, train, animals10, ann_3    , butterfly
+  47, butterfly_000047.jpeg, butterfly, butterfly      ,      0.879, train, animals10, ann_4    , butterfly
+  48, butterfly_000048.jpeg, squirrel , butterfly      ,      0.909, train, animals10, ann_1    , butterfly
+  49, butterfly_000049.jpeg, butterfly, butterfly      ,      0.908, train, animals10, ann_1    , butterfly
+  50, butterfly_000050.jpeg, butterfly, elephant       ,      0.633, train, animals10, ann_3    , butterfly
+  51, butterfly_000051.jpeg, butterfly, butterfly      ,      0.843, train, animals10, ann_4    , butterfly
+  52, butterfly_000052.jpg , butterfly, chicken        ,      0.614, train, animals10, ann_4    , butterfly
+  53, butterfly_000053.jpeg, butterfly, butterfly      ,      0.963, train, animals10, ann_2    , butterfly
+  54, butterfly_000054.jpeg, butterfly, butterfly      ,      0.846, train, animals10, ann_3    , butterfly
+  55, butterfly_000055.jpeg, butterfly, butterfly      ,      0.902, train, animals10, ann_4    , butterfly
+  56, butterfly_000056.jpeg, butterfly, butterfly      ,      0.951, train, animals10, ann_3    , butterfly
+  57, butterfly_000057.jpeg, butterfly, horse          ,      0.584, train, animals10, ann_1    , butterfly
+  58, butterfly_000058.jpeg, butterfly, butterfly      ,      0.925, train, animals10, ann_2    , butterfly
+  59, butterfly_000059.jpg , butterfly, butterfly      ,      0.847, train, animals10, ann_4    , butterfly
+  60, butterfly_000060.jpeg, butterfly, butterfly      ,      0.825, train, animals10, ann_1    , butterfly
+  61, butterfly_000061.jpeg, butterfly, butterfly      ,      0.887, train, animals10, ann_4    , butterfly
+  62, butterfly_000062.jpeg, butterfly, butterfly      ,      0.944, train, animals10, ann_4    , butterfly
+  63, butterfly_000063.jpeg, butterfly, butterfly      ,      0.83 , train, animals10, ann_2    , butterfly
+  64, butterfly_000064.jpeg, butterfly, butterfly      ,      0.98 , train, animals10, ann_4    , butterfly
+  65, butterfly_000065.jpeg, butterfly, butterfly      ,      0.848, train, animals10, ann_3    , butterfly
+  66, butterfly_000066.jpeg, butterfly, butterfly      ,      0.959, train, animals10, ann_3    , butterfly
+  67, butterfly_000067.jpeg, butterfly, butterfly      ,      0.859, train, animals10, ann_3    , butterfly
+  68, butterfly_000068.jpg , butterfly, butterfly      ,      0.868, train, animals10, ann_3    , butterfly
+  69, butterfly_000069.jpg , butterfly, butterfly      ,      0.898, train, animals10, ann_4    , butterfly
+  70, butterfly_000070.jpg , butterfly, butterfly      ,      0.947, train, animals10, ann_3    , butterfly
+  71, butterfly_000071.jpeg, butterfly, butterfly      ,      0.907, train, animals10, ann_4    , butterfly
+  72, butterfly_000072.jpeg, butterfly, butterfly      ,      0.949, train, animals10, ann_3    , butterfly
+  73, butterfly_000073.jpeg, chicken  , butterfly      ,      0.891, train, animals10, ann_3    , butterfly
+  74, butterfly_000074.jpg , butterfly, butterfly      ,      0.952, train, animals10, ann_3    , butterfly
+  75, butterfly_000075.jpg , butterfly, butterfly      ,      0.842, train, animals10, ann_2    , butterfly
+  76, butterfly_000076.jpeg, butterfly, butterfly      ,      0.905, train, animals10, ann_2    , butterfly
+  77, butterfly_000077.jpeg, sheep    , butterfly      ,      0.896, train, animals10, ann_2    , butterfly
+  78, butterfly_000078.jpeg, squirrel , butterfly      ,      0.845, train, animals10, ann_4    , butterfly
+  79, butterfly_000079.jpeg, butterfly, butterfly      ,      0.974, train, animals10, ann_3    , butterfly
+  80, butterfly_000080.jpeg, butterfly, cat            ,      0.6  , train, animals10, ann_2    , butterfly
+  81, butterfly_000081.jpeg, butterfly, butterfly      ,      0.97 , train, animals10, ann_2    , butterfly
+  82, butterfly_000082.jpeg, butterfly, butterfly      ,      0.969, train, animals10, ann_1    , butterfly
+  83, butterfly_000083.jpeg, butterfly, butterfly      ,      0.899, train, animals10, ann_3    , butterfly
+  84, butterfly_000084.jpeg, butterfly, squirrel       ,      0.589, train, animals10, ann_3    , butterfly
+  85, butterfly_000085.jpg , butterfly, butterfly      ,      0.907, train, animals10, ann_4    , butterfly
+  86, butterfly_000086.jpg , butterfly, butterfly      ,      0.901, train, animals10, ann_3    , butterfly
+  87, butterfly_000087.jpeg, butterfly, chicken        ,      0.618, train, animals10, ann_3    , butterfly
+  88, butterfly_000088.jpeg, butterfly, elephant       ,      0.632, train, animals10, ann_2    , butterfly
+  89, butterfly_000089.jpg , butterfly, butterfly      ,      0.964, train, animals10, ann_4    , butterfly
+  90, butterfly_000090.jpg , butterfly, cat            ,      0.492, train, animals10, ann_2    , butterfly
+  91, butterfly_000091.jpeg, butterfly, butterfly      ,      0.821, train, animals10, ann_4    , butterfly
+  92, butterfly_000092.jpeg, butterfly, butterfly      ,      0.973, train, animals10, ann_3    , butterfly
+  93, butterfly_000093.jpeg, butterfly, butterfly      ,      0.862, train, animals10, ann_3    , butterfly
+  94, butterfly_000094.jpeg, butterfly, cat            ,      0.557, train, animals10, ann_2    , butterfly
+  95, butterfly_000095.jpeg, butterfly, butterfly      ,      0.963, train, animals10, ann_3    , butterfly
+  96, butterfly_000096.jpg , butterfly, butterfly      ,      0.971, train, animals10, ann_3    , butterfly
+  97, butterfly_000097.jpg , butterfly, butterfly      ,      0.841, val  , animals10, ann_2    , butterfly
+  98, butterfly_000098.jpeg, butterfly, butterfly      ,      0.88 , val  , animals10, ann_4    , butterfly
+  99, butterfly_000099.jpeg, butterfly, butterfly      ,      0.952, val  , animals10, ann_2    , butterfly
+ 100, butterfly_000100.jpeg, butterfly, butterfly      ,      0.946, val  , animals10, ann_4    , butterfly
+ 101, butterfly_000101.jpeg, butterfly, butterfly      ,      0.967, val  , animals10, ann_1    , butterfly
+ 102, butterfly_000102.jpeg, butterfly, butterfly      ,      0.901, val  , animals10, ann_2    , butterfly
+ 103, butterfly_000103.jpeg, butterfly, butterfly      ,      0.891, val  , animals10, ann_2    , butterfly
+ 104, butterfly_000104.jpeg, butterfly, butterfly      ,      0.964, val  , animals10, ann_4    , butterfly
+ 105, butterfly_000105.jpeg, butterfly, butterfly      ,      0.902, val  , animals10, ann_4    , butterfly
+ 106, butterfly_000106.jpeg, butterfly, butterfly      ,      0.928, val  , animals10, ann_3    , butterfly
+ 107, butterfly_000107.jpeg, butterfly, butterfly      ,      0.951, val  , animals10, ann_2    , butterfly
+ 108, butterfly_000108.jpeg, butterfly, elephant       ,      0.611, val  , animals10, ann_1    , butterfly
+ 109, butterfly_000109.jpg , butterfly, butterfly      ,      0.831, test , animals10, ann_4    , butterfly
+ 110, butterfly_000110.jpeg, butterfly, horse          ,      0.491, test , animals10, ann_2    , butterfly
+ 111, butterfly_000111.jpeg, butterfly, butterfly      ,      0.977, test , animals10, ann_4    , butterfly
+ 112, butterfly_000112.jpeg, butterfly, butterfly      ,      0.963, test , animals10, ann_4    , butterfly
+ 113, butterfly_000113.jpeg, butterfly, butterfly      ,      0.965, test , animals10, ann_4    , butterfly
+ 114, butterfly_000114.jpeg, butterfly, spider         ,      0.481, test , animals10, ann_3    , butterfly
+ 115, butterfly_000115.jpg , butterfly, spider         ,      0.54 , test , animals10, ann_2    , butterfly
+ 116, butterfly_000116.jpeg, butterfly, butterfly      ,      0.856, test , animals10, ann_1    , butterfly
+ 117, butterfly_000117.jpeg, butterfly, butterfly      ,      0.977, test , animals10, ann_4    , butterfly
+ 118, butterfly_000118.jpeg, butterfly, butterfly      ,      0.907, test , animals10, ann_4    , butterfly
+ 119, butterfly_000119.jpeg, butterfly, butterfly      ,      0.86 , test , animals10, ann_3    , butterfly
+ 120, butterfly_000120.png , butterfly, butterfly      ,      0.85 , test , animals10, ann_1    , butterfly
+ 121, cat_000121.jpg       , cat      , cat            ,      0.84 , train, animals10, ann_1    , cat
+ 122, cat_000122.jpg       , cat      , cat            ,      0.891, train, animals10, ann_4    , cat
+ 123, cat_000123.jpeg      , cat      , cat            ,      0.846, train, animals10, ann_3    , cat
+ 124, cat_000124.jpeg      , cat      , cat            ,      0.866, train, animals10, ann_4    , cat
+ 125, cat_000125.jpeg      , dog      , cat            ,      0.924, train, animals10, ann_2    , cat
+ 126, cat_000126.jpeg      , cat      , cat            ,      0.823, train, animals10, ann_1    , cat
+ 127, cat_000127.jpeg      , cat      , cat            ,      0.848, train, animals10, ann_1    , cat
+ 128, cat_000128.jpg       , cat      , cat            ,      0.971, train, animals10, ann_3    , cat
+ 129, cat_000129.jpeg      , cat      , cat            ,      0.876, train, animals10, ann_3    , cat
+ 130, cat_000130.jpeg      , cat      , cat            ,      0.903, train, animals10, ann_4    , cat
+ 131, cat_000131.jpeg      , cat      , elephant       ,      0.579, train, animals10, ann_3    , cat
+ 132, cat_000132.jpeg      , cat      , cat            ,      0.527, train, animals10, ann_3    , cat
+ 133, cat_000133.jpeg      , cat      , cat            ,      0.862, train, animals10, ann_3    , cat
+ 134, cat_000134.jpeg      , cat      , cat            ,      0.858, train, animals10, ann_1    , cat
+ 135, cat_000135.jpg       , cat      , cat            ,      0.916, train, animals10, ann_3    , cat
+ 136, cat_000136.jpeg      , cat      , cat            ,      0.925, train, animals10, ann_3    , cat
+ 137, cat_000137.jpg       , cat      , cat            ,      0.882, train, animals10, ann_1    , cat
+ 138, cat_000138.jpeg      , cat      , cat            ,      0.951, train, animals10, ann_3    , cat
+ 139, cat_000139.jpg       , cat      , cat            ,      0.906, train, animals10, ann_4    , cat
+ 140, cat_000140.jpg       , cat      , cat            ,      0.901, train, animals10, ann_2    , cat
+ 141, cat_000141.jpeg      , cat      , cat            ,      0.849, train, animals10, ann_1    , cat
+ 142, cat_000142.jpeg      , cat      , cat            ,      0.936, train, animals10, ann_2    , cat
+ 143, cat_000143.jpeg      , cat      , cat            ,      0.925, train, animals10, ann_2    , cat
+ 144, cat_000144.jpeg      , cat      , cat            ,      0.869, train, animals10, ann_3    , cat
+ 145, cat_000145.jpg       , cat      , cat            ,      0.894, train, animals10, ann_1    , cat
+ 146, cat_000146.jpg       , cat      , cat            ,      0.913, train, animals10, ann_1    , cat
+ 147, cat_000147.jpeg      , cat      , cat            ,      0.839, train, animals10, ann_4    , cat
+ 148, cat_000148.jpeg      , cat      , cat            ,      0.959, train, animals10, ann_2    , cat
+ 149, cat_000149.jpeg      , cat      , cat            ,      0.885, train, animals10, ann_4    , cat
+ 150, cat_000150.jpeg      , cat      , cat            ,      0.849, train, animals10, ann_1    , cat
+ 151, cat_000151.jpeg      , cat      , cat            ,      0.848, train, animals10, ann_1    , cat
+ 152, cat_000152.jpg       , elephant , cat            ,      0.944, train, animals10, ann_2    , cat
+ 153, cat_000153.jpeg      , cat      , cat            ,      0.834, train, animals10, ann_4    , cat
+ 154, cat_000154.jpg       , cat      , cat            ,      0.974, train, animals10, ann_4    , cat
+ 155, cat_000155.jpeg      , squirrel , cat            ,      0.88 , train, animals10, ann_1    , cat
+ 156, cat_000156.jpg       , cat      , cat            ,      0.905, train, animals10, ann_1    , cat
+ 157, cat_000157.jpg       , cat      , cat            ,      0.86 , train, animals10, ann_3    , cat
+ 158, cat_000158.jpg       , cat      , spider         ,      0.585, train, animals10, ann_2    , cat
+ 159, cat_000159.jpg       , cat      , dog            ,      0.555, train, animals10, ann_3    , cat
+ 160, cat_000160.jpeg      , cat      , cat            ,      0.841, train, animals10, ann_4    , cat
+ 161, cat_000161.jpeg      , cat      , cat            ,      0.972, train, animals10, ann_4    , cat
+ 162, cat_000162.jpg       , dog      , cat            ,      0.841, train, animals10, ann_1    , cat
+ 163, cat_000163.jpeg      , cat      , cat            ,      0.879, train, animals10, ann_1    , cat
+ 164, cat_000164.jpeg      , cat      , cat            ,      0.943, train, animals10, ann_1    , cat
+ 165, cat_000165.jpeg      , cat      , cat            ,      0.6  , train, animals10, ann_1    , cat
+ 166, cat_000166.jpeg      , chicken  , cat            ,      0.881, train, animals10, ann_3    , cat
+ 167, cat_000167.jpeg      , cat      , cat            ,      0.931, train, animals10, ann_1    , cat
+ 168, cat_000168.jpeg      , cat      , cat            ,      0.926, train, animals10, ann_3    , cat
+ 169, cat_000169.jpeg      , cat      , cat            ,      0.887, train, animals10, ann_1    , cat
+ 170, cat_000170.jpeg      , cat      , cat            ,      0.865, train, animals10, ann_1    , cat
+ 171, cat_000171.jpeg      , cat      , cat            ,      0.944, train, animals10, ann_2    , cat
+ 172, cat_000172.jpeg      , cat      , cat            ,      0.846, train, animals10, ann_4    , cat
+ 173, cat_000173.jpeg      , cat      , cat            ,      0.897, train, animals10, ann_2    , cat
+ 174, cat_000174.jpeg      , chicken  , cat            ,      0.954, train, animals10, ann_4    , cat
+ 175, cat_000175.jpeg      , cat      , spider         ,      0.467, train, animals10, ann_1    , cat
+ 176, cat_000176.jpg       , cat      , cat            ,      0.893, train, animals10, ann_3    , cat
+ 177, cat_000177.jpg       , cat      , chicken        ,      0.651, train, animals10, ann_3    , cat
+ 178, cat_000178.png       , cat      , cat            ,      0.888, train, animals10, ann_1    , cat
+ 179, cat_000179.jpeg      , cat      , cat            ,      0.827, train, animals10, ann_2    , cat
+ 180, cat_000180.jpeg      , cat      , cat            ,      0.877, train, animals10, ann_4    , cat
+ 181, cat_000181.jpg       , cat      , cat            ,      0.937, train, animals10, ann_3    , cat
+ 182, cat_000182.jpeg      , cat      , cat            ,      0.884, train, animals10, ann_4    , cat
+ 183, cat_000183.jpeg      , cat      , cat            ,      0.956, train, animals10, ann_4    , cat
+ 184, cat_000184.jpeg      , cat      , cat            ,      0.838, train, animals10, ann_1    , cat
+ 185, cat_000185.jpeg      , cat      , cat            ,      0.837, train, animals10, ann_4    , cat
+ 186, cat_000186.jpg       , cat      , cat            ,      0.849, train, animals10, ann_4    , cat
+ 187, cat_000187.jpg       , cat      , cat            ,      0.958, train, animals10, ann_2    , cat
+ 188, cat_000188.jpeg      , cat      , cat            ,      0.962, train, animals10, ann_4    , cat
+ 189, cat_000189.jpeg      , elephant , cat            ,      0.822, train, animals10, ann_2    , cat
+ 190, cat_000190.jpg       , cat      , cat            ,      0.874, train, animals10, ann_1    , cat
+ 191, cat_000191.jpeg      , cat      , cat            ,      0.897, train, animals10, ann_4    , cat
+ 192, cat_000192.jpeg      , cat      , cat            ,      0.963, train, animals10, ann_1    , cat
+ 193, cat_000193.jpeg      , cow      , cat            ,      0.895, train, animals10, ann_4    , cat
+ 194, cat_000194.jpeg      , cat      , sheep          ,      0.524, train, animals10, ann_3    , cat
+ 195, cat_000195.jpeg      , cat      , cow            ,      0.577, train, animals10, ann_4    , cat
+ 196, cat_000196.jpeg      , cat      , cat            ,      0.893, train, animals10, ann_4    , cat
+ 197, cat_000197.jpeg      , cat      , cat            ,      0.871, train, animals10, ann_4    , cat
+ 198, cat_000198.jpg       , cat      , horse          ,      0.545, train, animals10, ann_1    , cat
+ 199, cat_000199.jpeg      , cat      , cat            ,      0.974, train, animals10, ann_3    , cat
+ 200, cat_000200.jpeg      , cat      , cat            ,      0.925, train, animals10, ann_4    , cat
+ 201, cat_000201.jpeg      , cat      , cat            ,      0.829, train, animals10, ann_2    , cat
+ 202, cat_000202.jpeg      , cat      , cat            ,      0.943, train, animals10, ann_4    , cat
+ 203, cat_000203.jpeg      , cat      , cat            ,      0.892, train, animals10, ann_1    , cat
+ 204, cat_000204.jpeg      , cat      , cat            ,      0.875, train, animals10, ann_3    , cat
+ 205, cat_000205.jpeg      , cat      , cat            ,      0.837, train, animals10, ann_2    , cat
+ 206, cat_000206.jpeg      , cat      , cat            ,      0.939, train, animals10, ann_4    , cat
+ 207, cat_000207.jpeg      , cat      , cat            ,      0.85 , train, animals10, ann_4    , cat
+ 208, cat_000208.jpeg      , cat      , cat            ,      0.85 , train, animals10, ann_3    , cat
+ 209, cat_000209.jpeg      , cat      , cat            ,      0.968, train, animals10, ann_1    , cat
+ 210, cat_000210.jpg       , cat      , cat            ,      0.925, train, animals10, ann_2    , cat
+ 211, cat_000211.jpeg      , cat      , butterfly      ,      0.577, train, animals10, ann_4    , cat
+ 212, cat_000212.jpg       , cat      , cat            ,      0.901, train, animals10, ann_2    , cat
+ 213, cat_000213.jpeg      , cat      , cat            ,      0.95 , train, animals10, ann_1    , cat
+ 214, cat_000214.jpeg      , cat      , cat            ,      0.961, train, animals10, ann_4    , cat
+ 215, cat_000215.jpeg      , cat      , cat            ,      0.931, train, animals10, ann_2    , cat
+ 216, cat_000216.jpg       , cat      , cat            ,      0.975, train, animals10, ann_4    , cat
+ 217, cat_000217.jpg       , cat      , cat            ,      0.916, val  , animals10, ann_3    , cat
+ 218, cat_000218.jpg       , cat      , cat            ,      0.87 , val  , animals10, ann_2    , cat
+ 219, cat_000219.jpg       , cat      , cat            ,      0.866, val  , animals10, ann_3    , cat
+ 220, cat_000220.jpeg      , cat      , cat            ,      0.934, val  , animals10, ann_2    , cat
+ 221, cat_000221.jpeg      , cat      , cat            ,      0.872, val  , animals10, ann_1    , cat
+ 222, cat_000222.jpeg      , cat      , cat            ,      0.913, val  , animals10, ann_4    , cat
+ 223, cat_000223.jpeg      , cat      , cat            ,      0.905, val  , animals10, ann_4    , cat
+ 224, cat_000224.jpeg      , cat      , cat            ,      0.824, val  , animals10, ann_2    , cat
+ 225, cat_000225.jpeg      , butterfly, cat            ,      0.94 , val  , animals10, ann_2    , cat
+ 226, cat_000226.jpeg      , cat      , cat            ,      0.843, val  , animals10, ann_1    , cat
+ 227, cat_000227.jpeg      , cat      , cat            ,      0.941, val  , animals10, ann_1    , cat
+ 228, cat_000228.jpeg      , cat      , cat            ,      0.919, val  , animals10, ann_2    , cat
+ 229, cat_000229.jpg       , cat      , cat            ,      0.91 , test , animals10, ann_2    , cat
+ 230, cat_000230.jpeg      , cat      , cat            ,      0.947, test , animals10, ann_3    , cat
+ 231, cat_000231.jpeg      , cat      , cat            ,      0.828, test , animals10, ann_4    , cat
+ 232, cat_000232.jpeg      , cat      , cat            ,      0.973, test , animals10, ann_3    , cat
+ 233, cat_000233.jpeg      , cat      , cat            ,      0.829, test , animals10, ann_3    , cat
+ 234, cat_000234.jpeg      , cat      , cat            ,      0.959, test , animals10, ann_4    , cat
+ 235, cat_000235.jpeg      , cat      , cat            ,      0.966, test , animals10, ann_3    , cat
+ 236, cat_000236.jpeg      , cat      , cat            ,      0.907, test , animals10, ann_2    , cat
+ 237, cat_000237.jpeg      , cat      , cat            ,      0.974, test , animals10, ann_3    , cat
+ 238, cat_000238.jpeg      , cat      , cat            ,      0.977, test , animals10, ann_1    , cat
+ 239, cat_000239.jpeg      , cat      , cat            ,      0.848, test , animals10, ann_1    , cat
+ 240, cat_000240.jpeg      , cat      , cat            ,      0.889, test , animals10, ann_3    , cat
+ 241, chicken_000241.jpeg  , chicken  , chicken        ,      0.891, train, animals10, ann_1    , chicken
+ 242, chicken_000242.jpeg  , chicken  , chicken        ,      0.851, train, animals10, ann_2    , chicken
+ 243, chicken_000243.jpeg  , chicken  , chicken        ,      0.851, train, animals10, ann_1    , chicken
+ 244, chicken_000244.jpeg  , chicken  , chicken        ,      0.927, train, animals10, ann_1    , chicken
+ 245, chicken_000245.jpeg  , chicken  , chicken        ,      0.898, train, animals10, ann_1    , chicken
+ 246, chicken_000246.jpeg  , chicken  , chicken        ,      0.844, train, animals10, ann_4    , chicken
+ 247, chicken_000247.jpeg  , chicken  , chicken        ,      0.866, train, animals10, ann_3    , chicken
+ 248, chicken_000248.jpeg  , chicken  , chicken        ,      0.91 , train, animals10, ann_2    , chicken
+ 249, chicken_000249.jpeg  , chicken  , chicken        ,      0.979, train, animals10, ann_4    , chicken
+ 250, chicken_000250.jpeg  , chicken  , chicken        ,      0.975, train, animals10, ann_4    , chicken
+ 251, chicken_000251.jpeg  , chicken  , chicken        ,      0.954, train, animals10, ann_1    , chicken
+ 252, chicken_000252.jpeg  , chicken  , chicken        ,      0.978, train, animals10, ann_3    , chicken
+ 253, chicken_000253.jpeg  , chicken  , chicken        ,      0.941, train, animals10, ann_1    , chicken
+ 254, chicken_000254.jpeg  , elephant , chicken        ,      0.909, train, animals10, ann_2    , chicken
+ 255, chicken_000255.jpeg  , chicken  , chicken        ,      0.866, train, animals10, ann_4    , chicken
+ 256, chicken_000256.jpeg  , elephant , chicken        ,      0.869, train, animals10, ann_4    , chicken
+ 257, chicken_000257.jpeg  , chicken  , chicken        ,      0.845, train, animals10, ann_3    , chicken
+ 258, chicken_000258.jpeg  , chicken  , chicken        ,      0.896, train, animals10, ann_3    , chicken
+ 259, chicken_000259.jpeg  , chicken  , chicken        ,      0.93 , train, animals10, ann_2    , chicken
+ 260, chicken_000260.jpeg  , elephant , chicken        ,      0.975, train, animals10, ann_3    , chicken
+ 261, chicken_000261.jpeg  , chicken  , chicken        ,      0.959, train, animals10, ann_4    , chicken
+ 262, chicken_000262.jpeg  , chicken  , chicken        ,      0.88 , train, animals10, ann_1    , chicken
+ 263, chicken_000263.jpeg  , chicken  , chicken        ,      0.829, train, animals10, ann_3    , chicken
+ 264, chicken_000264.jpeg  , chicken  , chicken        ,      0.877, train, animals10, ann_1    , chicken
+ 265, chicken_000265.jpeg  , chicken  , chicken        ,      0.966, train, animals10, ann_3    , chicken
+ 266, chicken_000266.jpeg  , elephant , chicken        ,      0.97 , train, animals10, ann_2    , chicken
+ 267, chicken_000267.jpeg  , chicken  , chicken        ,      0.835, train, animals10, ann_2    , chicken
+ 268, chicken_000268.jpeg  , chicken  , chicken        ,      0.952, train, animals10, ann_3    , chicken
+ 269, chicken_000269.jpeg  , chicken  , chicken        ,      0.878, train, animals10, ann_3    , chicken
+ 270, chicken_000270.jpeg  , chicken  , spider         ,      0.515, train, animals10, ann_4    , chicken
+ 271, chicken_000271.jpeg  , chicken  , chicken        ,      0.846, train, animals10, ann_2    , chicken
+ 272, chicken_000272.jpeg  , chicken  , chicken        ,      0.85 , train, animals10, ann_1    , chicken
+ 273, chicken_000273.jpeg  , chicken  , chicken        ,      0.839, train, animals10, ann_2    , chicken
+ 274, chicken_000274.jpeg  , chicken  , chicken        ,      0.87 , train, animals10, ann_3    , chicken
+ 275, chicken_000275.jpeg  , chicken  , chicken        ,      0.978, train, animals10, ann_3    , chicken
+ 276, chicken_000276.jpeg  , chicken  , chicken        ,      0.939, train, animals10, ann_1    , chicken
+ 277, chicken_000277.jpeg  , chicken  , chicken        ,      0.843, train, animals10, ann_2    , chicken
+ 278, chicken_000278.jpeg  , chicken  , chicken        ,      0.977, train, animals10, ann_4    , chicken
+ 279, chicken_000279.jpeg  , chicken  , chicken        ,      0.832, train, animals10, ann_4    , chicken
+ 280, chicken_000280.jpeg  , chicken  , cat            ,      0.458, train, animals10, ann_1    , chicken
+ 281, chicken_000281.jpeg  , chicken  , chicken        ,      0.827, train, animals10, ann_3    , chicken
+ 282, chicken_000282.jpeg  , chicken  , chicken        ,      0.945, train, animals10, ann_2    , chicken
+ 283, chicken_000283.jpeg  , chicken  , chicken        ,      0.927, train, animals10, ann_1    , chicken
+ 284, chicken_000284.jpeg  , chicken  , chicken        ,      0.971, train, animals10, ann_3    , chicken
+ 285, chicken_000285.jpeg  , chicken  , chicken        ,      0.945, train, animals10, ann_2    , chicken
+ 286, chicken_000286.jpeg  , chicken  , squirrel       ,      0.626, train, animals10, ann_2    , chicken
+ 287, chicken_000287.jpeg  , chicken  , chicken        ,      0.847, train, animals10, ann_1    , chicken
+ 288, chicken_000288.jpeg  , chicken  , cow            ,      0.662, train, animals10, ann_4    , chicken
+ 289, chicken_000289.jpeg  , chicken  , chicken        ,      0.89 , train, animals10, ann_1    , chicken
+ 290, chicken_000290.jpeg  , chicken  , chicken        ,      0.881, train, animals10, ann_2    , chicken
+ 291, chicken_000291.jpeg  , chicken  , chicken        ,      0.942, train, animals10, ann_3    , chicken
+ 292, chicken_000292.jpeg  , chicken  , chicken        ,      0.564, train, animals10, ann_3    , chicken
+ 293, chicken_000293.jpeg  , chicken  , chicken        ,      0.826, train, animals10, ann_3    , chicken
+ 294, chicken_000294.jpeg  , chicken  , chicken        ,      0.893, train, animals10, ann_3    , chicken
+ 295, chicken_000295.jpeg  , chicken  , chicken        ,      0.856, train, animals10, ann_4    , chicken
+ 296, chicken_000296.jpeg  , chicken  , chicken        ,      0.85 , train, animals10, ann_1    , chicken
+ 297, chicken_000297.jpeg  , chicken  , chicken        ,      0.97 , train, animals10, ann_3    , chicken
+ 298, chicken_000298.jpeg  , chicken  , chicken        ,      0.899, train, animals10, ann_1    , chicken
+ 299, chicken_000299.jpeg  , chicken  , chicken        ,      0.928, train, animals10, ann_1    , chicken
+ 300, chicken_000300.jpeg  , chicken  , chicken        ,      0.914, train, animals10, ann_1    , chicken
+ 301, chicken_000301.jpeg  , chicken  , chicken        ,      0.847, train, animals10, ann_3    , chicken
+ 302, chicken_000302.jpeg  , chicken  , chicken        ,      0.915, train, animals10, ann_4    , chicken
+ 303, chicken_000303.jpeg  , chicken  , chicken        ,      0.936, train, animals10, ann_3    , chicken
+ 304, chicken_000304.jpeg  , chicken  , chicken        ,      0.915, train, animals10, ann_4    , chicken
+ 305, chicken_000305.jpeg  , chicken  , chicken        ,      0.972, train, animals10, ann_4    , chicken
+ 306, chicken_000306.jpeg  , chicken  , chicken        ,      0.893, train, animals10, ann_1    , chicken
+ 307, chicken_000307.jpeg  , chicken  , chicken        ,      0.921, train, animals10, ann_2    , chicken
+ 308, chicken_000308.jpeg  , butterfly, chicken        ,      0.9  , train, animals10, ann_1    , chicken
+ 309, chicken_000309.jpeg  , chicken  , chicken        ,      0.929, train, animals10, ann_2    , chicken
+ 310, chicken_000310.jpeg  , chicken  , chicken        ,      0.942, train, animals10, ann_4    , chicken
+ 311, chicken_000311.jpeg  , chicken  , chicken        ,      0.926, train, animals10, ann_4    , chicken
+ 312, chicken_000312.jpeg  , chicken  , chicken        ,      0.95 , train, animals10, ann_1    , chicken
+ 313, chicken_000313.jpeg  , chicken  , horse          ,      0.652, train, animals10, ann_1    , chicken
+ 314, chicken_000314.jpeg  , chicken  , chicken        ,      0.88 , train, animals10, ann_4    , chicken
+ 315, chicken_000315.jpeg  , cow      , chicken        ,      0.958, train, animals10, ann_3    , chicken
+ 316, chicken_000316.jpeg  , chicken  , chicken        ,      0.889, train, animals10, ann_3    , chicken
+ 317, chicken_000317.jpeg  , chicken  , chicken        ,      0.838, train, animals10, ann_4    , chicken
+ 318, chicken_000318.jpeg  , chicken  , chicken        ,      0.912, train, animals10, ann_4    , chicken
+ 319, chicken_000319.jpeg  , chicken  , chicken        ,      0.829, train, animals10, ann_3    , chicken
+ 320, chicken_000320.jpeg  , chicken  , chicken        ,      0.919, train, animals10, ann_3    , chicken
+ 321, chicken_000321.jpeg  , chicken  , chicken        ,      0.83 , train, animals10, ann_1    , chicken
+ 322, chicken_000322.jpeg  , chicken  , chicken        ,      0.95 , train, animals10, ann_1    , chicken
+ 323, chicken_000323.jpeg  , chicken  , chicken        ,      0.881, train, animals10, ann_4    , chicken
+ 324, chicken_000324.jpeg  , chicken  , chicken        ,      0.876, train, animals10, ann_2    , chicken
+ 325, chicken_000325.jpeg  , chicken  , chicken        ,      0.915, train, animals10, ann_1    , chicken
+ 326, chicken_000326.jpeg  , chicken  , chicken        ,      0.455, train, animals10, ann_3    , chicken
+ 327, chicken_000327.jpeg  , sheep    , chicken        ,      0.964, train, animals10, ann_3    , chicken
+ 328, chicken_000328.jpeg  , spider   , chicken        ,      0.978, train, animals10, ann_4    , chicken
+ 329, chicken_000329.jpeg  , chicken  , chicken        ,      0.836, train, animals10, ann_4    , chicken
+ 330, chicken_000330.jpeg  , chicken  , chicken        ,      0.874, train, animals10, ann_3    , chicken
+ 331, chicken_000331.jpeg  , chicken  , chicken        ,      0.975, train, animals10, ann_2    , chicken
+ 332, chicken_000332.jpeg  , chicken  , chicken        ,      0.946, train, animals10, ann_2    , chicken
+ 333, chicken_000333.jpeg  , chicken  , squirrel       ,      0.542, train, animals10, ann_2    , chicken
+ 334, chicken_000334.jpeg  , chicken  , chicken        ,      0.935, train, animals10, ann_1    , chicken
+ 335, chicken_000335.jpeg  , chicken  , chicken        ,      0.911, train, animals10, ann_4    , chicken
+ 336, chicken_000336.jpeg  , chicken  , chicken        ,      0.832, train, animals10, ann_3    , chicken
+ 337, chicken_000337.jpeg  , chicken  , chicken        ,      0.926, val  , animals10, ann_3    , chicken
+ 338, chicken_000338.jpeg  , chicken  , chicken        ,      0.92 , val  , animals10, ann_4    , chicken
+ 339, chicken_000339.jpeg  , chicken  , chicken        ,      0.961, val  , animals10, ann_2    , chicken
+ 340, chicken_000340.jpeg  , chicken  , chicken        ,      0.974, val  , animals10, ann_4    , chicken
+ 341, chicken_000341.jpeg  , chicken  , chicken        ,      0.949, val  , animals10, ann_4    , chicken
+ 342, chicken_000342.jpeg  , chicken  , chicken        ,      0.83 , val  , animals10, ann_2    , chicken
+ 343, chicken_000343.jpeg  , chicken  , chicken        ,      0.844, val  , animals10, ann_3    , chicken
+ 344, chicken_000344.jpeg  , chicken  , chicken        ,      0.958, val  , animals10, ann_1    , chicken
+ 345, chicken_000345.jpeg  , chicken  , chicken        ,      0.863, val  , animals10, ann_3    , chicken
+ 346, chicken_000346.jpeg  , chicken  , chicken        ,      0.916, val  , animals10, ann_4    , chicken
+ 347, chicken_000347.jpeg  , chicken  , chicken        ,      0.824, val  , animals10, ann_3    , chicken
+ 348, chicken_000348.jpeg  , chicken  , chicken        ,      0.89 , val  , animals10, ann_1    , chicken
+ 349, chicken_000349.jpeg  , chicken  , chicken        ,      0.864, test , animals10, ann_1    , chicken
+ 350, chicken_000350.jpeg  , chicken  , chicken        ,      0.949, test , animals10, ann_2    , chicken
+ 351, chicken_000351.jpeg  , chicken  , chicken        ,      0.827, test , animals10, ann_4    , chicken
+ 352, chicken_000352.jpeg  , chicken  , chicken        ,      0.829, test , animals10, ann_1    , chicken
+ 353, chicken_000353.jpeg  , chicken  , chicken        ,      0.868, test , animals10, ann_1    , chicken
+ 354, chicken_000354.jpeg  , chicken  , chicken        ,      0.885, test , animals10, ann_3    , chicken
+ 355, chicken_000355.jpeg  , chicken  , chicken        ,      0.962, test , animals10, ann_4    , chicken
+ 356, chicken_000356.jpeg  , chicken  , chicken        ,      0.936, test , animals10, ann_2    , chicken
+ 357, chicken_000357.jpeg  , chicken  , chicken        ,      0.911, test , animals10, ann_1    , chicken
+ 358, chicken_000358.jpeg  , chicken  , chicken        ,      0.953, test , animals10, ann_3    , chicken
+ 359, chicken_000359.jpeg  , chicken  , chicken        ,      0.834, test , animals10, ann_1    , chicken
+ 360, chicken_000360.jpeg  , chicken  , chicken        ,      0.87 , test , animals10, ann_4    , chicken
+ 361, cow_000361.jpeg      , cow      , cow            ,      0.842, train, animals10, ann_4    , cow
+ 362, cow_000362.jpeg      , cow      , spider         ,      0.601, train, animals10, ann_4    , cow
+ 363, cow_000363.jpeg      , cow      , cow            ,      0.955, train, animals10, ann_2    , cow
+ 364, cow_000364.jpeg      , cow      , cow            ,      0.848, train, animals10, ann_1    , cow
+ 365, cow_000365.jpeg      , cow      , cow            ,      0.832, train, animals10, ann_1    , cow
+ 366, cow_000366.jpeg      , cow      , cow            ,      0.877, train, animals10, ann_2    , cow
+ 367, cow_000367.jpeg      , cow      , cow            ,      0.905, train, animals10, ann_4    , cow
+ 368, cow_000368.jpeg      , cow      , cow            ,      0.95 , train, animals10, ann_1    , cow
+ 369, cow_000369.jpeg      , cow      , cow            ,      0.828, train, animals10, ann_1    , cow
+ 370, cow_000370.jpeg      , sheep    , cow            ,      0.969, train, animals10, ann_3    , cow
+ 371, cow_000371.jpeg      , cow      , cow            ,      0.823, train, animals10, ann_1    , cow
+ 372, cow_000372.jpeg      , cow      , cow            ,      0.851, train, animals10, ann_1    , cow
+ 373, cow_000373.jpeg      , cow      , cow            ,      0.948, train, animals10, ann_2    , cow
+ 374, cow_000374.jpeg      , cow      , spider         ,      0.475, train, animals10, ann_3    , cow
+ 375, cow_000375.jpeg      , cow      , cow            ,      0.92 , train, animals10, ann_4    , cow
+ 376, cow_000376.jpeg      , cow      , cow            ,      0.854, train, animals10, ann_3    , cow
+ 377, cow_000377.jpeg      , cow      , elephant       ,      0.453, train, animals10, ann_2    , cow
+ 378, cow_000378.jpeg      , cow      , dog            ,      0.599, train, animals10, ann_3    , cow
+ 379, cow_000379.jpeg      , dog      , cow            ,      0.943, train, animals10, ann_4    , cow
+ 380, cow_000380.jpeg      , cow      , spider         ,      0.632, train, animals10, ann_2    , cow
+ 381, cow_000381.jpeg      , cow      , elephant       ,      0.676, train, animals10, ann_4    , cow
+ 382, cow_000382.jpeg      , cow      , cow            ,      0.931, train, animals10, ann_3    , cow
+ 383, cow_000383.jpeg      , cow      , cow            ,      0.93 , train, animals10, ann_4    , cow
+ 384, cow_000384.jpeg      , cow      , squirrel       ,      0.553, train, animals10, ann_2    , cow
+ 385, cow_000385.jpeg      , cow      , cow            ,      0.822, train, animals10, ann_1    , cow
+ 386, cow_000386.jpeg      , cow      , cow            ,      0.869, train, animals10, ann_4    , cow
+ 387, cow_000387.jpeg      , cow      , cow            ,      0.83 , train, animals10, ann_3    , cow
+ 388, cow_000388.jpeg      , cow      , cow            ,      0.88 , train, animals10, ann_1    , cow
+ 389, cow_000389.jpeg      , cow      , cow            ,      0.978, train, animals10, ann_4    , cow
+ 390, cow_000390.jpeg      , cow      , cow            ,      0.865, train, animals10, ann_1    , cow
+ 391, cow_000391.jpeg      , cow      , cow            ,      0.924, train, animals10, ann_3    , cow
+ 392, cow_000392.jpeg      , cow      , cow            ,      0.937, train, animals10, ann_3    , cow
+ 393, cow_000393.jpeg      , cow      , cow            ,      0.965, train, animals10, ann_2    , cow
+ 394, cow_000394.jpeg      , cow      , cow            ,      0.856, train, animals10, ann_4    , cow
+ 395, cow_000395.jpeg      , cow      , cow            ,      0.921, train, animals10, ann_1    , cow
+ 396, cow_000396.jpeg      , cow      , cow            ,      0.462, train, animals10, ann_2    , cow
+ 397, cow_000397.jpeg      , cow      , cow            ,      0.848, train, animals10, ann_2    , cow
+ 398, cow_000398.jpeg      , cow      , sheep          ,      0.522, train, animals10, ann_2    , cow
+ 399, cow_000399.jpeg      , cow      , cow            ,      0.86 , train, animals10, ann_3    , cow
+ 400, cow_000400.jpeg      , cow      , cow            ,      0.852, train, animals10, ann_4    , cow
+ 401, cow_000401.jpeg      , cow      , cow            ,      0.884, train, animals10, ann_2    , cow
+ 402, cow_000402.jpeg      , cow      , cow            ,      0.918, train, animals10, ann_4    , cow
+ 403, cow_000403.jpeg      , cow      , cow            ,      0.947, train, animals10, ann_1    , cow
+ 404, cow_000404.jpeg      , cow      , cow            ,      0.833, train, animals10, ann_3    , cow
+ 405, cow_000405.jpeg      , cow      , cow            ,      0.936, train, animals10, ann_3    , cow
+ 406, cow_000406.jpeg      , cow      , cow            ,      0.865, train, animals10, ann_4    , cow
+ 407, cow_000407.jpeg      , cow      , cow            ,      0.895, train, animals10, ann_2    , cow
+ 408, cow_000408.jpeg      , cow      , spider         ,      0.618, train, animals10, ann_3    , cow
+ 409, cow_000409.jpeg      , cow      , cow            ,      0.97 , train, animals10, ann_3    , cow
+ 410, cow_000410.jpeg      , cow      , cow            ,      0.978, train, animals10, ann_1    , cow
+ 411, cow_000411.jpeg      , cow      , cat            ,      0.539, train, animals10, ann_2    , cow
+ 412, cow_000412.jpeg      , cow      , cow            ,      0.861, train, animals10, ann_3    , cow
+ 413, cow_000413.jpeg      , cow      , cow            ,      0.93 , train, animals10, ann_1    , cow
+ 414, cow_000414.jpeg      , cow      , cow            ,      0.938, train, animals10, ann_2    , cow
+ 415, cow_000415.jpeg      , cow      , cow            ,      0.878, train, animals10, ann_1    , cow
+ 416, cow_000416.jpeg      , cow      , cow            ,      0.862, train, animals10, ann_4    , cow
+ 417, cow_000417.jpeg      , cow      , cow            ,      0.86 , train, animals10, ann_2    , cow
+ 418, cow_000418.jpeg      , cat      , cow            ,      0.967, train, animals10, ann_4    , cow
+ 419, cow_000419.jpeg      , cow      , cow            ,      0.833, train, animals10, ann_2    , cow
+ 420, cow_000420.jpeg      , cow      , cow            ,      0.888, train, animals10, ann_3    , cow
+ 421, cow_000421.jpeg      , cow      , cow            ,      0.962, train, animals10, ann_3    , cow
+ 422, cow_000422.jpeg      , cow      , cow            ,      0.968, train, animals10, ann_1    , cow
+ 423, cow_000423.jpeg      , cow      , cow            ,      0.948, train, animals10, ann_2    , cow
+ 424, cow_000424.jpeg      , cow      , cow            ,      0.94 , train, animals10, ann_3    , cow
+ 425, cow_000425.jpeg      , chicken  , cow            ,      0.82 , train, animals10, ann_1    , cow
+ 426, cow_000426.jpeg      , cow      , cow            ,      0.887, train, animals10, ann_3    , cow
+ 427, cow_000427.jpeg      , cow      , cow            ,      0.88 , train, animals10, ann_2    , cow
+ 428, cow_000428.jpeg      , cow      , cow            ,      0.972, train, animals10, ann_4    , cow
+ 429, cow_000429.jpeg      , cow      , cow            ,      0.852, train, animals10, ann_2    , cow
+ 430, cow_000430.jpeg      , cow      , cow            ,      0.977, train, animals10, ann_4    , cow
+ 431, cow_000431.jpeg      , cow      , cow            ,      0.837, train, animals10, ann_2    , cow
+ 432, cow_000432.jpeg      , cow      , cat            ,      0.514, train, animals10, ann_3    , cow
+ 433, cow_000433.jpeg      , dog      , cow            ,      0.928, train, animals10, ann_1    , cow
+ 434, cow_000434.jpeg      , elephant , cow            ,      0.821, train, animals10, ann_1    , cow
+ 435, cow_000435.jpeg      , cow      , cow            ,      0.821, train, animals10, ann_3    , cow
+ 436, cow_000436.jpeg      , cow      , cow            ,      0.874, train, animals10, ann_4    , cow
+ 437, cow_000437.jpeg      , cow      , cow            ,      0.875, train, animals10, ann_3    , cow
+ 438, cow_000438.jpeg      , cow      , cow            ,      0.926, train, animals10, ann_4    , cow
+ 439, cow_000439.jpeg      , cow      , cow            ,      0.96 , train, animals10, ann_1    , cow
+ 440, cow_000440.jpeg      , sheep    , cow            ,      0.962, train, animals10, ann_2    , cow
+ 441, cow_000441.jpeg      , cat      , cow            ,      0.865, train, animals10, ann_2    , cow
+ 442, cow_000442.jpeg      , cow      , cow            ,      0.925, train, animals10, ann_4    , cow
+ 443, cow_000443.jpeg      , cow      , cow            ,      0.821, train, animals10, ann_3    , cow
+ 444, cow_000444.jpeg      , horse    , cow            ,      0.975, train, animals10, ann_3    , cow
+ 445, cow_000445.jpeg      , cow      , cow            ,      0.898, train, animals10, ann_1    , cow
+ 446, cow_000446.jpeg      , cow      , cow            ,      0.971, train, animals10, ann_4    , cow
+ 447, cow_000447.jpeg      , cow      , cow            ,      0.965, train, animals10, ann_4    , cow
+ 448, cow_000448.jpeg      , cow      , cow            ,      0.843, train, animals10, ann_1    , cow
+ 449, cow_000449.jpeg      , cow      , cow            ,      0.868, train, animals10, ann_4    , cow
+ 450, cow_000450.jpeg      , cow      , cow            ,      0.839, train, animals10, ann_2    , cow
+ 451, cow_000451.jpeg      , cow      , cow            ,      0.971, train, animals10, ann_1    , cow
+ 452, cow_000452.jpeg      , cow      , cow            ,      0.825, train, animals10, ann_3    , cow
+ 453, cow_000453.jpeg      , cow      , cow            ,      0.855, train, animals10, ann_3    , cow
+ 454, cow_000454.jpeg      , cow      , cow            ,      0.927, train, animals10, ann_2    , cow
+ 455, cow_000455.jpeg      , cow      , cow            ,      0.899, train, animals10, ann_3    , cow
+ 456, cow_000456.jpeg      , cow      , cow            ,      0.943, train, animals10, ann_1    , cow
+ 457, cow_000457.jpeg      , cow      , cow            ,      0.935, val  , animals10, ann_4    , cow
+ 458, cow_000458.jpeg      , cow      , cow            ,      0.975, val  , animals10, ann_4    , cow
+ 459, cow_000459.jpeg      , cow      , cow            ,      0.839, val  , animals10, ann_1    , cow
+ 460, cow_000460.jpeg      , cow      , cow            ,      0.915, val  , animals10, ann_2    , cow
+ 461, cow_000461.jpeg      , cow      , elephant       ,      0.479, val  , animals10, ann_3    , cow
+ 462, cow_000462.jpeg      , cow      , cow            ,      0.82 , val  , animals10, ann_1    , cow
+ 463, cow_000463.jpeg      , cow      , cow            ,      0.882, val  , animals10, ann_4    , cow
+ 464, cow_000464.jpeg      , cow      , cow            ,      0.929, val  , animals10, ann_2    , cow
+ 465, cow_000465.jpeg      , cow      , cow            ,      0.856, val  , animals10, ann_4    , cow
+ 466, cow_000466.jpeg      , spider   , cow            ,      0.951, val  , animals10, ann_3    , cow
+ 467, cow_000467.jpeg      , cow      , cow            ,      0.893, val  , animals10, ann_3    , cow
+ 468, cow_000468.jpeg      , cow      , cow            ,      0.948, val  , animals10, ann_1    , cow
+ 469, cow_000469.jpeg      , cow      , cow            ,      0.869, test , animals10, ann_1    , cow
+ 470, cow_000470.jpeg      , cow      , cow            ,      0.956, test , animals10, ann_4    , cow
+ 471, cow_000471.jpeg      , cow      , cow            ,      0.855, test , animals10, ann_3    , cow
+ 472, cow_000472.jpeg      , cow      , cow            ,      0.88 , test , animals10, ann_3    , cow
+ 473, cow_000473.jpeg      , cow      , cow            ,      0.935, test , animals10, ann_2    , cow
+ 474, cow_000474.jpeg      , cow      , cow            ,      0.828, test , animals10, ann_2    , cow
+ 475, cow_000475.jpeg      , cow      , cow            ,      0.936, test , animals10, ann_3    , cow
+ 476, cow_000476.jpeg      , cow      , cow            ,      0.925, test , animals10, ann_2    , cow
+ 477, cow_000477.jpeg      , cow      , cow            ,      0.908, test , animals10, ann_3    , cow
+ 478, cow_000478.jpeg      , cow      , cow            ,      0.896, test , animals10, ann_3    , cow
+ 479, cow_000479.jpeg      , cow      , cow            ,      0.883, test , animals10, ann_3    , cow
+ 480, cow_000480.jpeg      , cow      , cow            ,      0.968, test , animals10, ann_4    , cow
+ 481, dog_000481.jpeg      , dog      , dog            ,      0.868, train, animals10, ann_1    , dog
+ 482, dog_000482.jpeg      , dog      , dog            ,      0.96 , train, animals10, ann_1    , dog
+ 483, dog_000483.jpeg      , dog      , dog            ,      0.924, train, animals10, ann_3    , dog
+ 484, dog_000484.jpeg      , cow      , dog            ,      0.821, train, animals10, ann_2    , dog
+ 485, dog_000485.jpeg      , dog      , dog            ,      0.826, train, animals10, ann_2    , dog
+ 486, dog_000486.jpeg      , dog      , dog            ,      0.879, train, animals10, ann_4    , dog
+ 487, dog_000487.jpeg      , dog      , dog            ,      0.848, train, animals10, ann_2    , dog
+ 488, dog_000488.jpeg      , dog      , dog            ,      0.849, train, animals10, ann_1    , dog
+ 489, dog_000489.jpeg      , dog      , cow            ,      0.52 , train, animals10, ann_3    , dog
+ 490, dog_000490.jpeg      , dog      , dog            ,      0.871, train, animals10, ann_1    , dog
+ 491, dog_000491.jpeg      , dog      , dog            ,      0.825, train, animals10, ann_2    , dog
+ 492, dog_000492.jpeg      , dog      , horse          ,      0.625, train, animals10, ann_2    , dog
+ 493, dog_000493.jpeg      , dog      , cow            ,      0.471, train, animals10, ann_1    , dog
+ 494, dog_000494.jpeg      , dog      , dog            ,      0.977, train, animals10, ann_4    , dog
+ 495, dog_000495.jpeg      , dog      , dog            ,      0.922, train, animals10, ann_3    , dog
+ 496, dog_000496.jpeg      , dog      , dog            ,      0.861, train, animals10, ann_3    , dog
+ 497, dog_000497.jpeg      , dog      , dog            ,      0.918, train, animals10, ann_1    , dog
+ 498, dog_000498.jpeg      , dog      , dog            ,      0.956, train, animals10, ann_2    , dog
+ 499, dog_000499.jpeg      , dog      , dog            ,      0.949, train, animals10, ann_2    , dog
+ 500, dog_000500.jpeg      , dog      , cat            ,      0.615, train, animals10, ann_3    , dog
+ 501, dog_000501.jpeg      , dog      , cow            ,      0.508, train, animals10, ann_3    , dog
+ 502, dog_000502.jpeg      , dog      , dog            ,      0.927, train, animals10, ann_3    , dog
+ 503, dog_000503.jpeg      , dog      , dog            ,      0.888, train, animals10, ann_2    , dog
+ 504, dog_000504.jpeg      , dog      , dog            ,      0.825, train, animals10, ann_4    , dog
+ 505, dog_000505.jpeg      , dog      , dog            ,      0.977, train, animals10, ann_1    , dog
+ 506, dog_000506.jpeg      , dog      , cow            ,      0.487, train, animals10, ann_3    , dog
+ 507, dog_000507.jpeg      , spider   , dog            ,      0.875, train, animals10, ann_4    , dog
+ 508, dog_000508.jpeg      , dog      , dog            ,      0.919, train, animals10, ann_4    , dog
+ 509, dog_000509.jpeg      , dog      , dog            ,      0.943, train, animals10, ann_3    , dog
+ 510, dog_000510.jpeg      , dog      , dog            ,      0.861, train, animals10, ann_4    , dog
+ 511, dog_000511.jpeg      , dog      , dog            ,      0.835, train, animals10, ann_3    , dog
+ 512, dog_000512.jpeg      , dog      , dog            ,      0.945, train, animals10, ann_4    , dog
+ 513, dog_000513.jpeg      , dog      , dog            ,      0.84 , train, animals10, ann_2    , dog
+ 514, dog_000514.jpeg      , dog      , dog            ,      0.839, train, animals10, ann_3    , dog
+ 515, dog_000515.jpeg      , dog      , dog            ,      0.892, train, animals10, ann_1    , dog
+ 516, dog_000516.jpeg      , dog      , dog            ,      0.849, train, animals10, ann_2    , dog
+ 517, dog_000517.jpeg      , dog      , dog            ,      0.944, train, animals10, ann_2    , dog
+ 518, dog_000518.jpeg      , dog      , dog            ,      0.916, train, animals10, ann_2    , dog
+ 519, dog_000519.jpeg      , dog      , dog            ,      0.828, train, animals10, ann_3    , dog
+ 520, dog_000520.jpeg      , dog      , dog            ,      0.98 , train, animals10, ann_2    , dog
+ 521, dog_000521.jpeg      , dog      , chicken        ,      0.596, train, animals10, ann_2    , dog
+ 522, dog_000522.jpeg      , dog      , dog            ,      0.844, train, animals10, ann_4    , dog
+ 523, dog_000523.jpeg      , dog      , dog            ,      0.973, train, animals10, ann_4    , dog
+ 524, dog_000524.jpeg      , dog      , dog            ,      0.976, train, animals10, ann_4    , dog
+ 525, dog_000525.jpeg      , dog      , dog            ,      0.97 , train, animals10, ann_1    , dog
+ 526, dog_000526.jpeg      , dog      , dog            ,      0.927, train, animals10, ann_2    , dog
+ 527, dog_000527.jpeg      , dog      , dog            ,      0.973, train, animals10, ann_1    , dog
+ 528, dog_000528.jpeg      , dog      , dog            ,      0.897, train, animals10, ann_2    , dog
+ 529, dog_000529.jpeg      , dog      , dog            ,      0.972, train, animals10, ann_2    , dog
+ 530, dog_000530.jpeg      , dog      , dog            ,      0.887, train, animals10, ann_2    , dog
+ 531, dog_000531.jpeg      , dog      , dog            ,      0.856, train, animals10, ann_3    , dog
+ 532, dog_000532.jpeg      , dog      , dog            ,      0.936, train, animals10, ann_2    , dog
+ 533, dog_000533.jpeg      , dog      , dog            ,      0.864, train, animals10, ann_3    , dog
+ 534, dog_000534.jpeg      , cat      , dog            ,      0.904, train, animals10, ann_4    , dog
+ 535, dog_000535.jpeg      , dog      , dog            ,      0.952, train, animals10, ann_4    , dog
+ 536, dog_000536.jpeg      , dog      , dog            ,      0.941, train, animals10, ann_3    , dog
+ 537, dog_000537.jpeg      , dog      , dog            ,      0.827, train, animals10, ann_3    , dog
+ 538, dog_000538.jpeg      , dog      , dog            ,      0.914, train, animals10, ann_4    , dog
+ 539, dog_000539.jpeg      , dog      , dog            ,      0.836, train, animals10, ann_3    , dog
+ 540, dog_000540.jpeg      , dog      , dog            ,      0.899, train, animals10, ann_4    , dog
+ 541, dog_000541.jpeg      , dog      , dog            ,      0.958, train, animals10, ann_3    , dog
+ 542, dog_000542.jpeg      , dog      , dog            ,      0.965, train, animals10, ann_3    , dog
+ 543, dog_000543.jpeg      , dog      , dog            ,      0.977, train, animals10, ann_1    , dog
+ 544, dog_000544.jpeg      , spider   , dog            ,      0.899, train, animals10, ann_4    , dog
+ 545, dog_000545.jpeg      , dog      , sheep          ,      0.579, train, animals10, ann_4    , dog
+ 546, dog_000546.jpeg      , dog      , dog            ,      0.927, train, animals10, ann_1    , dog
+ 547, dog_000547.jpeg      , dog      , dog            ,      0.947, train, animals10, ann_1    , dog
+ 548, dog_000548.jpeg      , dog      , cow            ,      0.533, train, animals10, ann_4    , dog
+ 549, dog_000549.jpeg      , dog      , dog            ,      0.826, train, animals10, ann_4    , dog
+ 550, dog_000550.jpeg      , dog      , dog            ,      0.904, train, animals10, ann_4    , dog
+ 551, dog_000551.jpeg      , dog      , dog            ,      0.944, train, animals10, ann_1    , dog
+ 552, dog_000552.jpeg      , dog      , dog            ,      0.921, train, animals10, ann_3    , dog
+ 553, dog_000553.jpeg      , dog      , dog            ,      0.948, train, animals10, ann_4    , dog
+ 554, dog_000554.jpeg      , dog      , dog            ,      0.951, train, animals10, ann_3    , dog
+ 555, dog_000555.jpeg      , dog      , dog            ,      0.864, train, animals10, ann_1    , dog
+ 556, dog_000556.jpeg      , dog      , dog            ,      0.922, train, animals10, ann_2    , dog
+ 557, dog_000557.jpeg      , dog      , dog            ,      0.908, train, animals10, ann_3    , dog
+ 558, dog_000558.jpeg      , dog      , dog            ,      0.945, train, animals10, ann_2    , dog
+ 559, dog_000559.jpeg      , dog      , dog            ,      0.873, train, animals10, ann_2    , dog
+ 560, dog_000560.jpeg      , dog      , dog            ,      0.966, train, animals10, ann_1    , dog
+ 561, dog_000561.jpeg      , dog      , dog            ,      0.9  , train, animals10, ann_2    , dog
+ 562, dog_000562.jpeg      , dog      , dog            ,      0.957, train, animals10, ann_4    , dog
+ 563, dog_000563.jpeg      , dog      , dog            ,      0.963, train, animals10, ann_2    , dog
+ 564, dog_000564.jpeg      , dog      , dog            ,      0.838, train, animals10, ann_3    , dog
+ 565, dog_000565.jpeg      , dog      , dog            ,      0.91 , train, animals10, ann_2    , dog
+ 566, dog_000566.jpeg      , dog      , dog            ,      0.852, train, animals10, ann_1    , dog
+ 567, dog_000567.jpeg      , dog      , dog            ,      0.926, train, animals10, ann_3    , dog
+ 568, dog_000568.jpeg      , dog      , dog            ,      0.877, train, animals10, ann_2    , dog
+ 569, dog_000569.jpeg      , dog      , dog            ,      0.591, train, animals10, ann_1    , dog
+ 570, dog_000570.jpeg      , dog      , dog            ,      0.952, train, animals10, ann_2    , dog
+ 571, dog_000571.jpeg      , dog      , dog            ,      0.864, train, animals10, ann_4    , dog
+ 572, dog_000572.jpeg      , dog      , dog            ,      0.855, train, animals10, ann_2    , dog
+ 573, dog_000573.jpeg      , dog      , dog            ,      0.843, train, animals10, ann_3    , dog
+ 574, dog_000574.jpeg      , dog      , squirrel       ,      0.561, train, animals10, ann_4    , dog
+ 575, dog_000575.jpeg      , dog      , dog            ,      0.911, train, animals10, ann_4    , dog
+ 576, dog_000576.jpeg      , dog      , dog            ,      0.884, train, animals10, ann_4    , dog
+ 577, dog_000577.jpeg      , dog      , dog            ,      0.977, val  , animals10, ann_3    , dog
+ 578, dog_000578.jpeg      , dog      , dog            ,      0.968, val  , animals10, ann_2    , dog
+ 579, dog_000579.jpeg      , dog      , dog            ,      0.973, val  , animals10, ann_2    , dog
+ 580, dog_000580.jpeg      , dog      , dog            ,      0.932, val  , animals10, ann_2    , dog
+ 581, dog_000581.jpeg      , dog      , dog            ,      0.978, val  , animals10, ann_4    , dog
+ 582, dog_000582.jpeg      , dog      , squirrel       ,      0.502, val  , animals10, ann_3    , dog
+ 583, dog_000583.jpeg      , dog      , dog            ,      0.909, val  , animals10, ann_2    , dog
+ 584, dog_000584.jpeg      , dog      , dog            ,      0.829, val  , animals10, ann_4    , dog
+ 585, dog_000585.jpeg      , dog      , dog            ,      0.973, val  , animals10, ann_2    , dog
+ 586, dog_000586.jpeg      , spider   , dog            ,      0.829, val  , animals10, ann_3    , dog
+ 587, dog_000587.jpeg      , dog      , dog            ,      0.83 , val  , animals10, ann_3    , dog
+ 588, dog_000588.jpeg      , dog      , dog            ,      0.911, val  , animals10, ann_1    , dog
+ 589, dog_000589.jpeg      , dog      , dog            ,      0.899, test , animals10, ann_2    , dog
+ 590, dog_000590.jpeg      , dog      , dog            ,      0.854, test , animals10, ann_4    , dog
+ 591, dog_000591.jpeg      , dog      , dog            ,      0.932, test , animals10, ann_3    , dog
+ 592, dog_000592.jpeg      , dog      , dog            ,      0.911, test , animals10, ann_4    , dog
+ 593, dog_000593.jpeg      , dog      , dog            ,      0.906, test , animals10, ann_3    , dog
+ 594, dog_000594.jpeg      , dog      , dog            ,      0.975, test , animals10, ann_1    , dog
+ 595, dog_000595.jpeg      , dog      , dog            ,      0.877, test , animals10, ann_1    , dog
+ 596, dog_000596.jpeg      , dog      , dog            ,      0.831, test , animals10, ann_1    , dog
+ 597, dog_000597.jpeg      , dog      , dog            ,      0.937, test , animals10, ann_2    , dog
+ 598, dog_000598.jpeg      , dog      , dog            ,      0.916, test , animals10, ann_2    , dog
+ 599, dog_000599.jpeg      , dog      , dog            ,      0.825, test , animals10, ann_4    , dog
+ 600, dog_000600.jpeg      , dog      , dog            ,      0.873, test , animals10, ann_1    , dog
+ 601, elephant_000601.jpeg , elephant , elephant       ,      0.934, train, animals10, ann_1    , elephant
+ 602, elephant_000602.jpeg , elephant , elephant       ,      0.859, train, animals10, ann_4    , elephant
+ 603, elephant_000603.jpg  , dog      , elephant       ,      0.933, train, animals10, ann_4    , elephant
+ 604, elephant_000604.jpeg , elephant , elephant       ,      0.822, train, animals10, ann_2    , elephant
+ 605, elephant_000605.jpeg , elephant , elephant       ,      0.825, train, animals10, ann_4    , elephant
+ 606, elephant_000606.jpeg , elephant , elephant       ,      0.864, train, animals10, ann_4    , elephant
+ 607, elephant_000607.jpeg , elephant , elephant       ,      0.936, train, animals10, ann_3    , elephant
+ 608, elephant_000608.jpeg , elephant , elephant       ,      0.899, train, animals10, ann_4    , elephant
+ 609, elephant_000609.jpeg , elephant , elephant       ,      0.866, train, animals10, ann_3    , elephant
+ 610, elephant_000610.jpg  , elephant , elephant       ,      0.975, train, animals10, ann_1    , elephant
+ 611, elephant_000611.jpeg , elephant , elephant       ,      0.821, train, animals10, ann_2    , elephant
+ 612, elephant_000612.jpeg , elephant , chicken        ,      0.501, train, animals10, ann_4    , elephant
+ 613, elephant_000613.jpeg , elephant , elephant       ,      0.932, train, animals10, ann_1    , elephant
+ 614, elephant_000614.jpg  , elephant , elephant       ,      0.938, train, animals10, ann_1    , elephant
+ 615, elephant_000615.jpeg , elephant , elephant       ,      0.932, train, animals10, ann_1    , elephant
+ 616, elephant_000616.jpg  , elephant , elephant       ,      0.879, train, animals10, ann_1    , elephant
+ 617, elephant_000617.jpeg , elephant , horse          ,      0.578, train, animals10, ann_4    , elephant
+ 618, elephant_000618.jpeg , elephant , elephant       ,      0.559, train, animals10, ann_2    , elephant
+ 619, elephant_000619.jpeg , elephant , elephant       ,      0.839, train, animals10, ann_2    , elephant
+ 620, elephant_000620.jpeg , elephant , elephant       ,      0.851, train, animals10, ann_3    , elephant
+ 621, elephant_000621.jpeg , elephant , elephant       ,      0.975, train, animals10, ann_2    , elephant
+ 622, elephant_000622.jpeg , elephant , butterfly      ,      0.503, train, animals10, ann_2    , elephant
+ 623, elephant_000623.jpeg , elephant , elephant       ,      0.883, train, animals10, ann_3    , elephant
+ 624, elephant_000624.jpeg , butterfly, dog            ,      0.585, train, animals10, ann_1    , elephant
+ 625, elephant_000625.jpeg , elephant , elephant       ,      0.871, train, animals10, ann_2    , elephant
+ 626, elephant_000626.jpeg , elephant , elephant       ,      0.85 , train, animals10, ann_4    , elephant
+ 627, elephant_000627.jpeg , elephant , elephant       ,      0.848, train, animals10, ann_1    , elephant
+ 628, elephant_000628.jpeg , elephant , elephant       ,      0.902, train, animals10, ann_1    , elephant
+ 629, elephant_000629.jpeg , elephant , elephant       ,      0.832, train, animals10, ann_2    , elephant
+ 630, elephant_000630.jpg  , elephant , elephant       ,      0.954, train, animals10, ann_3    , elephant
+ 631, elephant_000631.jpeg , elephant , elephant       ,      0.885, train, animals10, ann_4    , elephant
+ 632, elephant_000632.jpeg , horse    , elephant       ,      0.824, train, animals10, ann_3    , elephant
+ 633, elephant_000633.jpg  , elephant , elephant       ,      0.959, train, animals10, ann_2    , elephant
+ 634, elephant_000634.jpeg , elephant , elephant       ,      0.902, train, animals10, ann_4    , elephant
+ 635, elephant_000635.jpeg , elephant , elephant       ,      0.845, train, animals10, ann_3    , elephant
+ 636, elephant_000636.jpg  , elephant , squirrel       ,      0.457, train, animals10, ann_1    , elephant
+ 637, elephant_000637.jpeg , elephant , elephant       ,      0.944, train, animals10, ann_1    , elephant
+ 638, elephant_000638.jpg  , elephant , elephant       ,      0.894, train, animals10, ann_3    , elephant
+ 639, elephant_000639.jpeg , elephant , elephant       ,      0.872, train, animals10, ann_3    , elephant
+ 640, elephant_000640.jpeg , elephant , elephant       ,      0.898, train, animals10, ann_2    , elephant
+ 641, elephant_000641.jpeg , elephant , sheep          ,      0.674, train, animals10, ann_1    , elephant
+ 642, elephant_000642.jpeg , elephant , elephant       ,      0.863, train, animals10, ann_3    , elephant
+ 643, elephant_000643.jpeg , elephant , elephant       ,      0.968, train, animals10, ann_3    , elephant
+ 644, elephant_000644.jpeg , elephant , elephant       ,      0.876, train, animals10, ann_3    , elephant
+ 645, elephant_000645.jpeg , elephant , elephant       ,      0.928, train, animals10, ann_3    , elephant
+ 646, elephant_000646.jpg  , elephant , elephant       ,      0.925, train, animals10, ann_2    , elephant
+ 647, elephant_000647.jpeg , elephant , elephant       ,      0.85 , train, animals10, ann_3    , elephant
+ 648, elephant_000648.jpeg , elephant , elephant       ,      0.853, train, animals10, ann_4    , elephant
+ 649, elephant_000649.jpeg , elephant , elephant       ,      0.936, train, animals10, ann_3    , elephant
+ 650, elephant_000650.jpeg , elephant , elephant       ,      0.946, train, animals10, ann_3    , elephant
+ 651, elephant_000651.jpeg , elephant , elephant       ,      0.9  , train, animals10, ann_2    , elephant
+ 652, elephant_000652.jpeg , elephant , elephant       ,      0.969, train, animals10, ann_4    , elephant
+ 653, elephant_000653.jpg  , elephant , elephant       ,      0.917, train, animals10, ann_3    , elephant
+ 654, elephant_000654.jpeg , elephant , elephant       ,      0.908, train, animals10, ann_4    , elephant
+ 655, elephant_000655.jpeg , cow      , elephant       ,      0.861, train, animals10, ann_4    , elephant
+ 656, elephant_000656.jpeg , elephant , elephant       ,      0.913, train, animals10, ann_3    , elephant
+ 657, elephant_000657.jpeg , elephant , elephant       ,      0.863, train, animals10, ann_4    , elephant
+ 658, elephant_000658.jpeg , elephant , elephant       ,      0.837, train, animals10, ann_4    , elephant
+ 659, elephant_000659.jpeg , elephant , chicken        ,      0.478, train, animals10, ann_1    , elephant
+ 660, elephant_000660.jpg  , cat      , elephant       ,      0.908, train, animals10, ann_3    , elephant
+ 661, elephant_000661.jpeg , elephant , horse          ,      0.497, train, animals10, ann_1    , elephant
+ 662, elephant_000662.jpeg , horse    , elephant       ,      0.935, train, animals10, ann_3    , elephant
+ 663, elephant_000663.jpeg , elephant , elephant       ,      0.919, train, animals10, ann_3    , elephant
+ 664, elephant_000664.jpeg , elephant , elephant       ,      0.858, train, animals10, ann_1    , elephant
+ 665, elephant_000665.jpeg , elephant , elephant       ,      0.855, train, animals10, ann_4    , elephant
+ 666, elephant_000666.jpg  , elephant , elephant       ,      0.973, train, animals10, ann_1    , elephant
+ 667, elephant_000667.jpeg , elephant , elephant       ,      0.976, train, animals10, ann_4    , elephant
+ 668, elephant_000668.jpeg , elephant , elephant       ,      0.885, train, animals10, ann_2    , elephant
+ 669, elephant_000669.jpeg , elephant , elephant       ,      0.848, train, animals10, ann_2    , elephant
+ 670, elephant_000670.jpeg , elephant , dog            ,      0.55 , train, animals10, ann_4    , elephant
+ 671, elephant_000671.jpeg , elephant , elephant       ,      0.956, train, animals10, ann_4    , elephant
+ 672, elephant_000672.jpeg , elephant , elephant       ,      0.938, train, animals10, ann_4    , elephant
+ 673, elephant_000673.jpeg , elephant , elephant       ,      0.824, train, animals10, ann_3    , elephant
+ 674, elephant_000674.jpeg , elephant , elephant       ,      0.89 , train, animals10, ann_3    , elephant
+ 675, elephant_000675.jpeg , elephant , elephant       ,      0.919, train, animals10, ann_4    , elephant
+ 676, elephant_000676.jpeg , elephant , elephant       ,      0.933, train, animals10, ann_4    , elephant
+ 677, elephant_000677.jpeg , elephant , elephant       ,      0.855, train, animals10, ann_3    , elephant
+ 678, elephant_000678.jpeg , elephant , elephant       ,      0.867, train, animals10, ann_2    , elephant
+ 679, elephant_000679.jpeg , elephant , elephant       ,      0.974, train, animals10, ann_2    , elephant
+ 680, elephant_000680.jpeg , elephant , butterfly      ,      0.539, train, animals10, ann_3    , elephant
+ 681, elephant_000681.jpeg , elephant , horse          ,      0.617, train, animals10, ann_4    , elephant
+ 682, elephant_000682.jpeg , elephant , elephant       ,      0.857, train, animals10, ann_3    , elephant
+ 683, elephant_000683.jpeg , elephant , elephant       ,      0.845, train, animals10, ann_2    , elephant
+ 684, elephant_000684.jpeg , elephant , elephant       ,      0.916, train, animals10, ann_2    , elephant
+ 685, elephant_000685.jpeg , elephant , elephant       ,      0.878, train, animals10, ann_2    , elephant
+ 686, elephant_000686.jpeg , elephant , elephant       ,      0.835, train, animals10, ann_1    , elephant
+ 687, elephant_000687.jpeg , elephant , elephant       ,      0.861, train, animals10, ann_2    , elephant
+ 688, elephant_000688.jpeg , elephant , elephant       ,      0.865, train, animals10, ann_2    , elephant
+ 689, elephant_000689.jpg  , elephant , elephant       ,      0.903, train, animals10, ann_2    , elephant
+ 690, elephant_000690.jpeg , elephant , elephant       ,      0.912, train, animals10, ann_2    , elephant
+ 691, elephant_000691.jpeg , elephant , elephant       ,      0.888, train, animals10, ann_2    , elephant
+ 692, elephant_000692.jpg  , elephant , elephant       ,      0.851, train, animals10, ann_1    , elephant
+ 693, elephant_000693.jpeg , elephant , chicken        ,      0.573, train, animals10, ann_4    , elephant
+ 694, elephant_000694.jpg  , elephant , elephant       ,      0.849, train, animals10, ann_2    , elephant
+ 695, elephant_000695.jpeg , elephant , chicken        ,      0.626, train, animals10, ann_1    , elephant
+ 696, elephant_000696.jpeg , elephant , elephant       ,      0.883, train, animals10, ann_2    , elephant
+ 697, elephant_000697.jpeg , chicken  , elephant       ,      0.859, val  , animals10, ann_3    , elephant
+ 698, elephant_000698.jpg  , elephant , elephant       ,      0.859, val  , animals10, ann_2    , elephant
+ 699, elephant_000699.jpg  , elephant , elephant       ,      0.846, val  , animals10, ann_1    , elephant
+ 700, elephant_000700.jpeg , elephant , elephant       ,      0.82 , val  , animals10, ann_4    , elephant
+ 701, elephant_000701.jpg  , elephant , elephant       ,      0.941, val  , animals10, ann_4    , elephant
+ 702, elephant_000702.jpeg , elephant , elephant       ,      0.924, val  , animals10, ann_3    , elephant
+ 703, elephant_000703.jpeg , elephant , elephant       ,      0.954, val  , animals10, ann_4    , elephant
+ 704, elephant_000704.jpeg , elephant , elephant       ,      0.885, val  , animals10, ann_4    , elephant
+ 705, elephant_000705.png  , elephant , cat            ,      0.588, val  , animals10, ann_3    , elephant
+ 706, elephant_000706.jpeg , elephant , horse          ,      0.538, val  , animals10, ann_3    , elephant
+ 707, elephant_000707.jpeg , elephant , elephant       ,      0.852, val  , animals10, ann_1    , elephant
+ 708, elephant_000708.jpeg , elephant , elephant       ,      0.94 , val  , animals10, ann_4    , elephant
+ 709, elephant_000709.jpg  , elephant , elephant       ,      0.946, test , animals10, ann_2    , elephant
+ 710, elephant_000710.jpeg , elephant , elephant       ,      0.868, test , animals10, ann_2    , elephant
+ 711, elephant_000711.jpeg , elephant , elephant       ,      0.964, test , animals10, ann_4    , elephant
+ 712, elephant_000712.jpeg , elephant , elephant       ,      0.884, test , animals10, ann_4    , elephant
+ 713, elephant_000713.jpg  , elephant , elephant       ,      0.853, test , animals10, ann_2    , elephant
+ 714, elephant_000714.jpeg , elephant , elephant       ,      0.828, test , animals10, ann_2    , elephant
+ 715, elephant_000715.jpeg , elephant , elephant       ,      0.968, test , animals10, ann_3    , elephant
+ 716, elephant_000716.jpeg , elephant , elephant       ,      0.876, test , animals10, ann_4    , elephant
+ 717, elephant_000717.jpg  , elephant , elephant       ,      0.96 , test , animals10, ann_1    , elephant
+ 718, elephant_000718.jpeg , elephant , elephant       ,      0.877, test , animals10, ann_4    , elephant
+ 719, elephant_000719.jpg  , elephant , sheep          ,      0.466, test , animals10, ann_3    , elephant
+ 720, elephant_000720.jpg  , elephant , elephant       ,      0.968, test , animals10, ann_2    , elephant
+ 721, horse_000721.jpeg    , horse    , horse          ,      0.835, train, animals10, ann_1    , horse
+ 722, horse_000722.jpeg    , horse    , chicken        ,      0.618, train, animals10, ann_1    , horse
+ 723, horse_000723.jpeg    , horse    , sheep          ,      0.544, train, animals10, ann_2    , horse
+ 724, horse_000724.jpeg    , cat      , horse          ,      0.543, train, animals10, ann_2    , horse
+ 725, horse_000725.jpeg    , horse    , squirrel       ,      0.616, train, animals10, ann_4    , horse
+ 726, horse_000726.jpeg    , horse    , horse          ,      0.939, train, animals10, ann_4    , horse
+ 727, horse_000727.jpeg    , horse    , horse          ,      0.92 , train, animals10, ann_2    , horse
+ 728, horse_000728.jpeg    , cow      , horse          ,      0.874, train, animals10, ann_1    , horse
+ 729, horse_000729.jpeg    , horse    , horse          ,      0.96 , train, animals10, ann_3    , horse
+ 730, horse_000730.jpeg    , horse    , dog            ,      0.491, train, animals10, ann_1    , horse
+ 731, horse_000731.jpeg    , horse    , horse          ,      0.929, train, animals10, ann_2    , horse
+ 732, horse_000732.jpeg    , horse    , horse          ,      0.912, train, animals10, ann_3    , horse
+ 733, horse_000733.jpeg    , horse    , horse          ,      0.866, train, animals10, ann_2    , horse
+ 734, horse_000734.jpeg    , cow      , horse          ,      0.879, train, animals10, ann_3    , horse
+ 735, horse_000735.jpeg    , horse    , horse          ,      0.831, train, animals10, ann_1    , horse
+ 736, horse_000736.jpeg    , horse    , horse          ,      0.927, train, animals10, ann_3    , horse
+ 737, horse_000737.jpeg    , horse    , horse          ,      0.899, train, animals10, ann_1    , horse
+ 738, horse_000738.jpeg    , horse    , horse          ,      0.893, train, animals10, ann_2    , horse
+ 739, horse_000739.jpeg    , horse    , horse          ,      0.877, train, animals10, ann_3    , horse
+ 740, horse_000740.jpeg    , horse    , horse          ,      0.942, train, animals10, ann_2    , horse
+ 741, horse_000741.jpeg    , horse    , cat            ,      0.654, train, animals10, ann_2    , horse
+ 742, horse_000742.jpeg    , spider   , horse          ,      0.888, train, animals10, ann_3    , horse
+ 743, horse_000743.jpeg    , horse    , horse          ,      0.909, train, animals10, ann_3    , horse
+ 744, horse_000744.jpeg    , horse    , horse          ,      0.83 , train, animals10, ann_1    , horse
+ 745, horse_000745.jpeg    , horse    , horse          ,      0.824, train, animals10, ann_2    , horse
+ 746, horse_000746.jpeg    , horse    , horse          ,      0.905, train, animals10, ann_1    , horse
+ 747, horse_000747.jpeg    , horse    , horse          ,      0.958, train, animals10, ann_1    , horse
+ 748, horse_000748.jpeg    , horse    , horse          ,      0.866, train, animals10, ann_2    , horse
+ 749, horse_000749.jpeg    , butterfly, horse          ,      0.965, train, animals10, ann_4    , horse
+ 750, horse_000750.jpeg    , horse    , horse          ,      0.943, train, animals10, ann_4    , horse
+ 751, horse_000751.jpeg    , horse    , horse          ,      0.869, train, animals10, ann_1    , horse
+ 752, horse_000752.jpeg    , horse    , horse          ,      0.945, train, animals10, ann_3    , horse
+ 753, horse_000753.jpeg    , horse    , horse          ,      0.848, train, animals10, ann_2    , horse
+ 754, horse_000754.jpeg    , horse    , horse          ,      0.842, train, animals10, ann_3    , horse
+ 755, horse_000755.jpeg    , horse    , butterfly      ,      0.578, train, animals10, ann_1    , horse
+ 756, horse_000756.jpeg    , horse    , horse          ,      0.826, train, animals10, ann_1    , horse
+ 757, horse_000757.jpeg    , horse    , horse          ,      0.886, train, animals10, ann_2    , horse
+ 758, horse_000758.jpeg    , horse    , horse          ,      0.942, train, animals10, ann_1    , horse
+ 759, horse_000759.jpeg    , horse    , horse          ,      0.827, train, animals10, ann_1    , horse
+ 760, horse_000760.jpeg    , horse    , horse          ,      0.927, train, animals10, ann_4    , horse
+ 761, horse_000761.jpeg    , horse    , horse          ,      0.959, train, animals10, ann_1    , horse
+ 762, horse_000762.jpeg    , horse    , horse          ,      0.894, train, animals10, ann_2    , horse
+ 763, horse_000763.jpeg    , horse    , horse          ,      0.836, train, animals10, ann_1    , horse
+ 764, horse_000764.jpeg    , horse    , horse          ,      0.833, train, animals10, ann_1    , horse
+ 765, horse_000765.jpeg    , horse    , horse          ,      0.975, train, animals10, ann_3    , horse
+ 766, horse_000766.jpeg    , horse    , horse          ,      0.884, train, animals10, ann_1    , horse
+ 767, horse_000767.jpeg    , horse    , squirrel       ,      0.55 , train, animals10, ann_3    , horse
+ 768, horse_000768.jpeg    , horse    , horse          ,      0.877, train, animals10, ann_4    , horse
+ 769, horse_000769.jpeg    , horse    , horse          ,      0.899, train, animals10, ann_2    , horse
+ 770, horse_000770.jpeg    , horse    , cow            ,      0.68 , train, animals10, ann_2    , horse
+ 771, horse_000771.jpeg    , horse    , horse          ,      0.95 , train, animals10, ann_4    , horse
+ 772, horse_000772.jpeg    , horse    , horse          ,      0.962, train, animals10, ann_4    , horse
+ 773, horse_000773.jpeg    , horse    , squirrel       ,      0.465, train, animals10, ann_2    , horse
+ 774, horse_000774.jpeg    , horse    , horse          ,      0.896, train, animals10, ann_1    , horse
+ 775, horse_000775.jpeg    , dog      , horse          ,      0.888, train, animals10, ann_3    , horse
+ 776, horse_000776.jpeg    , horse    , horse          ,      0.824, train, animals10, ann_1    , horse
+ 777, horse_000777.jpeg    , horse    , squirrel       ,      0.562, train, animals10, ann_4    , horse
+ 778, horse_000778.jpeg    , horse    , horse          ,      0.823, train, animals10, ann_3    , horse
+ 779, horse_000779.jpeg    , horse    , horse          ,      0.971, train, animals10, ann_1    , horse
+ 780, horse_000780.jpeg    , horse    , horse          ,      0.932, train, animals10, ann_3    , horse
+ 781, horse_000781.jpeg    , horse    , horse          ,      0.927, train, animals10, ann_1    , horse
+ 782, horse_000782.jpeg    , horse    , horse          ,      0.861, train, animals10, ann_1    , horse
+ 783, horse_000783.jpeg    , horse    , horse          ,      0.953, train, animals10, ann_4    , horse
+ 784, horse_000784.jpeg    , horse    , horse          ,      0.917, train, animals10, ann_4    , horse
+ 785, horse_000785.jpeg    , horse    , horse          ,      0.852, train, animals10, ann_4    , horse
+ 786, horse_000786.jpeg    , horse    , horse          ,      0.881, train, animals10, ann_3    , horse
+ 787, horse_000787.jpeg    , horse    , horse          ,      0.973, train, animals10, ann_2    , horse
+ 788, horse_000788.jpeg    , horse    , horse          ,      0.828, train, animals10, ann_4    , horse
+ 789, horse_000789.jpeg    , horse    , horse          ,      0.953, train, animals10, ann_3    , horse
+ 790, horse_000790.jpeg    , horse    , horse          ,      0.93 , train, animals10, ann_3    , horse
+ 791, horse_000791.jpeg    , horse    , horse          ,      0.979, train, animals10, ann_4    , horse
+ 792, horse_000792.jpeg    , horse    , dog            ,      0.488, train, animals10, ann_4    , horse
+ 793, horse_000793.jpeg    , horse    , horse          ,      0.842, train, animals10, ann_2    , horse
+ 794, horse_000794.jpeg    , horse    , horse          ,      0.951, train, animals10, ann_2    , horse
+ 795, horse_000795.jpeg    , horse    , horse          ,      0.955, train, animals10, ann_1    , horse
+ 796, horse_000796.jpeg    , horse    , horse          ,      0.862, train, animals10, ann_1    , horse
+ 797, horse_000797.jpeg    , horse    , horse          ,      0.94 , train, animals10, ann_4    , horse
+ 798, horse_000798.jpeg    , horse    , horse          ,      0.833, train, animals10, ann_4    , horse
+ 799, horse_000799.jpeg    , horse    , horse          ,      0.906, train, animals10, ann_3    , horse
+ 800, horse_000800.jpeg    , horse    , horse          ,      0.95 , train, animals10, ann_1    , horse
+ 801, horse_000801.jpeg    , horse    , horse          ,      0.963, train, animals10, ann_3    , horse
+ 802, horse_000802.jpeg    , horse    , horse          ,      0.839, train, animals10, ann_3    , horse
+ 803, horse_000803.jpeg    , horse    , horse          ,      0.857, train, animals10, ann_4    , horse
+ 804, horse_000804.jpeg    , horse    , horse          ,      0.969, train, animals10, ann_2    , horse
+ 805, horse_000805.jpeg    , horse    , spider         ,      0.461, train, animals10, ann_4    , horse
+ 806, horse_000806.jpeg    , horse    , horse          ,      0.953, train, animals10, ann_2    , horse
+ 807, horse_000807.jpeg    , horse    , horse          ,      0.834, train, animals10, ann_4    , horse
+ 808, horse_000808.jpeg    , horse    , horse          ,      0.833, train, animals10, ann_2    , horse
+ 809, horse_000809.jpeg    , horse    , horse          ,      0.951, train, animals10, ann_3    , horse
+ 810, horse_000810.jpeg    , horse    , horse          ,      0.888, train, animals10, ann_2    , horse
+ 811, horse_000811.jpeg    , horse    , horse          ,      0.913, train, animals10, ann_4    , horse
+ 812, horse_000812.jpeg    , horse    , butterfly      ,      0.585, train, animals10, ann_2    , horse
+ 813, horse_000813.jpeg    , horse    , horse          ,      0.946, train, animals10, ann_4    , horse
+ 814, horse_000814.jpeg    , horse    , horse          ,      0.899, train, animals10, ann_2    , horse
+ 815, horse_000815.jpeg    , horse    , horse          ,      0.963, train, animals10, ann_2    , horse
+ 816, horse_000816.jpeg    , horse    , horse          ,      0.837, train, animals10, ann_4    , horse
+ 817, horse_000817.jpeg    , horse    , horse          ,      0.925, val  , animals10, ann_4    , horse
+ 818, horse_000818.jpeg    , horse    , horse          ,      0.962, val  , animals10, ann_4    , horse
+ 819, horse_000819.jpeg    , horse    , horse          ,      0.918, val  , animals10, ann_4    , horse
+ 820, horse_000820.jpeg    , horse    , horse          ,      0.97 , val  , animals10, ann_4    , horse
+ 821, horse_000821.jpeg    , spider   , horse          ,      0.844, val  , animals10, ann_4    , horse
+ 822, horse_000822.jpeg    , squirrel , horse          ,      0.882, val  , animals10, ann_2    , horse
+ 823, horse_000823.jpeg    , horse    , horse          ,      0.942, val  , animals10, ann_4    , horse
+ 824, horse_000824.jpeg    , horse    , horse          ,      0.82 , val  , animals10, ann_2    , horse
+ 825, horse_000825.jpeg    , horse    , horse          ,      0.931, val  , animals10, ann_2    , horse
+ 826, horse_000826.jpeg    , horse    , horse          ,      0.842, val  , animals10, ann_3    , horse
+ 827, horse_000827.jpeg    , horse    , horse          ,      0.978, val  , animals10, ann_4    , horse
+ 828, horse_000828.jpeg    , horse    , butterfly      ,      0.593, val  , animals10, ann_1    , horse
+ 829, horse_000829.jpeg    , horse    , cat            ,      0.499, test , animals10, ann_1    , horse
+ 830, horse_000830.jpeg    , horse    , horse          ,      0.941, test , animals10, ann_2    , horse
+ 831, horse_000831.jpeg    , horse    , horse          ,      0.941, test , animals10, ann_2    , horse
+ 832, horse_000832.jpeg    , horse    , horse          ,      0.96 , test , animals10, ann_4    , horse
+ 833, horse_000833.jpeg    , horse    , cow            ,      0.559, test , animals10, ann_4    , horse
+ 834, horse_000834.jpeg    , horse    , horse          ,      0.875, test , animals10, ann_2    , horse
+ 835, horse_000835.jpeg    , horse    , dog            ,      0.524, test , animals10, ann_1    , horse
+ 836, horse_000836.jpeg    , horse    , horse          ,      0.945, test , animals10, ann_1    , horse
+ 837, horse_000837.jpeg    , horse    , horse          ,      0.878, test , animals10, ann_3    , horse
+ 838, horse_000838.jpeg    , horse    , horse          ,      0.899, test , animals10, ann_3    , horse
+ 839, horse_000839.jpeg    , horse    , horse          ,      0.836, test , animals10, ann_3    , horse
+ 840, horse_000840.jpeg    , horse    , horse          ,      0.96 , test , animals10, ann_3    , horse
+ 841, sheep_000841.jpg     , sheep    , dog            ,      0.502, train, animals10, ann_1    , sheep
+ 842, sheep_000842.jpeg    , sheep    , sheep          ,      0.884, train, animals10, ann_1    , sheep
+ 843, sheep_000843.jpeg    , sheep    , sheep          ,      0.826, train, animals10, ann_1    , sheep
+ 844, sheep_000844.jpeg    , sheep    , sheep          ,      0.876, train, animals10, ann_2    , sheep
+ 845, sheep_000845.jpeg    , sheep    , sheep          ,      0.965, train, animals10, ann_1    , sheep
+ 846, sheep_000846.jpg     , sheep    , sheep          ,      0.936, train, animals10, ann_4    , sheep
+ 847, sheep_000847.jpeg    , sheep    , sheep          ,      0.935, train, animals10, ann_3    , sheep
+ 848, sheep_000848.jpeg    , sheep    , sheep          ,      0.929, train, animals10, ann_2    , sheep
+ 849, sheep_000849.jpg     , sheep    , sheep          ,      0.931, train, animals10, ann_4    , sheep
+ 850, sheep_000850.jpg     , sheep    , sheep          ,      0.963, train, animals10, ann_2    , sheep
+ 851, sheep_000851.jpeg    , elephant , sheep          ,      0.931, train, animals10, ann_2    , sheep
+ 852, sheep_000852.jpg     , sheep    , sheep          ,      0.856, train, animals10, ann_4    , sheep
+ 853, sheep_000853.jpeg    , sheep    , sheep          ,      0.826, train, animals10, ann_4    , sheep
+ 854, sheep_000854.jpg     , sheep    , sheep          ,      0.46 , train, animals10, ann_2    , sheep
+ 855, sheep_000855.jpg     , sheep    , sheep          ,      0.974, train, animals10, ann_2    , sheep
+ 856, sheep_000856.jpeg    , sheep    , sheep          ,      0.826, train, animals10, ann_1    , sheep
+ 857, sheep_000857.jpeg    , sheep    , sheep          ,      0.836, train, animals10, ann_2    , sheep
+ 858, sheep_000858.jpeg    , sheep    , sheep          ,      0.91 , train, animals10, ann_2    , sheep
+ 859, sheep_000859.jpeg    , sheep    , sheep          ,      0.899, train, animals10, ann_4    , sheep
+ 860, sheep_000860.jpeg    , sheep    , sheep          ,      0.905, train, animals10, ann_3    , sheep
+ 861, sheep_000861.jpeg    , sheep    , sheep          ,      0.872, train, animals10, ann_3    , sheep
+ 862, sheep_000862.jpeg    , sheep    , sheep          ,      0.975, train, animals10, ann_2    , sheep
+ 863, sheep_000863.jpeg    , sheep    , sheep          ,      0.843, train, animals10, ann_2    , sheep
+ 864, sheep_000864.jpeg    , sheep    , sheep          ,      0.922, train, animals10, ann_3    , sheep
+ 865, sheep_000865.jpeg    , sheep    , sheep          ,      0.91 , train, animals10, ann_2    , sheep
+ 866, sheep_000866.jpeg    , sheep    , sheep          ,      0.93 , train, animals10, ann_2    , sheep
+ 867, sheep_000867.jpeg    , sheep    , sheep          ,      0.885, train, animals10, ann_4    , sheep
+ 868, sheep_000868.jpeg    , sheep    , sheep          ,      0.979, train, animals10, ann_3    , sheep
+ 869, sheep_000869.jpeg    , sheep    , sheep          ,      0.964, train, animals10, ann_2    , sheep
+ 870, sheep_000870.jpeg    , sheep    , sheep          ,      0.936, train, animals10, ann_2    , sheep
+ 871, sheep_000871.jpeg    , sheep    , sheep          ,      0.905, train, animals10, ann_3    , sheep
+ 872, sheep_000872.jpeg    , sheep    , sheep          ,      0.864, train, animals10, ann_2    , sheep
+ 873, sheep_000873.jpeg    , elephant , sheep          ,      0.909, train, animals10, ann_3    , sheep
+ 874, sheep_000874.jpg     , sheep    , sheep          ,      0.872, train, animals10, ann_1    , sheep
+ 875, sheep_000875.jpeg    , sheep    , horse          ,      0.49 , train, animals10, ann_1    , sheep
+ 876, sheep_000876.jpeg    , sheep    , sheep          ,      0.884, train, animals10, ann_4    , sheep
+ 877, sheep_000877.jpeg    , sheep    , sheep          ,      0.87 , train, animals10, ann_3    , sheep
+ 878, sheep_000878.jpeg    , sheep    , elephant       ,      0.508, train, animals10, ann_1    , sheep
+ 879, sheep_000879.jpeg    , sheep    , sheep          ,      0.926, train, animals10, ann_3    , sheep
+ 880, sheep_000880.jpeg    , sheep    , sheep          ,      0.863, train, animals10, ann_1    , sheep
+ 881, sheep_000881.jpeg    , sheep    , sheep          ,      0.875, train, animals10, ann_4    , sheep
+ 882, sheep_000882.jpeg    , sheep    , sheep          ,      0.927, train, animals10, ann_4    , sheep
+ 883, sheep_000883.jpeg    , sheep    , sheep          ,      0.871, train, animals10, ann_4    , sheep
+ 884, sheep_000884.jpeg    , sheep    , sheep          ,      0.896, train, animals10, ann_1    , sheep
+ 885, sheep_000885.jpeg    , sheep    , chicken        ,      0.55 , train, animals10, ann_2    , sheep
+ 886, sheep_000886.jpeg    , sheep    , sheep          ,      0.472, train, animals10, ann_1    , sheep
+ 887, sheep_000887.jpeg    , sheep    , cow            ,      0.581, train, animals10, ann_4    , sheep
+ 888, sheep_000888.jpg     , sheep    , sheep          ,      0.894, train, animals10, ann_4    , sheep
+ 889, sheep_000889.jpeg    , sheep    , sheep          ,      0.904, train, animals10, ann_2    , sheep
+ 890, sheep_000890.jpeg    , sheep    , sheep          ,      0.963, train, animals10, ann_2    , sheep
+ 891, sheep_000891.jpeg    , sheep    , sheep          ,      0.943, train, animals10, ann_2    , sheep
+ 892, sheep_000892.jpeg    , sheep    , sheep          ,      0.942, train, animals10, ann_4    , sheep
+ 893, sheep_000893.jpg     , sheep    , sheep          ,      0.974, train, animals10, ann_4    , sheep
+ 894, sheep_000894.jpeg    , sheep    , sheep          ,      0.858, train, animals10, ann_2    , sheep
+ 895, sheep_000895.jpg     , sheep    , sheep          ,      0.964, train, animals10, ann_3    , sheep
+ 896, sheep_000896.jpeg    , sheep    , sheep          ,      0.921, train, animals10, ann_4    , sheep
+ 897, sheep_000897.jpeg    , sheep    , sheep          ,      0.973, train, animals10, ann_3    , sheep
+ 898, sheep_000898.jpeg    , sheep    , sheep          ,      0.827, train, animals10, ann_1    , sheep
+ 899, sheep_000899.jpeg    , sheep    , sheep          ,      0.824, train, animals10, ann_3    , sheep
+ 900, sheep_000900.jpg     , sheep    , sheep          ,      0.979, train, animals10, ann_4    , sheep
+ 901, sheep_000901.jpeg    , sheep    , sheep          ,      0.821, train, animals10, ann_1    , sheep
+ 902, sheep_000902.jpeg    , horse    , sheep          ,      0.894, train, animals10, ann_3    , sheep
+ 903, sheep_000903.jpeg    , sheep    , sheep          ,      0.89 , train, animals10, ann_4    , sheep
+ 904, sheep_000904.jpeg    , sheep    , sheep          ,      0.892, train, animals10, ann_3    , sheep
+ 905, sheep_000905.jpeg    , sheep    , cow            ,      0.539, train, animals10, ann_3    , sheep
+ 906, sheep_000906.jpg     , sheep    , sheep          ,      0.861, train, animals10, ann_3    , sheep
+ 907, sheep_000907.jpeg    , horse    , sheep          ,      0.87 , train, animals10, ann_2    , sheep
+ 908, sheep_000908.jpg     , sheep    , horse          ,      0.674, train, animals10, ann_4    , sheep
+ 909, sheep_000909.jpeg    , sheep    , sheep          ,      0.891, train, animals10, ann_1    , sheep
+ 910, sheep_000910.jpg     , sheep    , sheep          ,      0.877, train, animals10, ann_4    , sheep
+ 911, sheep_000911.jpg     , sheep    , sheep          ,      0.931, train, animals10, ann_4    , sheep
+ 912, sheep_000912.jpeg    , sheep    , sheep          ,      0.876, train, animals10, ann_2    , sheep
+ 913, sheep_000913.jpeg    , sheep    , sheep          ,      0.928, train, animals10, ann_4    , sheep
+ 914, sheep_000914.jpeg    , sheep    , sheep          ,      0.957, train, animals10, ann_3    , sheep
+ 915, sheep_000915.jpeg    , sheep    , sheep          ,      0.91 , train, animals10, ann_3    , sheep
+ 916, sheep_000916.jpeg    , sheep    , sheep          ,      0.865, train, animals10, ann_4    , sheep
+ 917, sheep_000917.jpeg    , sheep    , sheep          ,      0.941, train, animals10, ann_3    , sheep
+ 918, sheep_000918.jpg     , sheep    , sheep          ,      0.861, train, animals10, ann_1    , sheep
+ 919, sheep_000919.jpeg    , sheep    , sheep          ,      0.839, train, animals10, ann_2    , sheep
+ 920, sheep_000920.jpeg    , sheep    , sheep          ,      0.933, train, animals10, ann_3    , sheep
+ 921, sheep_000921.jpeg    , sheep    , sheep          ,      0.856, train, animals10, ann_3    , sheep
+ 922, sheep_000922.jpeg    , sheep    , sheep          ,      0.904, train, animals10, ann_2    , sheep
+ 923, sheep_000923.jpeg    , sheep    , elephant       ,      0.565, train, animals10, ann_2    , sheep
+ 924, sheep_000924.jpeg    , sheep    , sheep          ,      0.97 , train, animals10, ann_3    , sheep
+ 925, sheep_000925.jpeg    , sheep    , sheep          ,      0.975, train, animals10, ann_4    , sheep
+ 926, sheep_000926.jpeg    , sheep    , sheep          ,      0.838, train, animals10, ann_4    , sheep
+ 927, sheep_000927.jpeg    , sheep    , sheep          ,      0.868, train, animals10, ann_3    , sheep
+ 928, sheep_000928.jpeg    , sheep    , sheep          ,      0.945, train, animals10, ann_3    , sheep
+ 929, sheep_000929.jpeg    , sheep    , sheep          ,      0.841, train, animals10, ann_2    , sheep
+ 930, sheep_000930.jpeg    , butterfly, dog            ,      0.58 , train, animals10, ann_3    , sheep
+ 931, sheep_000931.jpeg    , sheep    , squirrel       ,      0.501, train, animals10, ann_1    , sheep
+ 932, sheep_000932.jpeg    , sheep    , sheep          ,      0.938, train, animals10, ann_3    , sheep
+ 933, sheep_000933.jpg     , sheep    , sheep          ,      0.853, train, animals10, ann_4    , sheep
+ 934, sheep_000934.jpg     , sheep    , sheep          ,      0.877, train, animals10, ann_4    , sheep
+ 935, sheep_000935.jpg     , sheep    , sheep          ,      0.92 , train, animals10, ann_4    , sheep
+ 936, sheep_000936.jpeg    , sheep    , sheep          ,      0.889, train, animals10, ann_1    , sheep
+ 937, sheep_000937.jpeg    , sheep    , sheep          ,      0.971, val  , animals10, ann_3    , sheep
+ 938, sheep_000938.jpeg    , sheep    , sheep          ,      0.85 , val  , animals10, ann_3    , sheep
+ 939, sheep_000939.jpeg    , sheep    , sheep          ,      0.832, val  , animals10, ann_3    , sheep
+ 940, sheep_000940.jpg     , cow      , sheep          ,      0.849, val  , animals10, ann_4    , sheep
+ 941, sheep_000941.jpeg    , sheep    , sheep          ,      0.842, val  , animals10, ann_2    , sheep
+ 942, sheep_000942.jpeg    , sheep    , sheep          ,      0.849, val  , animals10, ann_4    , sheep
+ 943, sheep_000943.jpeg    , sheep    , dog            ,      0.503, val  , animals10, ann_4    , sheep
+ 944, sheep_000944.jpeg    , sheep    , sheep          ,      0.939, val  , animals10, ann_4    , sheep
+ 945, sheep_000945.jpeg    , sheep    , sheep          ,      0.824, val  , animals10, ann_3    , sheep
+ 946, sheep_000946.jpg     , sheep    , sheep          ,      0.911, val  , animals10, ann_3    , sheep
+ 947, sheep_000947.jpeg    , sheep    , sheep          ,      0.828, val  , animals10, ann_1    , sheep
+ 948, sheep_000948.jpeg    , sheep    , sheep          ,      0.89 , val  , animals10, ann_3    , sheep
+ 949, sheep_000949.jpeg    , sheep    , dog            ,      0.493, test , animals10, ann_1    , sheep
+ 950, sheep_000950.jpg     , sheep    , sheep          ,      0.955, test , animals10, ann_1    , sheep
+ 951, sheep_000951.jpeg    , sheep    , sheep          ,      0.906, test , animals10, ann_3    , sheep
+ 952, sheep_000952.jpeg    , sheep    , sheep          ,      0.846, test , animals10, ann_3    , sheep
+ 953, sheep_000953.jpg     , sheep    , sheep          ,      0.874, test , animals10, ann_4    , sheep
+ 954, sheep_000954.jpeg    , sheep    , sheep          ,      0.937, test , animals10, ann_2    , sheep
+ 955, sheep_000955.jpeg    , sheep    , sheep          ,      0.841, test , animals10, ann_2    , sheep
+ 956, sheep_000956.jpg     , sheep    , sheep          ,      0.857, test , animals10, ann_2    , sheep
+ 957, sheep_000957.jpeg    , sheep    , elephant       ,      0.542, test , animals10, ann_1    , sheep
+ 958, sheep_000958.jpg     , sheep    , sheep          ,      0.96 , test , animals10, ann_2    , sheep
+ 959, sheep_000959.jpeg    , sheep    , cow            ,      0.508, test , animals10, ann_4    , sheep
+ 960, sheep_000960.jpeg    , sheep    , sheep          ,      0.937, test , animals10, ann_1    , sheep
+ 961, spider_000961.jpeg   , spider   , spider         ,      0.968, train, animals10, ann_4    , spider
+ 962, spider_000962.jpeg   , spider   , butterfly      ,      0.506, train, animals10, ann_4    , spider
+ 963, spider_000963.jpeg   , spider   , spider         ,      0.977, train, animals10, ann_4    , spider
+ 964, spider_000964.jpg    , spider   , spider         ,      0.971, train, animals10, ann_1    , spider
+ 965, spider_000965.jpeg   , spider   , spider         ,      0.87 , train, animals10, ann_4    , spider
+ 966, spider_000966.jpg    , spider   , spider         ,      0.904, train, animals10, ann_2    , spider
+ 967, spider_000967.jpeg   , spider   , spider         ,      0.911, train, animals10, ann_4    , spider
+ 968, spider_000968.jpeg   , spider   , spider         ,      0.933, train, animals10, ann_1    , spider
+ 969, spider_000969.jpeg   , spider   , spider         ,      0.901, train, animals10, ann_1    , spider
+ 970, spider_000970.jpeg   , spider   , spider         ,      0.87 , train, animals10, ann_3    , spider
+ 971, spider_000971.jpeg   , dog      , spider         ,      0.948, train, animals10, ann_2    , spider
+ 972, spider_000972.jpeg   , spider   , spider         ,      0.96 , train, animals10, ann_3    , spider
+ 973, spider_000973.jpg    , spider   , spider         ,      0.856, train, animals10, ann_3    , spider
+ 974, spider_000974.jpeg   , spider   , cat            ,      0.486, train, animals10, ann_1    , spider
+ 975, spider_000975.jpeg   , spider   , spider         ,      0.873, train, animals10, ann_3    , spider
+ 976, spider_000976.jpeg   , spider   , spider         ,      0.86 , train, animals10, ann_1    , spider
+ 977, spider_000977.jpeg   , spider   , spider         ,      0.892, train, animals10, ann_2    , spider
+ 978, spider_000978.jpeg   , spider   , spider         ,      0.915, train, animals10, ann_3    , spider
+ 979, spider_000979.jpeg   , spider   , spider         ,      0.952, train, animals10, ann_2    , spider
+ 980, spider_000980.jpeg   , spider   , spider         ,      0.939, train, animals10, ann_4    , spider
+ 981, spider_000981.jpeg   , spider   , spider         ,      0.9  , train, animals10, ann_2    , spider
+ 982, spider_000982.jpeg   , spider   , spider         ,      0.892, train, animals10, ann_4    , spider
+ 983, spider_000983.jpeg   , squirrel , spider         ,      0.866, train, animals10, ann_4    , spider
+ 984, spider_000984.jpeg   , spider   , spider         ,      0.832, train, animals10, ann_2    , spider
+ 985, spider_000985.jpeg   , spider   , spider         ,      0.923, train, animals10, ann_4    , spider
+ 986, spider_000986.jpeg   , spider   , spider         ,      0.912, train, animals10, ann_3    , spider
+ 987, spider_000987.jpeg   , spider   , spider         ,      0.872, train, animals10, ann_4    , spider
+ 988, spider_000988.jpeg   , spider   , spider         ,      0.911, train, animals10, ann_4    , spider
+ 989, spider_000989.jpeg   , spider   , spider         ,      0.859, train, animals10, ann_1    , spider
+ 990, spider_000990.jpeg   , spider   , spider         ,      0.891, train, animals10, ann_2    , spider
+ 991, spider_000991.jpeg   , spider   , spider         ,      0.464, train, animals10, ann_2    , spider
+ 992, spider_000992.jpeg   , spider   , spider         ,      0.841, train, animals10, ann_1    , spider
+ 993, spider_000993.jpeg   , spider   , spider         ,      0.871, train, animals10, ann_4    , spider
+ 994, spider_000994.jpeg   , spider   , spider         ,      0.864, train, animals10, ann_4    , spider
+ 995, spider_000995.jpeg   , spider   , spider         ,      0.884, train, animals10, ann_3    , spider
+ 996, spider_000996.jpeg   , spider   , spider         ,      0.899, train, animals10, ann_1    , spider
+ 997, spider_000997.jpeg   , spider   , spider         ,      0.895, train, animals10, ann_3    , spider
+ 998, spider_000998.jpeg   , butterfly, spider         ,      0.891, train, animals10, ann_4    , spider
+ 999, spider_000999.jpeg   , spider   , spider         ,      0.867, train, animals10, ann_1    , spider
+1000, spider_001000.jpeg   , spider   , spider         ,      0.876, train, animals10, ann_3    , spider
+1001, spider_001001.jpeg   , spider   , spider         ,      0.861, train, animals10, ann_3    , spider
+1002, spider_001002.jpeg   , spider   , spider         ,      0.914, train, animals10, ann_4    , spider
+1003, spider_001003.jpeg   , spider   , cow            ,      0.496, train, animals10, ann_4    , spider
+1004, spider_001004.jpeg   , spider   , spider         ,      0.823, train, animals10, ann_2    , spider
+1005, spider_001005.jpeg   , spider   , spider         ,      0.959, train, animals10, ann_1    , spider
+1006, spider_001006.jpeg   , spider   , spider         ,      0.885, train, animals10, ann_1    , spider
+1007, spider_001007.jpeg   , spider   , spider         ,      0.97 , train, animals10, ann_2    , spider
+1008, spider_001008.jpg    , spider   , spider         ,      0.886, train, animals10, ann_2    , spider
+1009, spider_001009.jpeg   , elephant , spider         ,      0.906, train, animals10, ann_2    , spider
+1010, spider_001010.jpeg   , dog      , spider         ,      0.854, train, animals10, ann_1    , spider
+1011, spider_001011.jpeg   , spider   , spider         ,      0.831, train, animals10, ann_4    , spider
+1012, spider_001012.jpeg   , spider   , spider         ,      0.967, train, animals10, ann_4    , spider
+1013, spider_001013.jpeg   , spider   , spider         ,      0.978, train, animals10, ann_3    , spider
+1014, spider_001014.jpeg   , spider   , spider         ,      0.918, train, animals10, ann_1    , spider
+1015, spider_001015.jpeg   , spider   , spider         ,      0.894, train, animals10, ann_3    , spider
+1016, spider_001016.jpeg   , spider   , spider         ,      0.931, train, animals10, ann_3    , spider
+1017, spider_001017.jpeg   , spider   , spider         ,      0.822, train, animals10, ann_3    , spider
+1018, spider_001018.jpeg   , spider   , spider         ,      0.856, train, animals10, ann_3    , spider
+1019, spider_001019.jpeg   , spider   , spider         ,      0.914, train, animals10, ann_1    , spider
+1020, spider_001020.jpeg   , spider   , spider         ,      0.82 , train, animals10, ann_3    , spider
+1021, spider_001021.jpeg   , spider   , spider         ,      0.949, train, animals10, ann_1    , spider
+1022, spider_001022.jpeg   , spider   , spider         ,      0.877, train, animals10, ann_2    , spider
+1023, spider_001023.jpeg   , spider   , spider         ,      0.955, train, animals10, ann_1    , spider
+1024, spider_001024.jpeg   , spider   , spider         ,      0.845, train, animals10, ann_2    , spider
+1025, spider_001025.jpeg   , spider   , spider         ,      0.926, train, animals10, ann_4    , spider
+1026, spider_001026.jpg    , spider   , spider         ,      0.878, train, animals10, ann_3    , spider
+1027, spider_001027.jpeg   , spider   , dog            ,      0.465, train, animals10, ann_4    , spider
+1028, spider_001028.jpeg   , spider   , spider         ,      0.93 , train, animals10, ann_2    , spider
+1029, spider_001029.jpeg   , spider   , spider         ,      0.941, train, animals10, ann_2    , spider
+1030, spider_001030.jpeg   , spider   , spider         ,      0.923, train, animals10, ann_4    , spider
+1031, spider_001031.jpeg   , spider   , spider         ,      0.864, train, animals10, ann_4    , spider
+1032, spider_001032.jpg    , spider   , spider         ,      0.855, train, animals10, ann_4    , spider
+1033, spider_001033.jpeg   , elephant , spider         ,      0.88 , train, animals10, ann_3    , spider
+1034, spider_001034.jpeg   , spider   , spider         ,      0.897, train, animals10, ann_2    , spider
+1035, spider_001035.jpeg   , spider   , spider         ,      0.851, train, animals10, ann_1    , spider
+1036, spider_001036.jpeg   , spider   , spider         ,      0.914, train, animals10, ann_1    , spider
+1037, spider_001037.jpeg   , spider   , spider         ,      0.905, train, animals10, ann_1    , spider
+1038, spider_001038.jpeg   , spider   , spider         ,      0.867, train, animals10, ann_2    , spider
+1039, spider_001039.jpeg   , spider   , spider         ,      0.951, train, animals10, ann_3    , spider
+1040, spider_001040.jpeg   , spider   , spider         ,      0.954, train, animals10, ann_4    , spider
+1041, spider_001041.jpeg   , spider   , spider         ,      0.894, train, animals10, ann_2    , spider
+1042, spider_001042.jpeg   , spider   , spider         ,      0.892, train, animals10, ann_1    , spider
+1043, spider_001043.jpeg   , spider   , spider         ,      0.856, train, animals10, ann_1    , spider
+1044, spider_001044.jpg    , horse    , spider         ,      0.864, train, animals10, ann_4    , spider
+1045, spider_001045.jpeg   , squirrel , spider         ,      0.895, train, animals10, ann_4    , spider
+1046, spider_001046.jpeg   , spider   , spider         ,      0.831, train, animals10, ann_4    , spider
+1047, spider_001047.jpeg   , spider   , spider         ,      0.852, train, animals10, ann_1    , spider
+1048, spider_001048.jpeg   , spider   , spider         ,      0.907, train, animals10, ann_1    , spider
+1049, spider_001049.jpeg   , spider   , spider         ,      0.894, train, animals10, ann_1    , spider
+1050, spider_001050.jpeg   , spider   , sheep          ,      0.589, train, animals10, ann_3    , spider
+1051, spider_001051.jpeg   , spider   , spider         ,      0.942, train, animals10, ann_4    , spider
+1052, spider_001052.jpeg   , spider   , spider         ,      0.854, train, animals10, ann_3    , spider
+1053, spider_001053.jpeg   , spider   , spider         ,      0.853, train, animals10, ann_1    , spider
+1054, spider_001054.jpeg   , spider   , spider         ,      0.93 , train, animals10, ann_4    , spider
+1055, spider_001055.jpeg   , spider   , spider         ,      0.884, train, animals10, ann_1    , spider
+1056, spider_001056.jpeg   , spider   , spider         ,      0.946, train, animals10, ann_1    , spider
+1057, spider_001057.jpeg   , spider   , spider         ,      0.834, val  , animals10, ann_1    , spider
+1058, spider_001058.jpeg   , spider   , spider         ,      0.946, val  , animals10, ann_4    , spider
+1059, spider_001059.jpeg   , spider   , spider         ,      0.836, val  , animals10, ann_2    , spider
+1060, spider_001060.jpeg   , spider   , sheep          ,      0.452, val  , animals10, ann_4    , spider
+1061, spider_001061.jpeg   , spider   , spider         ,      0.975, val  , animals10, ann_1    , spider
+1062, spider_001062.jpeg   , spider   , squirrel       ,      0.48 , val  , animals10, ann_4    , spider
+1063, spider_001063.jpeg   , spider   , spider         ,      0.843, val  , animals10, ann_2    , spider
+1064, spider_001064.jpeg   , spider   , spider         ,      0.902, val  , animals10, ann_4    , spider
+1065, spider_001065.jpeg   , spider   , spider         ,      0.893, val  , animals10, ann_1    , spider
+1066, spider_001066.jpeg   , spider   , spider         ,      0.887, val  , animals10, ann_3    , spider
+1067, spider_001067.jpeg   , spider   , spider         ,      0.958, val  , animals10, ann_2    , spider
+1068, spider_001068.jpeg   , spider   , spider         ,      0.877, val  , animals10, ann_4    , spider
+1069, spider_001069.jpeg   , spider   , sheep          ,      0.552, test , animals10, ann_1    , spider
+1070, spider_001070.jpeg   , spider   , spider         ,      0.954, test , animals10, ann_2    , spider
+1071, spider_001071.jpeg   , spider   , elephant       ,      0.528, test , animals10, ann_1    , spider
+1072, spider_001072.jpeg   , spider   , spider         ,      0.943, test , animals10, ann_4    , spider
+1073, spider_001073.jpeg   , spider   , spider         ,      0.825, test , animals10, ann_2    , spider
+1074, spider_001074.jpeg   , spider   , spider         ,      0.904, test , animals10, ann_2    , spider
+1075, spider_001075.jpeg   , spider   , spider         ,      0.934, test , animals10, ann_3    , spider
+1076, spider_001076.jpeg   , spider   , spider         ,      0.87 , test , animals10, ann_2    , spider
+1077, spider_001077.jpeg   , spider   , cat            ,      0.522, test , animals10, ann_3    , spider
+1078, spider_001078.jpeg   , spider   , spider         ,      0.972, test , animals10, ann_1    , spider
+1079, spider_001079.jpeg   , spider   , spider         ,      0.97 , test , animals10, ann_3    , spider
+1080, spider_001080.jpeg   , spider   , spider         ,      0.852, test , animals10, ann_4    , spider
+1081, squirrel_001081.jpeg , squirrel , squirrel       ,      0.975, train, animals10, ann_1    , squirrel
+1082, squirrel_001082.jpeg , squirrel , squirrel       ,      0.867, train, animals10, ann_1    , squirrel
+1083, squirrel_001083.jpeg , squirrel , squirrel       ,      0.905, train, animals10, ann_1    , squirrel
+1084, squirrel_001084.jpeg , squirrel , spider         ,      0.619, train, animals10, ann_1    , squirrel
+1085, squirrel_001085.jpeg , squirrel , squirrel       ,      0.83 , train, animals10, ann_1    , squirrel
+1086, squirrel_001086.jpeg , squirrel , horse          ,      0.539, train, animals10, ann_3    , squirrel
+1087, squirrel_001087.jpeg , squirrel , squirrel       ,      0.873, train, animals10, ann_1    , squirrel
+1088, squirrel_001088.jpeg , squirrel , squirrel       ,      0.896, train, animals10, ann_4    , squirrel
+1089, squirrel_001089.jpeg , squirrel , squirrel       ,      0.852, train, animals10, ann_1    , squirrel
+1090, squirrel_001090.jpeg , squirrel , squirrel       ,      0.969, train, animals10, ann_4    , squirrel
+1091, squirrel_001091.jpeg , squirrel , sheep          ,      0.576, train, animals10, ann_1    , squirrel
+1092, squirrel_001092.jpeg , squirrel , squirrel       ,      0.826, train, animals10, ann_4    , squirrel
+1093, squirrel_001093.jpeg , squirrel , squirrel       ,      0.885, train, animals10, ann_2    , squirrel
+1094, squirrel_001094.jpeg , squirrel , cat            ,      0.475, train, animals10, ann_4    , squirrel
+1095, squirrel_001095.jpeg , squirrel , squirrel       ,      0.976, train, animals10, ann_1    , squirrel
+1096, squirrel_001096.jpeg , squirrel , squirrel       ,      0.952, train, animals10, ann_4    , squirrel
+1097, squirrel_001097.jpeg , squirrel , squirrel       ,      0.934, train, animals10, ann_2    , squirrel
+1098, squirrel_001098.jpeg , squirrel , squirrel       ,      0.831, train, animals10, ann_1    , squirrel
+1099, squirrel_001099.jpeg , squirrel , squirrel       ,      0.873, train, animals10, ann_2    , squirrel
+1100, squirrel_001100.jpeg , squirrel , squirrel       ,      0.923, train, animals10, ann_1    , squirrel
+1101, squirrel_001101.jpeg , squirrel , squirrel       ,      0.89 , train, animals10, ann_2    , squirrel
+1102, squirrel_001102.jpeg , squirrel , squirrel       ,      0.972, train, animals10, ann_2    , squirrel
+1103, squirrel_001103.jpeg , squirrel , squirrel       ,      0.942, train, animals10, ann_2    , squirrel
+1104, squirrel_001104.jpeg , squirrel , squirrel       ,      0.926, train, animals10, ann_1    , squirrel
+1105, squirrel_001105.jpeg , squirrel , squirrel       ,      0.897, train, animals10, ann_1    , squirrel
+1106, squirrel_001106.jpeg , squirrel , squirrel       ,      0.95 , train, animals10, ann_4    , squirrel
+1107, squirrel_001107.jpeg , squirrel , squirrel       ,      0.959, train, animals10, ann_1    , squirrel
+1108, squirrel_001108.jpeg , squirrel , squirrel       ,      0.821, train, animals10, ann_3    , squirrel
+1109, squirrel_001109.jpeg , squirrel , squirrel       ,      0.894, train, animals10, ann_4    , squirrel
+1110, squirrel_001110.jpeg , squirrel , squirrel       ,      0.91 , train, animals10, ann_2    , squirrel
+1111, squirrel_001111.jpeg , squirrel , elephant       ,      0.637, train, animals10, ann_1    , squirrel
+1112, squirrel_001112.jpeg , squirrel , squirrel       ,      0.903, train, animals10, ann_3    , squirrel
+1113, squirrel_001113.jpeg , squirrel , squirrel       ,      0.821, train, animals10, ann_4    , squirrel
+1114, squirrel_001114.jpeg , squirrel , squirrel       ,      0.821, train, animals10, ann_4    , squirrel
+1115, squirrel_001115.jpeg , squirrel , squirrel       ,      0.821, train, animals10, ann_4    , squirrel
+1116, squirrel_001116.jpeg , squirrel , squirrel       ,      0.958, train, animals10, ann_2    , squirrel
+1117, squirrel_001117.jpeg , squirrel , squirrel       ,      0.895, train, animals10, ann_1    , squirrel
+1118, squirrel_001118.jpeg , squirrel , squirrel       ,      0.867, train, animals10, ann_3    , squirrel
+1119, squirrel_001119.jpeg , squirrel , squirrel       ,      0.924, train, animals10, ann_4    , squirrel
+1120, squirrel_001120.jpeg , squirrel , squirrel       ,      0.83 , train, animals10, ann_4    , squirrel
+1121, squirrel_001121.jpeg , squirrel , squirrel       ,      0.828, train, animals10, ann_2    , squirrel
+1122, squirrel_001122.jpeg , squirrel , squirrel       ,      0.851, train, animals10, ann_3    , squirrel
+1123, squirrel_001123.jpeg , squirrel , squirrel       ,      0.974, train, animals10, ann_3    , squirrel
+1124, squirrel_001124.jpeg , squirrel , squirrel       ,      0.951, train, animals10, ann_4    , squirrel
+1125, squirrel_001125.jpeg , squirrel , squirrel       ,      0.642, train, animals10, ann_4    , squirrel
+1126, squirrel_001126.jpeg , squirrel , squirrel       ,      0.913, train, animals10, ann_4    , squirrel
+1127, squirrel_001127.jpeg , squirrel , squirrel       ,      0.918, train, animals10, ann_3    , squirrel
+1128, squirrel_001128.jpeg , squirrel , squirrel       ,      0.893, train, animals10, ann_3    , squirrel
+1129, squirrel_001129.jpeg , horse    , squirrel       ,      0.858, train, animals10, ann_3    , squirrel
+1130, squirrel_001130.jpeg , squirrel , squirrel       ,      0.614, train, animals10, ann_2    , squirrel
+1131, squirrel_001131.jpeg , squirrel , squirrel       ,      0.865, train, animals10, ann_2    , squirrel
+1132, squirrel_001132.jpeg , squirrel , squirrel       ,      0.934, train, animals10, ann_2    , squirrel
+1133, squirrel_001133.jpeg , squirrel , squirrel       ,      0.973, train, animals10, ann_2    , squirrel
+1134, squirrel_001134.jpeg , squirrel , cat            ,      0.625, train, animals10, ann_2    , squirrel
+1135, squirrel_001135.jpeg , squirrel , squirrel       ,      0.893, train, animals10, ann_3    , squirrel
+1136, squirrel_001136.jpeg , squirrel , squirrel       ,      0.859, train, animals10, ann_1    , squirrel
+1137, squirrel_001137.jpeg , squirrel , squirrel       ,      0.946, train, animals10, ann_1    , squirrel
+1138, squirrel_001138.jpeg , squirrel , squirrel       ,      0.826, train, animals10, ann_1    , squirrel
+1139, squirrel_001139.jpeg , horse    , squirrel       ,      0.966, train, animals10, ann_4    , squirrel
+1140, squirrel_001140.jpeg , spider   , horse          ,      0.53 , train, animals10, ann_2    , squirrel
+1141, squirrel_001141.jpeg , squirrel , squirrel       ,      0.966, train, animals10, ann_4    , squirrel
+1142, squirrel_001142.jpeg , squirrel , squirrel       ,      0.853, train, animals10, ann_3    , squirrel
+1143, squirrel_001143.jpeg , squirrel , squirrel       ,      0.853, train, animals10, ann_4    , squirrel
+1144, squirrel_001144.jpeg , squirrel , squirrel       ,      0.837, train, animals10, ann_4    , squirrel
+1145, squirrel_001145.jpeg , squirrel , dog            ,      0.538, train, animals10, ann_4    , squirrel
+1146, squirrel_001146.jpeg , squirrel , squirrel       ,      0.865, train, animals10, ann_2    , squirrel
+1147, squirrel_001147.jpeg , squirrel , cow            ,      0.471, train, animals10, ann_4    , squirrel
+1148, squirrel_001148.jpeg , squirrel , squirrel       ,      0.885, train, animals10, ann_3    , squirrel
+1149, squirrel_001149.jpeg , squirrel , squirrel       ,      0.87 , train, animals10, ann_3    , squirrel
+1150, squirrel_001150.jpeg , squirrel , squirrel       ,      0.964, train, animals10, ann_4    , squirrel
+1151, squirrel_001151.jpeg , squirrel , squirrel       ,      0.826, train, animals10, ann_1    , squirrel
+1152, squirrel_001152.jpeg , squirrel , squirrel       ,      0.925, train, animals10, ann_1    , squirrel
+1153, squirrel_001153.jpeg , squirrel , squirrel       ,      0.834, train, animals10, ann_4    , squirrel
+1154, squirrel_001154.jpeg , squirrel , squirrel       ,      0.914, train, animals10, ann_3    , squirrel
+1155, squirrel_001155.jpeg , squirrel , squirrel       ,      0.899, train, animals10, ann_1    , squirrel
+1156, squirrel_001156.jpeg , squirrel , squirrel       ,      0.937, train, animals10, ann_2    , squirrel
+1157, squirrel_001157.jpeg , squirrel , squirrel       ,      0.887, train, animals10, ann_2    , squirrel
+1158, squirrel_001158.jpeg , squirrel , squirrel       ,      0.953, train, animals10, ann_2    , squirrel
+1159, squirrel_001159.jpeg , squirrel , butterfly      ,      0.463, train, animals10, ann_1    , squirrel
+1160, squirrel_001160.jpeg , squirrel , squirrel       ,      0.915, train, animals10, ann_2    , squirrel
+1161, squirrel_001161.jpeg , squirrel , squirrel       ,      0.838, train, animals10, ann_1    , squirrel
+1162, squirrel_001162.jpeg , squirrel , squirrel       ,      0.952, train, animals10, ann_1    , squirrel
+1163, squirrel_001163.jpeg , squirrel , squirrel       ,      0.972, train, animals10, ann_3    , squirrel
+1164, squirrel_001164.jpeg , squirrel , squirrel       ,      0.874, train, animals10, ann_2    , squirrel
+1165, squirrel_001165.jpeg , squirrel , cow            ,      0.461, train, animals10, ann_3    , squirrel
+1166, squirrel_001166.jpeg , squirrel , squirrel       ,      0.887, train, animals10, ann_1    , squirrel
+1167, squirrel_001167.jpeg , squirrel , squirrel       ,      0.847, train, animals10, ann_1    , squirrel
+1168, squirrel_001168.jpeg , squirrel , squirrel       ,      0.842, train, animals10, ann_2    , squirrel
+1169, squirrel_001169.jpeg , squirrel , squirrel       ,      0.831, train, animals10, ann_3    , squirrel
+1170, squirrel_001170.jpeg , squirrel , squirrel       ,      0.977, train, animals10, ann_4    , squirrel
+1171, squirrel_001171.jpeg , squirrel , squirrel       ,      0.966, train, animals10, ann_2    , squirrel
+1172, squirrel_001172.jpeg , squirrel , squirrel       ,      0.98 , train, animals10, ann_1    , squirrel
+1173, squirrel_001173.jpeg , squirrel , squirrel       ,      0.972, train, animals10, ann_2    , squirrel
+1174, squirrel_001174.jpeg , horse    , squirrel       ,      0.852, train, animals10, ann_4    , squirrel
+1175, squirrel_001175.jpeg , squirrel , squirrel       ,      0.842, train, animals10, ann_1    , squirrel
+1176, squirrel_001176.jpeg , squirrel , squirrel       ,      0.888, train, animals10, ann_2    , squirrel
+1177, squirrel_001177.jpeg , squirrel , squirrel       ,      0.958, val  , animals10, ann_1    , squirrel
+1178, squirrel_001178.jpeg , squirrel , sheep          ,      0.548, val  , animals10, ann_1    , squirrel
+1179, squirrel_001179.jpeg , squirrel , squirrel       ,      0.959, val  , animals10, ann_2    , squirrel
+1180, squirrel_001180.jpeg , squirrel , squirrel       ,      0.973, val  , animals10, ann_4    , squirrel
+1181, squirrel_001181.jpeg , squirrel , squirrel       ,      0.904, val  , animals10, ann_3    , squirrel
+1182, squirrel_001182.jpeg , horse    , squirrel       ,      0.945, val  , animals10, ann_2    , squirrel
+1183, squirrel_001183.jpeg , squirrel , squirrel       ,      0.915, val  , animals10, ann_2    , squirrel
+1184, squirrel_001184.jpeg , squirrel , squirrel       ,      0.902, val  , animals10, ann_1    , squirrel
+1185, squirrel_001185.jpeg , squirrel , squirrel       ,      0.892, val  , animals10, ann_4    , squirrel
+1186, squirrel_001186.jpeg , squirrel , squirrel       ,      0.951, val  , animals10, ann_2    , squirrel
+1187, squirrel_001187.jpeg , squirrel , squirrel       ,      0.916, val  , animals10, ann_1    , squirrel
+1188, squirrel_001188.jpeg , squirrel , squirrel       ,      0.859, val  , animals10, ann_3    , squirrel
+1189, squirrel_001189.jpeg , squirrel , squirrel       ,      0.837, test , animals10, ann_3    , squirrel
+1190, squirrel_001190.jpeg , squirrel , squirrel       ,      0.896, test , animals10, ann_4    , squirrel
+1191, squirrel_001191.jpeg , squirrel , squirrel       ,      0.872, test , animals10, ann_4    , squirrel
+1192, squirrel_001192.jpeg , squirrel , squirrel       ,      0.824, test , animals10, ann_2    , squirrel
+1193, squirrel_001193.jpeg , squirrel , squirrel       ,      0.879, test , animals10, ann_1    , squirrel
+1194, squirrel_001194.jpeg , squirrel , squirrel       ,      0.968, test , animals10, ann_3    , squirrel
+1195, squirrel_001195.jpeg , squirrel , squirrel       ,      0.891, test , animals10, ann_4    , squirrel
+1196, squirrel_001196.jpeg , squirrel , squirrel       ,      0.908, test , animals10, ann_2    , squirrel
+1197, squirrel_001197.jpeg , squirrel , squirrel       ,      0.973, test , animals10, ann_2    , squirrel
+1198, squirrel_001198.jpeg , squirrel , squirrel       ,      0.972, test , animals10, ann_3    , squirrel
+1199, squirrel_001199.jpeg , squirrel , squirrel       ,      0.876, test , animals10, ann_1    , squirrel
+1200, squirrel_001200.jpeg , squirrel , squirrel       ,      0.891, test , animals10, ann_1    , squirrel
