@@ -5,9 +5,9 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 # Теперь импорты сработают идеально
-from src.ml_service.io.load_dataset import load_dataset
-from src.ml_service.io.validate_files import validate_images
-from src.ml_service.features.probabilities import prepare_probabilities_and_confidence
+from ml_service.io.load_dataset import load_dataset
+from ml_service.validators.files import validate_images
+from ml_service.features.probabilities import prepare_probabilities_and_confidence
 
 def main():
     # Пути к данным (относительно папки ml-service)
