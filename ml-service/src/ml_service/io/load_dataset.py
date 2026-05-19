@@ -18,7 +18,7 @@ def load_dataset(dataset_path: str | Path) -> pd.DataFrame:
     # Пробегаемся по всем колонкам, и если там текст (object), убираем скрытые пробелы
     for col in df.columns:
         if df[col].dtype == 'object': 
-            df[col] = df[col].astype(str).str.strip()
+            df[col] = df[col].str.strip()
             
     # Приводим id к строке для стабильности бэкенда
     df['id'] = df['id'].astype(str)
