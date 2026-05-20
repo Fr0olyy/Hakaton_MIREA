@@ -4,10 +4,16 @@ from pathlib import Path
 # Добавляем корень папки ml-service в пути поиска Python, чтобы он увидел папку src
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-# Теперь импорты сработают идеально
+
 from ml_service.io.load_dataset import load_dataset
 from ml_service.validators.files import validate_images
 from ml_service.features.probabilities import prepare_probabilities_and_confidence
+
+#импорты метрик
+from ml_service.metrics.uncertainty import uncertainty_metrics
+from ml_service.metrics.distribution import distribution_metrics
+from ml_service.metrics.entropy import entropy_metrics
+
 
 def main():
     # Пути к данным (относительно папки ml-service)
@@ -22,6 +28,12 @@ def main():
 
     print("3. Подготовка вероятностей классов...")
     df, prob_cols = prepare_probabilities_and_confidence(df)
+    
+    print('4. Расчет метрик')
+    df = uncertainty_metrics(df)
+    df = entropy_metrics(df, prob_cols)
+    df = distribution_metrics(df)
+    
 
     print("\nПайплайн работает! Вот первые 5 строк результата:")
     columns_to_show = ['id', 'file_path', 'file_exists', 'confidence'] + prob_cols[:2]
