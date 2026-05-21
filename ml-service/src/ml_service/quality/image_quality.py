@@ -22,7 +22,7 @@ def analyze_single_image_quality(image_path: str | Path) -> dict:
     try:
         with Image.open(image_path) as img:
             img = img.convert("RGB")
-            width, height = img.size()
+            width, height = img.size
             image_np = np.array(img)
 
     except Exception:
