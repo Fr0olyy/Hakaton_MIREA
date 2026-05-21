@@ -1,4 +1,5 @@
 from pathlib import Path
+import numpy as np
 
 from ml_service.io.load_dataset import load_dataset
 from ml_service.io.export_results import export_results_csv
@@ -165,6 +166,10 @@ def run_pipeline(
             "roadmap": roadmap,
         },
     }
+
+    if 'quality_reasons' in df.columns:
+            df['quality_reasons'] = df['quality_reasons'].replace(r'^\s*$', np.nan, regex=True)
+            df['quality_reasons'] = df['quality_reasons'].fillna("ok")
 
     print("\nПайплайн успешно завершён.")
     print(f"Objects: {len(df)}")
