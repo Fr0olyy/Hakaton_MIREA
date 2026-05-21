@@ -1,37 +1,84 @@
-import sys
 from pathlib import Path
 
-# Добавляем корень папки ml-service в пути поиска Python, чтобы он увидел папку src
-sys.path.append(str(Path(__file__).resolve().parent.parent))
-
-
 from ml_service.io.load_dataset import load_dataset
+from ml_service.io.export_results import export_results_csv
+
 from ml_service.validators.files import validate_images
+
 from ml_service.features.probabilities import prepare_probabilities_and_confidence
 
-#импорты метрик
 from ml_service.metrics.uncertainty import uncertainty_metrics
-from ml_service.metrics.distribution import distribution_metrics
 from ml_service.metrics.entropy import entropy_metrics
+from ml_service.metrics.distribution import distribution_metrics
+from ml_service.metrics.label_error import compute_label_error_probability
+from ml_service.metrics.scoring import compute_object_utility_score
+from ml_service.metrics.readiness import compute_dataset_readiness_score
+
+from ml_service.quality.image_quality import compute_image_quality
+from ml_service.duplicates.phash_duplicates import compute_phash_duplicates
+
+from ml_service.curation.status import assign_object_status
+from ml_service.curation.reasons import generate_object_reasons
+from ml_service.curation.recommendation import generate_object_recommendations
+
+from ml_service.curation.review_queue import (
+    build_review_queue,
+    export_review_queue_csv,
+)
+
+from ml_service.curation.recommendations import (
+    build_recommendations,
+    export_recommendations_json,
+)
+
+from ml_service.curation.roadmap import (
+    build_roadmap,
+    export_roadmap_json,
+)
+
+from ml_service.curation.dataset_v2 import (
+    build_dataset_v2,
+    export_dataset_v2_csv,
+)
+
+from ml_service.curation.dataset_report import (
+    build_dataset_report,
+    export_dataset_report_json,
+)
+
+from ml_service.agent.build_context import (
+    build_agent_context,
+    export_agent_context_json,
+)
 
 
-def main():
-    # Пути к данным (относительно папки ml-service)
-    csv_path = Path("data/demo/dataset.csv")
-    images_dir = Path("data/demo/images")
+def run_pipeline(
+    dataset_path: str | Path,
+    images_dir: str | Path,
+    output_dir: str | Path,
+) -> dict:
+    dataset_path = Path(dataset_path)
+    images_dir = Path(images_dir)
+    output_dir = Path(output_dir)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     print("1. Загрузка и очистка датасета...")
-    df = load_dataset(csv_path)
+    df = load_dataset(dataset_path)
 
     print("2. Проверка файлов изображений...")
     df = validate_images(df, images_dir)
 
     print("3. Подготовка вероятностей классов...")
     df, prob_cols = prepare_probabilities_and_confidence(df)
-    
-    print('4. Расчет метрик')
+
+    print("4. Расчёт uncertainty...")
     df = uncertainty_metrics(df)
+
+    print("5. Расчёт entropy...")
     df = entropy_metrics(df, prob_cols)
+
+    print("6. Расчёт распределения классов и class_deficit_score...")
     df = distribution_metrics(df)
     
     if 'quality_reasons' in df.columns:
