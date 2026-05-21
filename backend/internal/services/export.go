@@ -89,7 +89,7 @@ func (s *Service) Export(ctx context.Context, projectID uuid.UUID) (models.Expor
 	}
 	usedImageNames := map[string]struct{}{}
 	for _, object := range objects {
-		if object.Status == statusMissingFile || object.Status == statusInvalid || object.FilePath == "" {
+		if !shouldExportObject(object) || object.FilePath == "" {
 			continue
 		}
 		path, err := s.storage.SafeImagePath(projectID, object.FilePath)
@@ -155,7 +155,7 @@ func writeDatasetCSV(path string, objects []models.DataObject, metrics map[uuid.
 		return err
 	}
 	for _, object := range objects {
-		if object.Status == statusMissingFile || object.Status == statusInvalid {
+		if !shouldExportObject(object) {
 			continue
 		}
 		metric := metrics[object.ID]
@@ -275,12 +275,21 @@ func reviewQueueFrom(objects []models.DataObject, metrics []models.ObjectMetric)
 	}
 	queue := make([]ReviewQueueItem, 0, len(metrics))
 	for _, metric := range metrics {
-		if object, ok := byID[metric.ObjectID]; ok && metric.FinalScore >= reviewThreshold {
+		if object, ok := byID[metric.ObjectID]; ok && shouldReviewItem(object, metric) {
 			queue = append(queue, ReviewQueueItem{Object: object, Metric: metric})
 		}
 	}
 	sortReviewQueue(queue)
 	return queue
+}
+
+func shouldExportObject(object models.DataObject) bool {
+	switch object.Status {
+	case statusMissingFile, statusInvalid, "duplicate", "bad_quality", "suspected_label_error", "exclude_candidate":
+		return false
+	default:
+		return true
+	}
 }
 
 func metricsByObjectID(metrics []models.ObjectMetric) map[uuid.UUID]models.ObjectMetric {

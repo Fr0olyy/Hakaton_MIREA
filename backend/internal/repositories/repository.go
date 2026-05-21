@@ -204,7 +204,7 @@ func (r *Repository) CreateAnalysisJob(ctx context.Context, job models.AnalysisJ
 	return job, err
 }
 
-func (r *Repository) FinishAnalysis(ctx context.Context, jobID uuid.UUID, readiness float64, metrics []models.ObjectMetric, recommendations []models.Recommendation, roadmap []models.RoadmapItem) error {
+func (r *Repository) FinishAnalysis(ctx context.Context, jobID uuid.UUID, readiness float64, metrics []models.ObjectMetric, recommendations []models.Recommendation, roadmap []models.RoadmapItem, objectStatuses map[uuid.UUID]string) error {
 	tx, err := r.db.Begin(ctx)
 	if err != nil {
 		return err
@@ -215,6 +215,20 @@ func (r *Repository) FinishAnalysis(ctx context.Context, jobID uuid.UUID, readin
 	err = tx.QueryRow(ctx, `SELECT dataset_version_id FROM analysis_jobs WHERE id = $1`, jobID).Scan(&datasetVersionID)
 	if err != nil {
 		return err
+	}
+
+	for objectID, status := range objectStatuses {
+		if status == "" {
+			continue
+		}
+		_, err = tx.Exec(ctx, `
+			UPDATE data_objects
+			SET status = $1
+			WHERE dataset_version_id = $2 AND id = $3
+		`, status, datasetVersionID, objectID)
+		if err != nil {
+			return err
+		}
 	}
 
 	_, err = tx.Exec(ctx, `DELETE FROM object_metrics WHERE object_id IN (SELECT id FROM data_objects WHERE dataset_version_id = $1)`, datasetVersionID)

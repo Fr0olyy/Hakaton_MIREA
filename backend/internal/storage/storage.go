@@ -44,6 +44,10 @@ func (s *Storage) ImagesDir(projectID uuid.UUID) string {
 	return filepath.Join(s.RawDir(projectID), "images")
 }
 
+func (s *Storage) DatasetPath(projectID uuid.UUID) string {
+	return filepath.Join(s.RawDir(projectID), "dataset.csv")
+}
+
 func (s *Storage) AnalysisDir(projectID uuid.UUID) string {
 	return filepath.Join(s.ProjectDir(projectID), "analysis")
 }

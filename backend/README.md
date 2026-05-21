@@ -1,18 +1,18 @@
 # Backend Go Level 1
 
-Go backend for the DataForge AI Level 1 MVP. It supports image classification dataset projects, CSV and ZIP upload, local deterministic analysis, dashboard APIs, review queue, recommendations, roadmap, object image serving, and curated ZIP export.
+Go backend for the DataForge AI Level 1 MVP. It supports image classification dataset projects, CSV and ZIP upload, ML-service analysis, dashboard APIs, review queue, recommendations, roadmap, object image serving, and curated ZIP export.
 
-The backend is self-contained for demos: if no ML service exists, `POST /api/projects/{id}/analyze` computes the required metrics locally and marks the analysis source as `backend_local`.
+The backend calls the bundled ML service first. `POST /api/projects/{id}/analyze` sends the uploaded `dataset.csv`, extracted images directory, and an analysis output directory to `ML_SERVICE_URL` (`http://ml-service:8000` in Docker). If the ML service is unavailable, the backend falls back to deterministic local analysis and marks the analysis source as `backend_local`; successful ML runs are marked as `ml_service`.
 
 ## Quick Start
 
 From the repository root:
 
 ```bash
-docker compose up --build
+docker compose -f backend/docker-compose.yml up --build
 ```
 
-The API will be available at `http://localhost:8080`.
+The API will be available at `http://localhost:8080`; the ML service will be available at `http://localhost:8000`.
 
 For local development:
 
@@ -27,7 +27,7 @@ The backend expects PostgreSQL at `DATABASE_URL`. Migrations run automatically o
 ## Level 1 Scope
 
 - Only `modality=image` and `task_type=classification` are accepted.
-- No frontend, auth, MinIO, or required ML service is included in this backend pass.
+- No frontend, auth, or MinIO is included in this backend pass.
 - Storage is local under `STORAGE_DIR/projects/{project_id}`.
 
 ## CSV Format

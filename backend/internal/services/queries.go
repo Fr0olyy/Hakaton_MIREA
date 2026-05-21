@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 	"sort"
+	"strings"
 
 	"hakaton/backend/internal/models"
 
@@ -83,7 +84,7 @@ func (s *Service) ReviewQueue(ctx context.Context, projectID uuid.UUID) ([]Revie
 	}
 	queue := make([]ReviewQueueItem, 0, len(metrics))
 	for _, metric := range metrics {
-		if object, ok := byID[metric.ObjectID]; ok && metric.FinalScore >= reviewThreshold {
+		if object, ok := byID[metric.ObjectID]; ok && shouldReviewItem(object, metric) {
 			queue = append(queue, ReviewQueueItem{Object: object, Metric: metric})
 		}
 	}
@@ -172,7 +173,7 @@ func summarizeDataset(project models.Project, objects []models.DataObject, metri
 	counts, labeledTotal := labelCounts(objects, classes)
 	source := ""
 	if len(metrics) > 0 {
-		source = analysisSourceBackendLocal
+		source = analysisSourceFromMetrics(metrics)
 	}
 	return datasetSummary{
 		ClassDistribution:        classDistribution(counts, classes, labeledTotal),
@@ -180,7 +181,7 @@ func summarizeDataset(project models.Project, objects []models.DataObject, metri
 		AvgEntropy:               averageMetric(metrics, func(metric models.ObjectMetric) float64 { return metric.Entropy }),
 		AvgLabelErrorProbability: averageMetric(metrics, func(metric models.ObjectMetric) float64 { return metric.LabelErrorProbability }),
 		MissingFilesCount:        countObjects(objects, func(object models.DataObject) bool { return object.Status == statusMissingFile }),
-		ReviewItems:              countMetrics(metrics, func(metric models.ObjectMetric) bool { return metric.FinalScore >= reviewThreshold }),
+		ReviewItems:              countReviewItems(objects, metrics),
 		AnalysisSource:           source,
 	}
 }
@@ -189,6 +190,45 @@ func sortReviewQueue(queue []ReviewQueueItem) {
 	sort.Slice(queue, func(i, j int) bool {
 		return queue[i].Metric.FinalScore > queue[j].Metric.FinalScore
 	})
+}
+
+func shouldReviewItem(object models.DataObject, metric models.ObjectMetric) bool {
+	if object.Status != "" && object.Status != statusOK {
+		return true
+	}
+	return shouldReviewMetric(metric)
+}
+
+func shouldReviewMetric(metric models.ObjectMetric) bool {
+	if metric.FinalScore >= reviewThreshold {
+		return true
+	}
+	recommendation := strings.TrimSpace(metric.Recommendation)
+	return recommendation != "" && recommendation != "keep"
+}
+
+func countReviewItems(objects []models.DataObject, metrics []models.ObjectMetric) int {
+	byID := map[uuid.UUID]models.DataObject{}
+	for _, object := range objects {
+		byID[object.ID] = object
+	}
+	count := 0
+	for _, metric := range metrics {
+		object := byID[metric.ObjectID]
+		if shouldReviewItem(object, metric) {
+			count++
+		}
+	}
+	return count
+}
+
+func analysisSourceFromMetrics(metrics []models.ObjectMetric) string {
+	for _, metric := range metrics {
+		if source, ok := metric.Probabilities["analysis_source"].(string); ok && source != "" {
+			return source
+		}
+	}
+	return analysisSourceBackendLocal
 }
 
 func agentSummaryText(dashboard Dashboard) string {
