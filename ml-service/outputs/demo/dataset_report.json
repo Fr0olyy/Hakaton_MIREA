@@ -6,9 +6,9 @@
   "duplicates_count": 6,
   "bad_quality_count": 1,
   "suspected_label_errors_count": 129,
-  "hard_examples_count": 506,
-  "rare_class_candidates_count": 1200,
-  "review_queue_count": 1200,
+  "hard_examples_count": 120,
+  "rare_class_candidates_count": 0,
+  "review_queue_count": 211,
   "class_distribution": {
     "elephant": 124,
     "dog": 123,
@@ -22,9 +22,9 @@
     "cat": 116
   },
   "status_distribution": {
-    "rare_class_candidate": 645,
-    "hard_example": 419,
+    "ok": 989,
     "suspected_label_error": 129,
+    "hard_example": 75,
     "duplicate": 6,
     "bad_quality": 1
   },
