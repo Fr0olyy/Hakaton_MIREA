@@ -19,6 +19,7 @@ type localAnalysis struct {
 	recommendations []models.Recommendation
 	roadmap         []models.RoadmapItem
 	summary         datasetSummary
+	objectStatuses  map[uuid.UUID]string
 }
 
 func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.AnalysisJob, error) {
@@ -46,8 +47,11 @@ func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.Anal
 		return job, err
 	}
 
-	result := s.analyzeLocal(project, version, objects)
-	if err := s.repo.FinishAnalysis(ctx, job.ID, result.readiness, result.metrics, result.recommendations, result.roadmap); err != nil {
+	result, err := s.analyzeWithMLService(ctx, project, version, objects)
+	if err != nil {
+		result = s.analyzeLocal(project, version, objects)
+	}
+	if err := s.repo.FinishAnalysis(ctx, job.ID, result.readiness, result.metrics, result.recommendations, result.roadmap, result.objectStatuses); err != nil {
 		_ = s.repo.FailAnalysisJob(ctx, job.ID, err.Error())
 		return job, err
 	}

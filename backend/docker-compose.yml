@@ -1,12 +1,10 @@
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:15-alpine
     environment:
-      POSTGRES_DB: hakaton
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -17,22 +15,40 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: .
     environment:
       HTTP_ADDR: :8080
-      DATABASE_URL: postgres://postgres:postgres@postgres:5432/hakaton?sslmode=disable
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable
       STORAGE_DIR: /app/storage
       ML_SERVICE_URL: http://ml-service:8000
       ML_TIMEOUT_SECONDS: 15
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT:-8080}:8080"
     volumes:
       - backend_storage:/app/storage
     depends_on:
       postgres:
         condition: service_healthy
+      ml-service:
+        condition: service_healthy
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  ml-service:
+    build:
+      context: ../ml-service
+      dockerfile: ../backend/ml-service.Dockerfile
+    environment:
+      PYTHONPATH: src:.
+    ports:
+      - "${ML_SERVICE_PORT:-8000}:8000"
+    volumes:
+      - backend_storage:/app/storage
+    healthcheck:
+      test: ["CMD-SHELL", ".venv/bin/python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2).read()\""]
       interval: 10s
       timeout: 5s
       retries: 10

@@ -5,8 +5,10 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"math"
 	"net/http"
+	"strings"
 	"time"
 
 	"hakaton/backend/internal/models"
@@ -32,11 +34,68 @@ type AnalysisResult struct {
 	Roadmap         []models.RoadmapItem    `json:"roadmap"`
 }
 
+type DatasetAnalysisRequest struct {
+	DatasetPath string `json:"dataset_path"`
+	ImagesDir   string `json:"images_dir"`
+	OutputDir   string `json:"output_dir"`
+}
+
+type DatasetAnalysisResult struct {
+	Status                string            `json:"status"`
+	ObjectsCount          int               `json:"objects_count"`
+	DatasetV2ObjectsCount int               `json:"dataset_v2_objects_count"`
+	ReviewQueueCount      int               `json:"review_queue_count"`
+	DatasetReadinessScore float64           `json:"dataset_readiness_score"`
+	OutputDir             string            `json:"output_dir"`
+	Files                 map[string]string `json:"files"`
+}
+
 func New(baseURL string, timeout time.Duration) *Client {
 	return &Client{
-		baseURL: baseURL,
+		baseURL: strings.TrimRight(baseURL, "/"),
 		http:    &http.Client{Timeout: timeout},
 	}
+}
+
+func (c *Client) AnalyzeDataset(ctx context.Context, req DatasetAnalysisRequest) (DatasetAnalysisResult, error) {
+	if c == nil || strings.TrimSpace(c.baseURL) == "" {
+		return DatasetAnalysisResult{}, errors.New("ml-service url is not configured")
+	}
+	body, err := json.Marshal(req)
+	if err != nil {
+		return DatasetAnalysisResult{}, err
+	}
+	httpReq, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/analyze", bytes.NewReader(body))
+	if err != nil {
+		return DatasetAnalysisResult{}, err
+	}
+	httpReq.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.http.Do(httpReq)
+	if err != nil {
+		return DatasetAnalysisResult{}, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		var payload map[string]any
+		_ = json.NewDecoder(resp.Body).Decode(&payload)
+		if detail, ok := payload["detail"].(string); ok && detail != "" {
+			return DatasetAnalysisResult{}, fmt.Errorf("ml-service returned %d: %s", resp.StatusCode, detail)
+		}
+		return DatasetAnalysisResult{}, fmt.Errorf("ml-service returned %d", resp.StatusCode)
+	}
+
+	var result DatasetAnalysisResult
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return DatasetAnalysisResult{}, err
+	}
+	if result.Status != "completed" {
+		return DatasetAnalysisResult{}, fmt.Errorf("ml-service analysis status is %q", result.Status)
+	}
+	if result.Files["results_csv"] == "" {
+		return DatasetAnalysisResult{}, errors.New("ml-service response is missing files.results_csv")
+	}
+	return result, nil
 }
 
 func (c *Client) Analyze(ctx context.Context, req AnalysisRequest) (AnalysisResult, error) {

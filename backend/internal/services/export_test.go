@@ -18,6 +18,7 @@ func TestWriteDatasetCSVExcludesMissingAndInvalidRows(t *testing.T) {
 		{ID: keepID, ExternalID: "1", FilePath: "cat.png", Label: "cat", Status: statusOK},
 		{ID: uuid.New(), ExternalID: "2", FilePath: "missing.png", Label: "cat", Status: statusMissingFile},
 		{ID: uuid.New(), ExternalID: "3", FilePath: "", Label: "cat", Status: statusInvalid},
+		{ID: uuid.New(), ExternalID: "4", FilePath: "noisy.png", Label: "cat", Status: "suspected_label_error"},
 	}
 	metrics := map[uuid.UUID]models.ObjectMetric{
 		keepID: {FinalScore: 0.52, Recommendation: "verify_label"},
@@ -36,6 +37,24 @@ func TestWriteDatasetCSVExcludesMissingAndInvalidRows(t *testing.T) {
 	}
 	if strings.Contains(content, "missing.png") {
 		t.Fatalf("missing file row should not be exported:\n%s", content)
+	}
+	if strings.Contains(content, "noisy.png") {
+		t.Fatalf("suspected label error row should not be exported:\n%s", content)
+	}
+}
+
+func TestReviewQueueIncludesMLRecommendationsBelowBackendThreshold(t *testing.T) {
+	objectID := uuid.New()
+	queue := reviewQueueFrom(
+		[]models.DataObject{
+			{ID: objectID, ExternalID: "1", FilePath: "cat.png", Label: "cat", Status: "suspected_label_error"},
+		},
+		[]models.ObjectMetric{
+			{ObjectID: objectID, FinalScore: 0.41, Recommendation: "recheck_label"},
+		},
+	)
+	if len(queue) != 1 {
+		t.Fatalf("queue len = %d, want 1", len(queue))
 	}
 }
 
