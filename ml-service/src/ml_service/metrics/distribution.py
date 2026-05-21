@@ -13,7 +13,7 @@ def distribution_metrics(df: pd.DataFrame) -> pd.DataFrame:
     df['imbalance_index'] = df['label'].map(imbalance)
     
     #задача 15, расчет class_deficit_score
-    df['class_deficit_score'] = 1-df['class_distribution']
+    df['class_deficit_score'] = df['imbalance_index']
     
     return df 
 

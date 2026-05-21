@@ -34,10 +34,13 @@ def main():
     df = entropy_metrics(df, prob_cols)
     df = distribution_metrics(df)
     
+    if 'quality_reasons' in df.columns:
+        df['quality_reasons'] = df['quality_reasons'].replace(r'^\s*$', np.nan, regex=True)
+        df['quality_reasons'] = df['quality_reasons'].fillna("ok")
 
     print("\nПайплайн работает! Вот первые 5 строк результата:")
-    columns_to_show = ['id', 'file_path', 'file_exists', 'confidence'] + prob_cols[:2]
-    print(df[columns_to_show].head())
+    columns_to_show = ['id', 'confidence', 'uncertainty_score', 'entropy', 'class_deficit_score']
+    print(df[columns_to_show].head(20))
 
 if __name__ == "__main__":
     main()
