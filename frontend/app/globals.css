@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 24% 97%;
+  --foreground: 222 32% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 34% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 34% 11%;
+  --primary: 202 83% 34%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 161 39% 42%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 210 20% 93%;
+  --muted-foreground: 215 13% 43%;
+  --accent: 32 95% 44%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 47%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 18% 84%;
+  --input: 214 18% 84%;
+  --ring: 202 83% 34%;
+  --radius: 8px;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(235, 242, 247, 0.85) 0, rgba(248, 250, 252, 0) 240px),
+    hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.metric-grid {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.surface {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 12px 32px rgba(15, 23, 42, 0.05);
+}
