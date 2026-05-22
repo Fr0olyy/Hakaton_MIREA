@@ -15,6 +15,7 @@ import (
 	"mime/multipart"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"github.com/google/uuid"
@@ -193,11 +194,7 @@ func (s *Storage) SafeImagePath(projectID uuid.UUID, relativePath string) (strin
 	}
 
 	clean := filepath.Clean(relativePath)
-	candidates := []string{filepath.Join(s.ImagesDir(projectID), clean)}
-	prefix := "images" + string(filepath.Separator)
-	if strings.HasPrefix(clean, prefix) {
-		candidates = append(candidates, filepath.Join(s.ImagesDir(projectID), strings.TrimPrefix(clean, prefix)))
-	}
+	candidates := s.imagePathCandidates(projectID, clean)
 	root, err := filepath.Abs(s.ImagesDir(projectID))
 	if err != nil {
 		return "", err
@@ -216,6 +213,92 @@ func (s *Storage) SafeImagePath(projectID uuid.UUID, relativePath string) (strin
 		}
 	}
 	return "", os.ErrNotExist
+}
+
+func (s *Storage) EnsureImageAliases(projectID uuid.UUID, relativePaths []string) error {
+	for _, relativePath := range relativePaths {
+		if relativePath == "" || !s.IsSafeRelativePath(relativePath) {
+			continue
+		}
+		clean := filepath.Clean(relativePath)
+		directPath := filepath.Join(s.ImagesDir(projectID), clean)
+		if _, err := os.Stat(directPath); err == nil {
+			continue
+		}
+		sourcePath, err := s.SafeImagePath(projectID, clean)
+		if err != nil || sourcePath == directPath {
+			continue
+		}
+		if err := os.MkdirAll(filepath.Dir(directPath), 0o755); err != nil {
+			return err
+		}
+		if err := os.Link(sourcePath, directPath); err == nil {
+			continue
+		}
+		if err := copyFile(directPath, sourcePath); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (s *Storage) imagePathCandidates(projectID uuid.UUID, clean string) []string {
+	root := s.ImagesDir(projectID)
+	candidates := []string{}
+	add := func(parts ...string) {
+		candidate := filepath.Join(append([]string{root}, parts...)...)
+		for _, existing := range candidates {
+			if existing == candidate {
+				return
+			}
+		}
+		candidates = append(candidates, candidate)
+	}
+
+	add(clean)
+	prefix := "images" + string(filepath.Separator)
+	if strings.HasPrefix(clean, prefix) {
+		add(strings.TrimPrefix(clean, prefix))
+	} else {
+		add("images", clean)
+	}
+	for _, candidate := range animals10Candidates(clean) {
+		add(candidate)
+	}
+	return candidates
+}
+
+func animals10Candidates(clean string) []string {
+	base := filepath.Base(clean)
+	ext := strings.ToLower(filepath.Ext(base))
+	stem := strings.TrimSuffix(base, filepath.Ext(base))
+	separator := strings.LastIndex(stem, "_")
+	if separator <= 0 || separator == len(stem)-1 {
+		return nil
+	}
+	className := stem[:separator]
+	numberText := strings.TrimLeft(stem[separator+1:], "0")
+	if numberText == "" {
+		numberText = "0"
+	}
+	number, err := strconv.Atoi(numberText)
+	if err != nil {
+		return nil
+	}
+	extensions := uniqueStrings([]string{ext, ".jpg", ".jpeg", ".png", ".webp"})
+	candidates := make([]string, 0, len(extensions)*3)
+	for _, extension := range extensions {
+		if extension == "" {
+			continue
+		}
+		fileName := fmt.Sprintf("%s (%d)%s", className, number, extension)
+		candidates = append(candidates,
+			filepath.Join(className, fileName),
+			filepath.Join("Animals-10", className, fileName),
+			filepath.Join("animals10", className, fileName),
+		)
+	}
+	return candidates
 }
 
 func (s *Storage) IsSafeRelativePath(relativePath string) bool {
@@ -240,4 +323,39 @@ func (s *Storage) ImageContentType(path string) string {
 		return value
 	}
 	return "application/octet-stream"
+}
+
+func copyFile(target, source string) error {
+	src, err := os.Open(source)
+	if err != nil {
+		return err
+	}
+	defer src.Close()
+	dst, err := os.Create(target)
+	if err != nil {
+		return err
+	}
+	_, copyErr := io.Copy(dst, src)
+	closeErr := dst.Close()
+	return errors.Join(copyErr, closeErr)
+}
+
+func uniqueStrings(values []string) []string {
+	result := make([]string, 0, len(values))
+	for _, value := range values {
+		if value == "" {
+			continue
+		}
+		seen := false
+		for _, existing := range result {
+			if existing == value {
+				seen = true
+				break
+			}
+		}
+		if !seen {
+			result = append(result, value)
+		}
+	}
+	return result
 }

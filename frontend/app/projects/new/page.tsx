@@ -14,7 +14,7 @@ import { PageHeader } from "@/components/page-header";
 export default function CreateProjectPage() {
   const router = useRouter();
   const [name, setName] = useState("DataForge demo");
-  const [classes, setClasses] = useState("cat\ndog");
+  const [classes, setClasses] = useState("butterfly\ncat\nchicken\ncow\ndog\nelephant\nhorse\nsheep\nspider\nsquirrel");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 

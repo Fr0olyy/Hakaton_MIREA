@@ -7,6 +7,7 @@ import (
 	"io"
 	"mime/multipart"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -55,6 +56,12 @@ func (s *Service) Upload(ctx context.Context, projectID uuid.UUID, datasetHeader
 	if err != nil {
 		return UploadResult{}, err
 	}
+	if err := s.storage.EnsureImageAliases(projectID, objectFilePaths(objects)); err != nil {
+		return UploadResult{}, err
+	}
+	if err := writeNormalizedDataset(datasetPath, objects); err != nil {
+		return UploadResult{}, err
+	}
 
 	versionNumber, err := s.repo.NextDatasetVersionNumber(ctx, projectID)
 	if err != nil {
@@ -73,6 +80,77 @@ func (s *Service) Upload(ctx context.Context, projectID uuid.UUID, datasetHeader
 		return UploadResult{}, err
 	}
 	return UploadResult{DatasetVersion: version, ObjectsCount: len(objects), InvalidObjects: invalid}, nil
+}
+
+func objectFilePaths(objects []models.DataObject) []string {
+	paths := make([]string, 0, len(objects))
+	for _, object := range objects {
+		if object.FilePath != "" {
+			paths = append(paths, object.FilePath)
+		}
+	}
+	return paths
+}
+
+func writeNormalizedDataset(path string, objects []models.DataObject) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	probabilityClasses := normalizedProbabilityClasses(objects)
+	headers := []string{"id", "file_path", "label", "predicted_label", "confidence", "split", "source", "annotator"}
+	for _, className := range probabilityClasses {
+		headers = append(headers, "prob_"+className)
+	}
+	if err := writer.Write(headers); err != nil {
+		return err
+	}
+
+	for _, object := range objects {
+		record := []string{
+			object.ExternalID,
+			object.FilePath,
+			object.Label,
+			object.PredictedLabel,
+			strconv.FormatFloat(object.Confidence, 'f', -1, 64),
+			object.Split,
+			object.Source,
+			object.Annotator,
+		}
+		probabilities, _ := object.Metadata["probabilities"].(map[string]float64)
+		for _, className := range probabilityClasses {
+			record = append(record, strconv.FormatFloat(probabilities[className], 'f', -1, 64))
+		}
+		if err := writer.Write(record); err != nil {
+			return err
+		}
+	}
+	return writer.Error()
+}
+
+func normalizedProbabilityClasses(objects []models.DataObject) []string {
+	seen := map[string]struct{}{}
+	var classes []string
+	for _, object := range objects {
+		probabilities, ok := object.Metadata["probabilities"].(map[string]float64)
+		if !ok {
+			continue
+		}
+		for className := range probabilities {
+			if _, exists := seen[className]; exists {
+				continue
+			}
+			seen[className] = struct{}{}
+			classes = append(classes, className)
+		}
+	}
+	sort.Strings(classes)
+	return classes
 }
 
 func (s *Service) parseCSV(project models.Project, datasetPath string) ([]models.DataObject, int, error) {

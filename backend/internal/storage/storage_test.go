@@ -47,6 +47,49 @@ func TestSafeImagePathSupportsNestedImagesAndFallbackPrefix(t *testing.T) {
 	}
 }
 
+func TestSafeImagePathSupportsZipImagesFolder(t *testing.T) {
+	storage := New(t.TempDir())
+	projectID := uuid.New()
+	if err := storage.EnsureProjectDirs(projectID); err != nil {
+		t.Fatalf("EnsureProjectDirs: %v", err)
+	}
+	archivePath := filepath.Join(t.TempDir(), "images.zip")
+	writeZip(t, archivePath, map[string][]byte{"images/cat.png": tinyPNG(t)})
+	if err := storage.UnzipImages(projectID, archivePath); err != nil {
+		t.Fatalf("UnzipImages: %v", err)
+	}
+
+	if !storage.ImageExists(projectID, "cat.png") {
+		t.Fatal("ImageExists should accept archives with images/ top-level folder")
+	}
+}
+
+func TestSafeImagePathSupportsAnimals10RawArchive(t *testing.T) {
+	storage := New(t.TempDir())
+	projectID := uuid.New()
+	if err := storage.EnsureProjectDirs(projectID); err != nil {
+		t.Fatalf("EnsureProjectDirs: %v", err)
+	}
+	archivePath := filepath.Join(t.TempDir(), "images.zip")
+	writeZip(t, archivePath, map[string][]byte{"Animals-10/butterfly/butterfly (1).jpeg": tinyPNG(t)})
+	if err := storage.UnzipImages(projectID, archivePath); err != nil {
+		t.Fatalf("UnzipImages: %v", err)
+	}
+
+	if !storage.ImageExists(projectID, "butterfly_000001.jpeg") {
+		t.Fatal("ImageExists should map prepared Animals10 names to raw Animals-10 archive names")
+	}
+	if err := storage.EnsureImageAliases(projectID, []string{"butterfly_000001.jpeg"}); err != nil {
+		t.Fatalf("EnsureImageAliases: %v", err)
+	}
+	if !storage.ImageExists(projectID, "butterfly_000001.jpeg") {
+		t.Fatal("ImageExists should still work after alias creation")
+	}
+	if _, err := os.Stat(filepath.Join(storage.ImagesDir(projectID), "butterfly_000001.jpeg")); err != nil {
+		t.Fatalf("alias was not created: %v", err)
+	}
+}
+
 func writeZip(t *testing.T, path string, files map[string][]byte) {
 	t.Helper()
 	out, err := os.Create(path)

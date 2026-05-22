@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { AlertTriangle, Database, RefreshCw } from "lucide-react";
-import { getDashboard, getProbabilisticAnalysis, getReviewQueue } from "@/lib/api";
+import { getDashboard, getProbabilisticAnalysis, getReviewQueue, listProjects } from "@/lib/api";
 import type { Dashboard, ProbabilisticAnalysis, ReviewQueueItem } from "@/lib/types";
 import { dashboardCounters } from "@/lib/derived";
 import { formatNumber, formatScore } from "@/lib/utils";
@@ -19,6 +19,7 @@ import { StatusBadge } from "@/components/status";
 
 export default function DashboardPage() {
   const { projectId } = useParams<{ projectId: string }>();
+  const router = useRouter();
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [probabilistic, setProbabilistic] = useState<ProbabilisticAnalysis | null>(null);
   const [queue, setQueue] = useState<ReviewQueueItem[]>([]);
@@ -34,7 +35,16 @@ export default function DashboardPage() {
         setProbabilistic(probabilisticData);
         setQueue(queueData);
       })
-      .catch((err: Error) => setError(err.message))
+      .catch(async (err: Error) => {
+        if (err.message === "not found") {
+          const projects = await listProjects().catch(() => []);
+          if (projects[0]) {
+            router.replace(`/projects/${projects[0].id}/dashboard`);
+            return;
+          }
+        }
+        setError(err.message);
+      })
       .finally(() => setLoading(false));
   }
 
