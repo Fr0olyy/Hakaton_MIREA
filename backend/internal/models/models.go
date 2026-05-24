@@ -6,6 +6,58 @@ import (
 	"github.com/google/uuid"
 )
 
+type UserRole string
+
+const (
+	RoleAnnotator    UserRole = "annotator"
+	RoleMLEngineer   UserRole = "ml_engineer"
+	RoleDomainExpert UserRole = "domain_expert"
+	RoleDataAnalyst  UserRole = "data_analyst"
+	RoleAdmin        UserRole = "admin"
+)
+
+type ProjectMemberRole string
+
+const (
+	ProjectRoleAdmin        ProjectMemberRole = "admin"
+	ProjectRoleMLEngineer   ProjectMemberRole = "ml_engineer"
+	ProjectRoleAnnotator    ProjectMemberRole = "annotator"
+	ProjectRoleDomainExpert ProjectMemberRole = "domain_expert"
+	ProjectRoleDataAnalyst  ProjectMemberRole = "data_analyst"
+)
+
+type User struct {
+	ID           uuid.UUID `json:"id"`
+	Email        string    `json:"email"`
+	PasswordHash string    `json:"-"`
+	Name         string    `json:"name"`
+	Role         UserRole  `json:"role"`
+	CreatedAt    time.Time `json:"created_at"`
+}
+
+type Team struct {
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	CreatedBy uuid.UUID `json:"created_by"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type TeamMember struct {
+	ID        uuid.UUID `json:"id"`
+	TeamID    uuid.UUID `json:"team_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	Role      string    `json:"role"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type ProjectMember struct {
+	ID        uuid.UUID         `json:"id"`
+	ProjectID uuid.UUID         `json:"project_id"`
+	UserID    uuid.UUID         `json:"user_id"`
+	Role      ProjectMemberRole `json:"role"`
+	CreatedAt time.Time         `json:"created_at"`
+}
+
 type Project struct {
 	ID        uuid.UUID `json:"id"`
 	Name      string    `json:"name"`
@@ -89,13 +141,82 @@ type RoadmapItem struct {
 }
 
 type AnalysisJob struct {
-	ID               uuid.UUID `json:"id"`
-	ProjectID        uuid.UUID `json:"project_id"`
-	DatasetVersionID uuid.UUID `json:"dataset_version_id"`
-	Status           string    `json:"status"`
-	ErrorMessage     string    `json:"error_message,omitempty"`
-	StartedAt        time.Time `json:"started_at"`
-	FinishedAt       time.Time `json:"finished_at,omitempty"`
+	ID               uuid.UUID          `json:"id"`
+	ProjectID        uuid.UUID          `json:"project_id"`
+	DatasetVersionID uuid.UUID          `json:"dataset_version_id"`
+	Status           string             `json:"status"`
+	ErrorMessage     string             `json:"error_message,omitempty"`
+	ProgressPercent  int                `json:"progress_percent"`
+	ProgressStage    string             `json:"progress_stage,omitempty"`
+	OutputFiles      map[string]string  `json:"output_files,omitempty"`
+	StartedAt        time.Time          `json:"started_at"`
+	FinishedAt       time.Time          `json:"finished_at,omitempty"`
+}
+
+type ObjectAction struct {
+	ID        uuid.UUID `json:"id"`
+	ProjectID uuid.UUID `json:"project_id"`
+	ObjectID  uuid.UUID `json:"object_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	Action    string    `json:"action"`
+	OldValue  string    `json:"old_value,omitempty"`
+	NewValue  string    `json:"new_value,omitempty"`
+	Comment   string    `json:"comment,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type ObjectComment struct {
+	ID        uuid.UUID `json:"id"`
+	ProjectID uuid.UUID `json:"project_id"`
+	ObjectID  uuid.UUID `json:"object_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	Text      string    `json:"text"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type ReviewAssignment struct {
+	ID        uuid.UUID `json:"id"`
+	ProjectID uuid.UUID `json:"project_id"`
+	ObjectID  uuid.UUID `json:"object_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	Status    string    `json:"status"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type CollectionTask struct {
+	ID          uuid.UUID `json:"id"`
+	ProjectID   uuid.UUID `json:"project_id"`
+	TargetClass string    `json:"target_class"`
+	TargetCount int       `json:"target_count"`
+	Priority    string    `json:"priority"`
+	Risk        string    `json:"risk"`
+	Status      string    `json:"status"`
+	CreatedBy   uuid.UUID `json:"created_by"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+type SyntheticTask struct {
+	ID             uuid.UUID `json:"id"`
+	ProjectID      uuid.UUID `json:"project_id"`
+	TargetClass    string    `json:"target_class"`
+	TargetCount    int       `json:"target_count"`
+	Prompt         string    `json:"prompt,omitempty"`
+	NegativePrompt string    `json:"negative_prompt,omitempty"`
+	Priority       string    `json:"priority"`
+	Risk           string    `json:"risk"`
+	Status         string    `json:"status"`
+	CreatedBy      uuid.UUID `json:"created_by"`
+	CreatedAt      time.Time `json:"created_at"`
+}
+
+type ClassActionPlanItem struct {
+	Class                     string  `json:"class"`
+	Problem                   string  `json:"problem"`
+	RecommendedAction         string  `json:"recommended_action"`
+	RealCollectionPriority    float64 `json:"real_collection_priority"`
+	SyntheticDataCandidateScore float64 `json:"synthetic_data_candidate_score"`
+	Risk                      string  `json:"risk"`
+	ExpectedImpact            string  `json:"expected_impact"`
 }
 
 type Export struct {

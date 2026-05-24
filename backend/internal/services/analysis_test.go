@@ -1,6 +1,7 @@
 package services
 
 import (
+	"path/filepath"
 	"testing"
 
 	"hakaton/backend/internal/models"
@@ -60,6 +61,33 @@ func TestAnalyzeLocalCalculatesRequiredMetrics(t *testing.T) {
 	}
 	if len(result.recommendations) == 0 || len(result.roadmap) == 0 {
 		t.Fatalf("recommendations/roadmap should be generated")
+	}
+}
+
+func TestCollectOutputFilesReturnsEmptyWhenNoFiles(t *testing.T) {
+	service, project := testService(t, []string{"cat", "dog"})
+	files := service.collectOutputFiles(project.ID, uuid.New())
+	if len(files) != 0 {
+		t.Fatalf("expected empty output files, got %d", len(files))
+	}
+}
+
+func TestCollectOutputFilesReturnsExistingFiles(t *testing.T) {
+	service, project := testService(t, []string{"cat", "dog"})
+	versionID := uuid.New()
+	analysisDir := filepath.Join(service.storage.AnalysisDir(project.ID), versionID.String())
+	writeFile(t, filepath.Join(analysisDir, "results.csv"), "a,b\n1,2")
+	writeFile(t, filepath.Join(analysisDir, "agent_context.json"), "{}")
+
+	files := service.collectOutputFiles(project.ID, versionID)
+	if len(files) != 2 {
+		t.Fatalf("expected 2 output files, got %d", len(files))
+	}
+	if files["results.csv"] == "" {
+		t.Fatalf("missing results.csv in output files")
+	}
+	if files["agent_context.json"] == "" {
+		t.Fatalf("missing agent_context.json in output files")
 	}
 }
 

@@ -91,6 +91,7 @@ func (s *Service) analyzeWithMLService(ctx context.Context, project models.Proje
 		roadmap:         roadmap,
 		summary:         summary,
 		objectStatuses:  statuses,
+		outputFiles:     result.Files,
 	}, nil
 }
 

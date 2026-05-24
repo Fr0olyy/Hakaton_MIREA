@@ -115,6 +115,14 @@ func (s *Service) ObjectFile(ctx context.Context, projectID, objectID uuid.UUID)
 	}, nil
 }
 
+func (s *Service) GetJob(ctx context.Context, jobID uuid.UUID) (models.AnalysisJob, error) {
+	return s.repo.GetJob(ctx, jobID)
+}
+
+func (s *Service) ListJobs(ctx context.Context, projectID uuid.UUID) ([]models.AnalysisJob, error) {
+	return s.repo.ListJobsByProject(ctx, projectID)
+}
+
 func (s *Service) Recommendations(ctx context.Context, projectID uuid.UUID) ([]models.Recommendation, error) {
 	version, err := s.repo.LatestDatasetVersion(ctx, projectID)
 	if err != nil {

@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strconv"
+	"strings"
 	"time"
 
 	"hakaton/backend/internal/models"
@@ -27,6 +29,179 @@ func New(db *pgxpool.Pool) *Repository {
 func (r *Repository) Ping(ctx context.Context) error {
 	return r.db.Ping(ctx)
 }
+
+// ---- Users ----
+
+func (r *Repository) CreateUser(ctx context.Context, user models.User) (models.User, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO users (id, email, password_hash, name, role)
+		VALUES ($1, $2, $3, $4, $5)
+		RETURNING created_at
+	`, user.ID, user.Email, user.PasswordHash, user.Name, user.Role).Scan(&user.CreatedAt)
+	return user, err
+}
+
+func (r *Repository) GetUserByEmail(ctx context.Context, email string) (models.User, error) {
+	row := r.db.QueryRow(ctx, `
+		SELECT id, email, password_hash, name, role, created_at
+		FROM users WHERE email = $1
+	`, email)
+	var user models.User
+	err := row.Scan(&user.ID, &user.Email, &user.PasswordHash, &user.Name, &user.Role, &user.CreatedAt)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return user, ErrNotFound
+	}
+	return user, err
+}
+
+func (r *Repository) GetUserByID(ctx context.Context, id uuid.UUID) (models.User, error) {
+	row := r.db.QueryRow(ctx, `
+		SELECT id, email, password_hash, name, role, created_at
+		FROM users WHERE id = $1
+	`, id)
+	var user models.User
+	err := row.Scan(&user.ID, &user.Email, &user.PasswordHash, &user.Name, &user.Role, &user.CreatedAt)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return user, ErrNotFound
+	}
+	return user, err
+}
+
+// ---- Teams ----
+
+func (r *Repository) CreateTeam(ctx context.Context, team models.Team) (models.Team, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO teams (id, name, created_by)
+		VALUES ($1, $2, $3)
+		RETURNING created_at
+	`, team.ID, team.Name, team.CreatedBy).Scan(&team.CreatedAt)
+	return team, err
+}
+
+func (r *Repository) ListTeamsByUser(ctx context.Context, userID uuid.UUID) ([]models.Team, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT t.id, t.name, t.created_by, t.created_at
+		FROM teams t
+		JOIN team_members tm ON tm.team_id = t.id
+		WHERE tm.user_id = $1
+		ORDER BY t.created_at DESC
+	`, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var teams []models.Team
+	for rows.Next() {
+		var team models.Team
+		if err := rows.Scan(&team.ID, &team.Name, &team.CreatedBy, &team.CreatedAt); err != nil {
+			return nil, err
+		}
+		teams = append(teams, team)
+	}
+	return teams, rows.Err()
+}
+
+func (r *Repository) GetTeam(ctx context.Context, teamID uuid.UUID) (models.Team, error) {
+	row := r.db.QueryRow(ctx, `
+		SELECT id, name, created_by, created_at FROM teams WHERE id = $1
+	`, teamID)
+	var team models.Team
+	err := row.Scan(&team.ID, &team.Name, &team.CreatedBy, &team.CreatedAt)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return team, ErrNotFound
+	}
+	return team, err
+}
+
+func (r *Repository) AddTeamMember(ctx context.Context, member models.TeamMember) (models.TeamMember, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO team_members (id, team_id, user_id, role)
+		VALUES ($1, $2, $3, $4)
+		RETURNING created_at
+	`, member.ID, member.TeamID, member.UserID, member.Role).Scan(&member.CreatedAt)
+	return member, err
+}
+
+func (r *Repository) RemoveTeamMember(ctx context.Context, teamID, userID uuid.UUID) error {
+	_, err := r.db.Exec(ctx, `
+		DELETE FROM team_members WHERE team_id = $1 AND user_id = $2
+	`, teamID, userID)
+	return err
+}
+
+func (r *Repository) ListTeamMembers(ctx context.Context, teamID uuid.UUID) ([]models.TeamMember, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, team_id, user_id, role, created_at
+		FROM team_members WHERE team_id = $1
+		ORDER BY created_at ASC
+	`, teamID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var members []models.TeamMember
+	for rows.Next() {
+		var member models.TeamMember
+		if err := rows.Scan(&member.ID, &member.TeamID, &member.UserID, &member.Role, &member.CreatedAt); err != nil {
+			return nil, err
+		}
+		members = append(members, member)
+	}
+	return members, rows.Err()
+}
+
+// ---- Project Members ----
+
+func (r *Repository) AddProjectMember(ctx context.Context, member models.ProjectMember) (models.ProjectMember, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO project_members (id, project_id, user_id, role)
+		VALUES ($1, $2, $3, $4)
+		RETURNING created_at
+	`, member.ID, member.ProjectID, member.UserID, member.Role).Scan(&member.CreatedAt)
+	return member, err
+}
+
+func (r *Repository) RemoveProjectMember(ctx context.Context, projectID, userID uuid.UUID) error {
+	_, err := r.db.Exec(ctx, `
+		DELETE FROM project_members WHERE project_id = $1 AND user_id = $2
+	`, projectID, userID)
+	return err
+}
+
+func (r *Repository) ListProjectMembers(ctx context.Context, projectID uuid.UUID) ([]models.ProjectMember, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, user_id, role, created_at
+		FROM project_members WHERE project_id = $1
+		ORDER BY created_at ASC
+	`, projectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var members []models.ProjectMember
+	for rows.Next() {
+		var member models.ProjectMember
+		if err := rows.Scan(&member.ID, &member.ProjectID, &member.UserID, &member.Role, &member.CreatedAt); err != nil {
+			return nil, err
+		}
+		members = append(members, member)
+	}
+	return members, rows.Err()
+}
+
+func (r *Repository) GetProjectMemberRole(ctx context.Context, projectID, userID uuid.UUID) (models.ProjectMemberRole, error) {
+	row := r.db.QueryRow(ctx, `
+		SELECT role FROM project_members WHERE project_id = $1 AND user_id = $2
+	`, projectID, userID)
+	var role models.ProjectMemberRole
+	err := row.Scan(&role)
+	if errors.Is(err, pgx.ErrNoRows) {
+		return "", ErrNotFound
+	}
+	return role, err
+}
+
+// ---- Projects ----
 
 func (r *Repository) CreateProject(ctx context.Context, p models.Project) (models.Project, error) {
 	classes, err := json.Marshal(p.Classes)
@@ -166,6 +341,238 @@ func (r *Repository) ListObjects(ctx context.Context, datasetVersionID uuid.UUID
 	return objects, rows.Err()
 }
 
+type ListObjectsFilter struct {
+	DatasetVersionID uuid.UUID
+	Status           string
+	Label            string
+	Recommendation   string
+	ScoreMin         float64
+	ScoreMax         float64
+	Search           string
+	SortBy           string
+	SortOrder        string
+	Offset           int
+	Limit            int
+}
+
+func (r *Repository) ListObjectsPaginated(ctx context.Context, filter ListObjectsFilter) ([]models.DataObject, int, error) {
+	var conditions []string
+	var args []any
+	argIdx := 1
+
+	conditions = append(conditions, "o.dataset_version_id = $"+itoa(argIdx))
+	args = append(args, filter.DatasetVersionID)
+	argIdx++
+
+	if filter.Status != "" {
+		conditions = append(conditions, "o.status = $"+itoa(argIdx))
+		args = append(args, filter.Status)
+		argIdx++
+	}
+	if filter.Label != "" {
+		conditions = append(conditions, "o.label = $"+itoa(argIdx))
+		args = append(args, filter.Label)
+		argIdx++
+	}
+	if filter.Recommendation != "" {
+		conditions = append(conditions, "m.recommendation = $"+itoa(argIdx))
+		args = append(args, filter.Recommendation)
+		argIdx++
+	}
+	if filter.ScoreMin > 0 {
+		conditions = append(conditions, "m.final_score >= $"+itoa(argIdx))
+		args = append(args, filter.ScoreMin)
+		argIdx++
+	}
+	if filter.ScoreMax > 0 {
+		conditions = append(conditions, "m.final_score <= $"+itoa(argIdx))
+		args = append(args, filter.ScoreMax)
+		argIdx++
+	}
+	if filter.Search != "" {
+		search := "%" + filter.Search + "%"
+		conditions = append(conditions, "(o.file_path ILIKE $"+itoa(argIdx)+" OR o.label ILIKE $"+itoa(argIdx+1)+" OR o.external_id ILIKE $"+itoa(argIdx+2)+")")
+		args = append(args, search, search, search)
+		argIdx += 3
+	}
+
+	whereClause := strings.Join(conditions, " AND ")
+
+	// Count
+	var total int
+	countQuery := `SELECT COUNT(*) FROM data_objects o LEFT JOIN object_metrics m ON m.object_id = o.id WHERE ` + whereClause
+	if err := r.db.QueryRow(ctx, countQuery, args...).Scan(&total); err != nil {
+		return nil, 0, err
+	}
+
+	// Sort
+	orderBy := "o.created_at ASC"
+	switch filter.SortBy {
+	case "entropy":
+		orderBy = "COALESCE(m.entropy, 0) " + filter.SortOrder
+	case "label_error_probability":
+		orderBy = "COALESCE(m.label_error_probability, 0) " + filter.SortOrder
+	case "quality_score":
+		orderBy = "COALESCE(m.quality_score, 0) " + filter.SortOrder
+	case "duplicate_score":
+		orderBy = "COALESCE(m.duplicate_score, 0) " + filter.SortOrder
+	case "object_utility_score":
+		orderBy = "COALESCE(m.object_utility_score, 0) " + filter.SortOrder
+	case "final_score":
+		orderBy = "COALESCE(m.final_score, 0) " + filter.SortOrder
+	}
+
+	query := `
+		SELECT o.id, o.dataset_version_id, COALESCE(o.external_id, ''), COALESCE(o.file_path, ''),
+			COALESCE(o.text_content, ''), COALESCE(o.label, ''), COALESCE(o.predicted_label, ''),
+			COALESCE(o.confidence, 0), COALESCE(o.split, ''), COALESCE(o.source, ''),
+			COALESCE(o.annotator, ''), COALESCE(o.metadata, '{}'::jsonb), COALESCE(o.status, 'ok'), o.created_at
+		FROM data_objects o
+		LEFT JOIN object_metrics m ON m.object_id = o.id
+		WHERE ` + whereClause + `
+		ORDER BY ` + orderBy + `
+		LIMIT $` + itoa(argIdx) + ` OFFSET $` + itoa(argIdx+1)
+
+	args = append(args, filter.Limit, filter.Offset)
+
+	rows, err := r.db.Query(ctx, query, args...)
+	if err != nil {
+		return nil, 0, err
+	}
+	defer rows.Close()
+
+	var objects []models.DataObject
+	for rows.Next() {
+		object, err := scanDataObject(rows)
+		if err != nil {
+			return nil, 0, err
+		}
+		objects = append(objects, object)
+	}
+	return objects, total, rows.Err()
+}
+
+// ---- Object Actions ----
+
+func (r *Repository) CreateObjectAction(ctx context.Context, action models.ObjectAction) (models.ObjectAction, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO object_actions (id, project_id, object_id, user_id, action, old_value, new_value, comment)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		RETURNING created_at
+	`, action.ID, action.ProjectID, action.ObjectID, action.UserID, action.Action, action.OldValue, action.NewValue, action.Comment).Scan(&action.CreatedAt)
+	return action, err
+}
+
+func (r *Repository) ListProjectActions(ctx context.Context, projectID uuid.UUID) ([]models.ObjectAction, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, object_id, user_id, COALESCE(action, ''), COALESCE(old_value, ''), COALESCE(new_value, ''), COALESCE(comment, ''), created_at
+		FROM object_actions
+		WHERE project_id = $1
+		ORDER BY created_at DESC
+	`, projectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var actions []models.ObjectAction
+	for rows.Next() {
+		var a models.ObjectAction
+		if err := rows.Scan(&a.ID, &a.ProjectID, &a.ObjectID, &a.UserID, &a.Action, &a.OldValue, &a.NewValue, &a.Comment, &a.CreatedAt); err != nil {
+			return nil, err
+		}
+		actions = append(actions, a)
+	}
+	return actions, rows.Err()
+}
+
+func (r *Repository) ListObjectActions(ctx context.Context, projectID, objectID uuid.UUID) ([]models.ObjectAction, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, object_id, user_id, COALESCE(action, ''), COALESCE(old_value, ''), COALESCE(new_value, ''), COALESCE(comment, ''), created_at
+		FROM object_actions
+		WHERE project_id = $1 AND object_id = $2
+		ORDER BY created_at DESC
+	`, projectID, objectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var actions []models.ObjectAction
+	for rows.Next() {
+		var a models.ObjectAction
+		if err := rows.Scan(&a.ID, &a.ProjectID, &a.ObjectID, &a.UserID, &a.Action, &a.OldValue, &a.NewValue, &a.Comment, &a.CreatedAt); err != nil {
+			return nil, err
+		}
+		actions = append(actions, a)
+	}
+	return actions, rows.Err()
+}
+
+// ---- Object Comments ----
+
+func (r *Repository) CreateObjectComment(ctx context.Context, comment models.ObjectComment) (models.ObjectComment, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO object_comments (id, project_id, object_id, user_id, text)
+		VALUES ($1, $2, $3, $4, $5)
+		RETURNING created_at
+	`, comment.ID, comment.ProjectID, comment.ObjectID, comment.UserID, comment.Text).Scan(&comment.CreatedAt)
+	return comment, err
+}
+
+func (r *Repository) ListObjectComments(ctx context.Context, projectID, objectID uuid.UUID) ([]models.ObjectComment, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, object_id, user_id, text, created_at
+		FROM object_comments
+		WHERE project_id = $1 AND object_id = $2
+		ORDER BY created_at ASC
+	`, projectID, objectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var comments []models.ObjectComment
+	for rows.Next() {
+		var c models.ObjectComment
+		if err := rows.Scan(&c.ID, &c.ProjectID, &c.ObjectID, &c.UserID, &c.Text, &c.CreatedAt); err != nil {
+			return nil, err
+		}
+		comments = append(comments, c)
+	}
+	return comments, rows.Err()
+}
+
+// ---- Review Assignments ----
+
+func (r *Repository) CreateReviewAssignment(ctx context.Context, assignment models.ReviewAssignment) (models.ReviewAssignment, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO review_assignments (id, project_id, object_id, user_id, status)
+		VALUES ($1, $2, $3, $4, $5)
+		RETURNING created_at
+	`, assignment.ID, assignment.ProjectID, assignment.ObjectID, assignment.UserID, assignment.Status).Scan(&assignment.CreatedAt)
+	return assignment, err
+}
+
+func (r *Repository) ListReviewAssignmentsByUser(ctx context.Context, projectID, userID uuid.UUID) ([]models.ReviewAssignment, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, object_id, user_id, COALESCE(status, 'assigned'), created_at
+		FROM review_assignments
+		WHERE project_id = $1 AND user_id = $2
+		ORDER BY created_at DESC
+	`, projectID, userID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var assignments []models.ReviewAssignment
+	for rows.Next() {
+		var a models.ReviewAssignment
+		if err := rows.Scan(&a.ID, &a.ProjectID, &a.ObjectID, &a.UserID, &a.Status, &a.CreatedAt); err != nil {
+			return nil, err
+		}
+		assignments = append(assignments, a)
+	}
+	return assignments, rows.Err()
+}
+
 func (r *Repository) GetObject(ctx context.Context, projectID, objectID uuid.UUID) (models.DataObject, error) {
 	row := r.db.QueryRow(ctx, `
 		SELECT o.id, o.dataset_version_id, COALESCE(o.external_id, ''), COALESCE(o.file_path, ''),
@@ -204,7 +611,59 @@ func (r *Repository) CreateAnalysisJob(ctx context.Context, job models.AnalysisJ
 	return job, err
 }
 
-func (r *Repository) FinishAnalysis(ctx context.Context, jobID uuid.UUID, readiness float64, metrics []models.ObjectMetric, recommendations []models.Recommendation, roadmap []models.RoadmapItem, objectStatuses map[uuid.UUID]string) error {
+func (r *Repository) GetJob(ctx context.Context, jobID uuid.UUID) (models.AnalysisJob, error) {
+	row := r.db.QueryRow(ctx, `
+		SELECT id, project_id, dataset_version_id, COALESCE(status, ''), COALESCE(error_message, ''),
+			COALESCE(progress_percent, 0), COALESCE(progress_stage, ''), COALESCE(output_files, '{}'::jsonb),
+			COALESCE(started_at, NOW()), finished_at
+		FROM analysis_jobs WHERE id = $1
+	`, jobID)
+	return scanAnalysisJob(row)
+}
+
+func (r *Repository) ListJobsByProject(ctx context.Context, projectID uuid.UUID) ([]models.AnalysisJob, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, dataset_version_id, COALESCE(status, ''), COALESCE(error_message, ''),
+			COALESCE(progress_percent, 0), COALESCE(progress_stage, ''), COALESCE(output_files, '{}'::jsonb),
+			COALESCE(started_at, NOW()), finished_at
+		FROM analysis_jobs WHERE project_id = $1
+		ORDER BY started_at DESC
+	`, projectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var jobs []models.AnalysisJob
+	for rows.Next() {
+		job, err := scanAnalysisJob(rows)
+		if err != nil {
+			return nil, err
+		}
+		jobs = append(jobs, job)
+	}
+	return jobs, rows.Err()
+}
+
+func (r *Repository) UpdateJobProgress(ctx context.Context, jobID uuid.UUID, percent int, stage string) error {
+	_, err := r.db.Exec(ctx, `
+		UPDATE analysis_jobs SET progress_percent = $1, progress_stage = $2 WHERE id = $3
+	`, percent, stage, jobID)
+	return err
+}
+
+func (r *Repository) UpdateJobOutput(ctx context.Context, jobID uuid.UUID, outputFiles map[string]string) error {
+	data, err := json.Marshal(outputFiles)
+	if err != nil {
+		return err
+	}
+	_, err = r.db.Exec(ctx, `
+		UPDATE analysis_jobs SET output_files = $1 WHERE id = $2
+	`, data, jobID)
+	return err
+}
+
+func (r *Repository) FinishAnalysis(ctx context.Context, jobID uuid.UUID, readiness float64, metrics []models.ObjectMetric, recommendations []models.Recommendation, roadmap []models.RoadmapItem, objectStatuses map[uuid.UUID]string, outputFiles map[string]string) error {
 	tx, err := r.db.Begin(ctx)
 	if err != nil {
 		return err
@@ -303,7 +762,11 @@ func (r *Repository) FinishAnalysis(ctx context.Context, jobID uuid.UUID, readin
 	if _, err = tx.Exec(ctx, `UPDATE dataset_versions SET status = 'analyzed', readiness_score = $1 WHERE id = $2`, readiness, datasetVersionID); err != nil {
 		return err
 	}
-	if _, err = tx.Exec(ctx, `UPDATE analysis_jobs SET status = 'done', finished_at = NOW() WHERE id = $1`, jobID); err != nil {
+	outputData, err := json.Marshal(outputFiles)
+	if err != nil {
+		return err
+	}
+	if _, err = tx.Exec(ctx, `UPDATE analysis_jobs SET status = 'completed', progress_percent = 100, progress_stage = 'done', output_files = $1, finished_at = NOW() WHERE id = $2`, outputData, jobID); err != nil {
 		return err
 	}
 	return tx.Commit(ctx)
@@ -590,6 +1053,124 @@ func scanRoadmapItem(row scanner) (models.RoadmapItem, error) {
 	err := row.Scan(&item.ID, &item.ProjectID, &item.DatasetVersionID, &item.Priority,
 		&item.Title, &item.Description, &item.ActionType, &item.ExpectedImpact, &item.CreatedAt)
 	return item, err
+}
+
+func scanAnalysisJob(row scanner) (models.AnalysisJob, error) {
+	var job models.AnalysisJob
+	var outputFiles []byte
+	var finishedAt *time.Time
+	err := row.Scan(&job.ID, &job.ProjectID, &job.DatasetVersionID, &job.Status, &job.ErrorMessage,
+		&job.ProgressPercent, &job.ProgressStage, &outputFiles, &job.StartedAt, &finishedAt)
+	if err != nil {
+		return job, err
+	}
+	if finishedAt != nil {
+		job.FinishedAt = *finishedAt
+	}
+	if len(outputFiles) > 0 {
+		if err := json.Unmarshal(outputFiles, &job.OutputFiles); err != nil {
+			return job, err
+		}
+	}
+	return job, nil
+}
+
+// ---- Collection Tasks ----
+
+func (r *Repository) CreateCollectionTask(ctx context.Context, task models.CollectionTask) (models.CollectionTask, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO collection_tasks (id, project_id, target_class, target_count, priority, risk, status, created_by)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		RETURNING created_at
+	`, task.ID, task.ProjectID, task.TargetClass, task.TargetCount, task.Priority, task.Risk, task.Status, task.CreatedBy).Scan(&task.CreatedAt)
+	return task, err
+}
+
+func (r *Repository) ListCollectionTasks(ctx context.Context, projectID uuid.UUID) ([]models.CollectionTask, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, target_class, target_count, COALESCE(priority, 'medium'), COALESCE(risk, 'low'), COALESCE(status, 'draft'), created_by, created_at
+		FROM collection_tasks WHERE project_id = $1
+		ORDER BY created_at DESC
+	`, projectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var tasks []models.CollectionTask
+	for rows.Next() {
+		var t models.CollectionTask
+		if err := rows.Scan(&t.ID, &t.ProjectID, &t.TargetClass, &t.TargetCount, &t.Priority, &t.Risk, &t.Status, &t.CreatedBy, &t.CreatedAt); err != nil {
+			return nil, err
+		}
+		tasks = append(tasks, t)
+	}
+	return tasks, rows.Err()
+}
+
+func (r *Repository) UpdateCollectionTask(ctx context.Context, taskID uuid.UUID, updates map[string]any) error {
+	setClauses := make([]string, 0, len(updates))
+	args := []any{taskID}
+	argIdx := 2
+	for key, value := range updates {
+		setClauses = append(setClauses, key+" = $"+itoa(argIdx))
+		args = append(args, value)
+		argIdx++
+	}
+	query := "UPDATE collection_tasks SET " + strings.Join(setClauses, ", ") + " WHERE id = $1"
+	_, err := r.db.Exec(ctx, query, args...)
+	return err
+}
+
+// ---- Synthetic Tasks ----
+
+func (r *Repository) CreateSyntheticTask(ctx context.Context, task models.SyntheticTask) (models.SyntheticTask, error) {
+	err := r.db.QueryRow(ctx, `
+		INSERT INTO synthetic_tasks (id, project_id, target_class, target_count, prompt, negative_prompt, priority, risk, status, created_by)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+		RETURNING created_at
+	`, task.ID, task.ProjectID, task.TargetClass, task.TargetCount, task.Prompt, task.NegativePrompt, task.Priority, task.Risk, task.Status, task.CreatedBy).Scan(&task.CreatedAt)
+	return task, err
+}
+
+func (r *Repository) ListSyntheticTasks(ctx context.Context, projectID uuid.UUID) ([]models.SyntheticTask, error) {
+	rows, err := r.db.Query(ctx, `
+		SELECT id, project_id, target_class, target_count, COALESCE(prompt, ''), COALESCE(negative_prompt, ''), COALESCE(priority, 'medium'), COALESCE(risk, 'low'), COALESCE(status, 'draft'), created_by, created_at
+		FROM synthetic_tasks WHERE project_id = $1
+		ORDER BY created_at DESC
+	`, projectID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var tasks []models.SyntheticTask
+	for rows.Next() {
+		var t models.SyntheticTask
+		if err := rows.Scan(&t.ID, &t.ProjectID, &t.TargetClass, &t.TargetCount, &t.Prompt, &t.NegativePrompt, &t.Priority, &t.Risk, &t.Status, &t.CreatedBy, &t.CreatedAt); err != nil {
+			return nil, err
+		}
+		tasks = append(tasks, t)
+	}
+	return tasks, rows.Err()
+}
+
+func (r *Repository) UpdateSyntheticTask(ctx context.Context, taskID uuid.UUID, updates map[string]any) error {
+	setClauses := make([]string, 0, len(updates))
+	args := []any{taskID}
+	argIdx := 2
+	for key, value := range updates {
+		setClauses = append(setClauses, key+" = $"+itoa(argIdx))
+		args = append(args, value)
+		argIdx++
+	}
+	query := "UPDATE synthetic_tasks SET " + strings.Join(setClauses, ", ") + " WHERE id = $1"
+	_, err := r.db.Exec(ctx, query, args...)
+	return err
+}
+
+// ---- Metrics ----
+
+func itoa(i int) string {
+	return strconv.Itoa(i)
 }
 
 func NowPtr() *time.Time {

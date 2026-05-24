@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	"hakaton/backend/internal/agentsvc"
 	"hakaton/backend/internal/config"
 	"hakaton/backend/internal/db"
 	"hakaton/backend/internal/handlers"
@@ -40,8 +41,9 @@ func main() {
 	repo := repositories.New(pool)
 	fileStorage := storage.New(cfg.StorageDir)
 	ml := mlclient.New(cfg.MLServiceURL, cfg.MLTimeout)
-	service := services.New(repo, fileStorage, ml)
-	handler := handlers.New(service)
+	agentClient := agentsvc.NewClient(cfg.AgentServiceURL, 180*time.Second)
+	service := services.New(repo, fileStorage, ml, agentClient, cfg.JWTSecret)
+	handler := handlers.New(service, cfg.JWTSecret)
 
 	router := chi.NewRouter()
 	router.Use(chimiddleware.RequestID)
