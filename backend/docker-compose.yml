@@ -13,6 +13,18 @@ services:
       timeout: 5s
       retries: 10
 
+  agent-service:
+    build:
+      context: services/agent-service
+    environment:
+      HTTP_ADDR: :8090
+      AGENT_BASE_URL: http://host.docker.internal:11434
+      AGENT_MODEL: gemma2:2b
+      AGENT_TIMEOUT_SECONDS: 180
+    ports:
+      - "${AGENT_SERVICE_PORT:-8090}:8090"
+    restart: unless-stopped
+
   backend:
     build:
       context: .
@@ -22,6 +34,7 @@ services:
       STORAGE_DIR: /app/storage
       ML_SERVICE_URL: http://ml-service:8000
       ML_TIMEOUT_SECONDS: 15
+      AGENT_SERVICE_URL: http://agent-service:8090
     ports:
       - "${BACKEND_PORT:-8080}:8080"
     volumes:
@@ -31,6 +44,8 @@ services:
         condition: service_healthy
       ml-service:
         condition: service_healthy
+      agent-service:
+        condition: service_started
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
       interval: 10s
@@ -48,7 +63,13 @@ services:
       backend:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://localhost:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -64,7 +85,11 @@ services:
     volumes:
       - backend_storage:/app/storage
     healthcheck:
-      test: ["CMD-SHELL", ".venv/bin/python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=2).read()\""]
+      test:
+        [
+          "CMD-SHELL",
+          '.venv/bin/python -c "import urllib.request; urllib.request.urlopen(''http://localhost:8000/health'', timeout=2).read()"',
+        ]
       interval: 10s
       timeout: 5s
       retries: 10

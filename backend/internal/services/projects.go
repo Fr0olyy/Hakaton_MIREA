@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (s *Service) CreateProject(ctx context.Context, req CreateProjectRequest) (models.Project, error) {
+func (s *Service) CreateProject(ctx context.Context, req CreateProjectRequest, creatorID uuid.UUID) (models.Project, error) {
 	req.Name = strings.TrimSpace(req.Name)
 	req.Modality = strings.ToLower(strings.TrimSpace(req.Modality))
 	req.TaskType = strings.ToLower(strings.TrimSpace(req.TaskType))
@@ -31,7 +31,21 @@ func (s *Service) CreateProject(ctx context.Context, req CreateProjectRequest) (
 	if err != nil {
 		return created, err
 	}
-	return created, s.storage.EnsureProjectDirs(created.ID)
+	if err := s.storage.EnsureProjectDirs(created.ID); err != nil {
+		return created, err
+	}
+	if creatorID != uuid.Nil {
+		member := models.ProjectMember{
+			ID:        uuid.New(),
+			ProjectID: created.ID,
+			UserID:    creatorID,
+			Role:      models.ProjectRoleAdmin,
+		}
+		if _, err := s.repo.AddProjectMember(ctx, member); err != nil {
+			return created, err
+		}
+	}
+	return created, nil
 }
 
 func (s *Service) ListProjects(ctx context.Context) ([]models.Project, error) {

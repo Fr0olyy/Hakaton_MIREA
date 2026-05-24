@@ -6,7 +6,10 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strconv"
 
+	"hakaton/backend/internal/auth"
+	"hakaton/backend/internal/models"
 	"hakaton/backend/internal/repositories"
 	"hakaton/backend/internal/services"
 
@@ -15,32 +18,92 @@ import (
 )
 
 type Handler struct {
-	service *services.Service
+	service   *services.Service
+	jwtSecret string
 }
 
-func New(service *services.Service) *Handler {
-	return &Handler{service: service}
+func New(service *services.Service, jwtSecret string) *Handler {
+	return &Handler{service: service, jwtSecret: jwtSecret}
 }
 
 func (h *Handler) Register(r chi.Router) {
 	r.Get("/health", h.health)
 
-	r.Post("/api/projects", h.createProject)
-	r.Get("/api/projects", h.listProjects)
-	r.Get("/api/projects/{id}", h.getProject)
-	r.Route("/api/projects/{id}", func(r chi.Router) {
-		r.Post("/upload", h.upload)
-		r.Post("/analyze", h.analyze)
-		r.Get("/dashboard", h.dashboard)
-		r.Get("/probabilistic-analysis", h.probabilisticAnalysis)
-		r.Get("/review-queue", h.reviewQueue)
-		r.Get("/objects/{objectId}", h.object)
-		r.Get("/objects/{objectId}/file", h.objectFile)
-		r.Get("/recommendations", h.recommendations)
-		r.Get("/roadmap", h.roadmap)
-		r.Post("/export", h.createExport)
-		r.Get("/exports/{exportId}/download", h.downloadExport)
-		r.Post("/agent/summary", h.agentSummary)
+	// Public auth endpoints
+	r.Post("/api/auth/register", h.register)
+	r.Post("/api/auth/login", h.login)
+
+	// Authenticated routes
+	r.Group(func(r chi.Router) {
+		r.Use(auth.Middleware(h.jwtSecret))
+
+		r.Get("/api/me", h.me)
+
+		// Teams
+		r.Post("/api/teams", h.createTeam)
+		r.Get("/api/teams", h.listTeams)
+		r.Get("/api/teams/{teamId}", h.getTeam)
+		r.Post("/api/teams/{teamId}/members", h.addTeamMember)
+		r.Delete("/api/teams/{teamId}/members/{userId}", h.removeTeamMember)
+
+		// Projects
+		r.Post("/api/projects", h.createProject)
+		r.Get("/api/projects", h.listProjects)
+		r.Get("/api/projects/{id}", h.getProject)
+		r.Get("/api/jobs/{jobId}", h.getJob)
+
+		r.Route("/api/projects/{id}", func(r chi.Router) {
+			// Project member management (admin only)
+			r.Get("/members", h.listProjectMembers)
+			r.Post("/members", h.addProjectMember)
+			r.Delete("/members/{userId}", h.removeProjectMember)
+
+			// Workflow
+			r.Post("/upload", h.upload)
+			r.Post("/analyze", h.analyze)
+			r.Get("/dashboard", h.dashboard)
+			r.Get("/probabilistic-analysis", h.probabilisticAnalysis)
+			r.Get("/review-queue", h.reviewQueue)
+			r.Get("/jobs", h.listJobs)
+			r.Get("/objects", h.listObjects)
+			r.Get("/objects/{objectId}", h.object)
+			r.Get("/objects/{objectId}/file", h.objectFile)
+			r.Post("/objects/{objectId}/action", h.objectAction)
+			r.Post("/objects/{objectId}/comments", h.addObjectComment)
+			r.Get("/objects/{objectId}/comments", h.listObjectComments)
+			r.Post("/review-queue/assign", h.assignReview)
+			r.Get("/review-queue/assigned-to-me", h.assignedToMe)
+
+			// Tasks
+			r.Get("/collection-tasks", h.listCollectionTasks)
+			r.Post("/collection-tasks", h.createCollectionTask)
+			r.Patch("/collection-tasks/{taskId}", h.updateCollectionTask)
+			r.Get("/synthetic-tasks", h.listSyntheticTasks)
+			r.Post("/synthetic-tasks", h.createSyntheticTask)
+			r.Patch("/synthetic-tasks/{taskId}", h.updateSyntheticTask)
+			r.Get("/class-action-plan", h.classActionPlan)
+
+			r.Get("/recommendations", h.recommendations)
+			r.Get("/roadmap", h.roadmap)
+			r.Post("/export", h.createExport)
+			r.Get("/exports/{exportId}/download", h.downloadExport)
+			r.Post("/agent/summary", h.agentSummary)
+			r.Post("/agent/dataset-summary", h.agentDatasetSummary)
+			r.Post("/agent/recommendations-summary", h.agentRecommendationsSummary)
+			r.Post("/agent/roadmap-summary", h.agentRoadmapSummary)
+			r.Post("/agent/admin-summary", h.agentAdminSummary)
+			r.Post("/agent/ml-engineer-summary", h.agentMLEngineerSummary)
+			r.Post("/agent/annotator-summary", h.agentAnnotatorSummary)
+			r.Post("/agent/expert-summary", h.agentExpertSummary)
+			r.Post("/agent/analyst-summary", h.agentAnalystSummary)
+			r.Post("/objects/{objectId}/agent/explain", h.agentObjectExplanation)
+			r.Post("/agent/collection-plan", h.agentCollectionPlan)
+			r.Post("/agent/synthetic-plan", h.agentSyntheticPlan)
+			r.Post("/agent/generate-collection-tasks", h.agentGenerateCollectionTasks)
+			r.Post("/agent/generate-synthetic-tasks", h.agentGenerateSyntheticTasks)
+			r.Post("/agent/generate-annotator-brief", h.agentGenerateAnnotatorBrief)
+			r.Post("/agent/generate-expert-brief", h.agentGenerateExpertBrief)
+		})
 	})
 }
 
@@ -52,13 +115,163 @@ func (h *Handler) health(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
 
+// ---- Auth ----
+
+func (h *Handler) register(w http.ResponseWriter, r *http.Request) {
+	var req services.RegisterRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.Register(r.Context(), req)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) login(w http.ResponseWriter, r *http.Request) {
+	var req services.LoginRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.Login(r.Context(), req)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) me(w http.ResponseWriter, r *http.Request) {
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	user, err := h.service.Me(r.Context(), claims.UserID)
+	writeResult(w, user, err)
+}
+
+// ---- Teams ----
+
+func (h *Handler) createTeam(w http.ResponseWriter, r *http.Request) {
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	var req services.CreateTeamRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.CreateTeam(r.Context(), req, claims.UserID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) listTeams(w http.ResponseWriter, r *http.Request) {
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	result, err := h.service.ListTeams(r.Context(), claims.UserID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) getTeam(w http.ResponseWriter, r *http.Request) {
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	teamID, ok := parseUUIDParam(w, r, "teamId")
+	if !ok {
+		return
+	}
+	result, err := h.service.GetTeam(r.Context(), teamID, claims.UserID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) addTeamMember(w http.ResponseWriter, r *http.Request) {
+	teamID, ok := parseUUIDParam(w, r, "teamId")
+	if !ok {
+		return
+	}
+	var req struct {
+		UserID uuid.UUID `json:"user_id"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.AddTeamMember(r.Context(), teamID, req.UserID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) removeTeamMember(w http.ResponseWriter, r *http.Request) {
+	teamID, ok := parseUUIDParam(w, r, "teamId")
+	if !ok {
+		return
+	}
+	userID, ok := parseUUIDParam(w, r, "userId")
+	if !ok {
+		return
+	}
+	err := h.service.RemoveTeamMember(r.Context(), teamID, userID)
+	writeResult(w, nil, err)
+}
+
+// ---- Project Members ----
+
+func (h *Handler) addProjectMember(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	var req struct {
+		UserID uuid.UUID                  `json:"user_id"`
+		Role   models.ProjectMemberRole   `json:"role"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	err := h.service.UpdateProjectRole(r.Context(), projectID, req.UserID, req.Role)
+	writeResult(w, nil, err)
+}
+
+func (h *Handler) listProjectMembers(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	members, err := h.service.ListProjectMembers(r.Context(), projectID)
+	writeResult(w, members, err)
+}
+
+func (h *Handler) removeProjectMember(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	userID, ok := parseUUIDParam(w, r, "userId")
+	if !ok {
+		return
+	}
+	err := h.service.RemoveProjectMember(r.Context(), projectID, userID)
+	writeResult(w, nil, err)
+}
+
+// ---- Projects ----
+
 func (h *Handler) createProject(w http.ResponseWriter, r *http.Request) {
 	var req services.CreateProjectRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		writeError(w, http.StatusBadRequest, "invalid json")
 		return
 	}
-	project, err := h.service.CreateProject(r.Context(), req)
+	claims := auth.UserFromContext(r.Context())
+	var creatorID uuid.UUID
+	if claims != nil {
+		creatorID = claims.UserID
+	}
+	project, err := h.service.CreateProject(r.Context(), req, creatorID)
 	if err != nil {
 		if services.IsBadRequest(err) {
 			writeError(w, http.StatusBadRequest, err.Error())
@@ -158,7 +371,7 @@ func (h *Handler) object(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
-	result, err := h.service.Object(r.Context(), projectID, objectID)
+	result, err := h.service.GetObjectDetail(r.Context(), projectID, objectID)
 	writeResult(w, result, err)
 }
 
@@ -231,6 +444,247 @@ func (h *Handler) downloadExport(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, export.FilePath)
 }
 
+func (h *Handler) getJob(w http.ResponseWriter, r *http.Request) {
+	jobID, ok := parseUUIDParam(w, r, "jobId")
+	if !ok {
+		return
+	}
+	result, err := h.service.GetJob(r.Context(), jobID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) listJobs(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.ListJobs(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+// ---- Object Workflow ----
+
+func (h *Handler) listObjects(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+
+	q := r.URL.Query()
+	page := queryInt(q, "page", 1)
+	perPage := queryInt(q, "per_page", 20)
+	scoreMin := queryFloat(q, "score_min", 0)
+	scoreMax := queryFloat(q, "score_max", 0)
+
+	result, err := h.service.ListObjects(r.Context(), projectID, page, perPage,
+		q.Get("status"), q.Get("label"), q.Get("reason"), q.Get("recommendation"),
+		q.Get("sort_by"), q.Get("order"), q.Get("search"),
+		scoreMin, scoreMax)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) objectAction(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	objectID, ok := parseUUIDParam(w, r, "objectId")
+	if !ok {
+		return
+	}
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	var req struct {
+		Action   string `json:"action"`
+		OldValue string `json:"old_value"`
+		NewValue string `json:"new_value"`
+		Comment  string `json:"comment"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.PerformObjectAction(r.Context(), projectID, objectID, claims.UserID, req.Action, req.OldValue, req.NewValue, req.Comment)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) addObjectComment(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	objectID, ok := parseUUIDParam(w, r, "objectId")
+	if !ok {
+		return
+	}
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	var req struct {
+		Text string `json:"text"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.AddObjectComment(r.Context(), projectID, objectID, claims.UserID, req.Text)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) listObjectComments(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	objectID, ok := parseUUIDParam(w, r, "objectId")
+	if !ok {
+		return
+	}
+	result, err := h.service.ListObjectComments(r.Context(), projectID, objectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) assignReview(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	var req struct {
+		ObjectID uuid.UUID `json:"object_id"`
+		UserID   uuid.UUID `json:"user_id"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.AssignReview(r.Context(), projectID, req.ObjectID, req.UserID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) assignedToMe(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	result, err := h.service.AssignedToMe(r.Context(), projectID, claims.UserID)
+	writeResult(w, result, err)
+}
+
+// ---- Tasks ----
+
+func (h *Handler) createCollectionTask(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	var req services.CreateCollectionTaskRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.CreateCollectionTask(r.Context(), projectID, claims.UserID, req)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) listCollectionTasks(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.ListCollectionTasks(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) updateCollectionTask(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	taskID, ok := parseUUIDParam(w, r, "taskId")
+	if !ok {
+		return
+	}
+	var updates map[string]any
+	if err := json.NewDecoder(r.Body).Decode(&updates); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.UpdateCollectionTask(r.Context(), projectID, taskID, updates)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) createSyntheticTask(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	claims := auth.UserFromContext(r.Context())
+	if claims == nil {
+		writeError(w, http.StatusUnauthorized, "not authenticated")
+		return
+	}
+	var req services.CreateSyntheticTaskRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.CreateSyntheticTask(r.Context(), projectID, claims.UserID, req)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) listSyntheticTasks(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.ListSyntheticTasks(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) updateSyntheticTask(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	taskID, ok := parseUUIDParam(w, r, "taskId")
+	if !ok {
+		return
+	}
+	var updates map[string]any
+	if err := json.NewDecoder(r.Body).Decode(&updates); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid json")
+		return
+	}
+	result, err := h.service.UpdateSyntheticTask(r.Context(), projectID, taskID, updates)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) classActionPlan(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.ClassActionPlan(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+// ---- Agent Level 1 ----
+
 func (h *Handler) agentSummary(w http.ResponseWriter, r *http.Request) {
 	projectID, ok := parseUUIDParam(w, r, "id")
 	if !ok {
@@ -238,6 +692,187 @@ func (h *Handler) agentSummary(w http.ResponseWriter, r *http.Request) {
 	}
 	result, err := h.service.AgentSummary(r.Context(), projectID)
 	writeResult(w, result, err)
+}
+
+func (h *Handler) agentDatasetSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentDatasetSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentRecommendationsSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentRecommendationsSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentRoadmapSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentRoadmapSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+// ---- Agent Level 2: Role-aware ----
+
+func (h *Handler) agentAdminSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentAdminSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentMLEngineerSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentMLEngineerSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentAnnotatorSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentAnnotatorSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentExpertSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentExpertSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentAnalystSummary(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentAnalystSummary(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+// ---- Agent Level 2: Object Explanation ----
+
+func (h *Handler) agentObjectExplanation(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	objectID, ok := parseUUIDParam(w, r, "objectId")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentObjectExplanation(r.Context(), projectID, objectID)
+	writeResult(w, result, err)
+}
+
+// ---- Agent Level 2: Collection / Synthetic Plans ----
+
+func (h *Handler) agentCollectionPlan(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentCollectionPlan(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentSyntheticPlan(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentSyntheticPlan(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+// ---- Agent Level 2: Task Generation ----
+
+func (h *Handler) agentGenerateCollectionTasks(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentGenerateCollectionTasks(r.Context(), projectID)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(result))
+}
+
+func (h *Handler) agentGenerateSyntheticTasks(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentGenerateSyntheticTasks(r.Context(), projectID)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(result))
+}
+
+func (h *Handler) agentGenerateAnnotatorBrief(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentGenerateAnnotatorBrief(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func (h *Handler) agentGenerateExpertBrief(w http.ResponseWriter, r *http.Request) {
+	projectID, ok := parseUUIDParam(w, r, "id")
+	if !ok {
+		return
+	}
+	result, err := h.service.AgentGenerateExpertBrief(r.Context(), projectID)
+	writeResult(w, result, err)
+}
+
+func queryInt(q map[string][]string, key string, fallback int) int {
+	values, ok := q[key]
+	if !ok || len(values) == 0 {
+		return fallback
+	}
+	parsed, err := strconv.Atoi(values[0])
+	if err != nil {
+		return fallback
+	}
+	return parsed
+}
+
+func queryFloat(q map[string][]string, key string, fallback float64) float64 {
+	values, ok := q[key]
+	if !ok || len(values) == 0 {
+		return fallback
+	}
+	parsed, err := strconv.ParseFloat(values[0], 64)
+	if err != nil {
+		return fallback
+	}
+	return parsed
 }
 
 func fileHeader(r *http.Request, name string) (*multipart.FileHeader, error) {

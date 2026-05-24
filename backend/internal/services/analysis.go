@@ -3,6 +3,8 @@ package services
 import (
 	"context"
 	"math"
+	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -20,6 +22,7 @@ type localAnalysis struct {
 	roadmap         []models.RoadmapItem
 	summary         datasetSummary
 	objectStatuses  map[uuid.UUID]string
+	outputFiles     map[string]string
 }
 
 func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.AnalysisJob, error) {
@@ -40,7 +43,7 @@ func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.Anal
 		ID:               uuid.New(),
 		ProjectID:        projectID,
 		DatasetVersionID: version.ID,
-		Status:           "running",
+		Status:           "pending",
 	}
 	job, err = s.repo.CreateAnalysisJob(ctx, job)
 	if err != nil {
@@ -51,11 +54,15 @@ func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.Anal
 	if err != nil {
 		result = s.analyzeLocal(project, version, objects)
 	}
-	if err := s.repo.FinishAnalysis(ctx, job.ID, result.readiness, result.metrics, result.recommendations, result.roadmap, result.objectStatuses); err != nil {
+	outputFiles := result.outputFiles
+	if len(outputFiles) == 0 {
+		outputFiles = s.collectOutputFiles(project.ID, version.ID)
+	}
+	if err := s.repo.FinishAnalysis(ctx, job.ID, result.readiness, result.metrics, result.recommendations, result.roadmap, result.objectStatuses, outputFiles); err != nil {
 		_ = s.repo.FailAnalysisJob(ctx, job.ID, err.Error())
 		return job, err
 	}
-	job.Status = "done"
+	job.Status = "completed"
 	job.FinishedAt = time.Now()
 	return job, nil
 }
@@ -695,6 +702,21 @@ func priorityForCount(count int) string {
 		return "medium"
 	}
 	return "low"
+}
+
+func (s *Service) collectOutputFiles(projectID, datasetVersionID uuid.UUID) map[string]string {
+	outputDir := filepath.Join(s.storage.AnalysisDir(projectID), datasetVersionID.String())
+	entries, err := os.ReadDir(outputDir)
+	if err != nil {
+		return nil
+	}
+	files := map[string]string{}
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			files[entry.Name()] = filepath.Join(outputDir, entry.Name())
+		}
+	}
+	return files
 }
 
 func clamp(value, min, max float64) float64 {

@@ -7,11 +7,15 @@ import (
 )
 
 type Config struct {
-	HTTPAddr     string
-	DatabaseURL  string
-	StorageDir   string
-	MLServiceURL string
-	MLTimeout    time.Duration
+	HTTPAddr        string
+	DatabaseURL     string
+	StorageDir      string
+	MLServiceURL    string
+	MLTimeout       time.Duration
+	JWTSecret       string
+	AgentBaseURL    string
+	AgentModel      string
+	AgentServiceURL string
 }
 
 func Load() Config {
@@ -21,6 +25,10 @@ func Load() Config {
 		StorageDir:   getEnv("STORAGE_DIR", "storage"),
 		MLServiceURL: getEnv("ML_SERVICE_URL", "http://ml-service:8000"),
 		MLTimeout:    time.Duration(getEnvInt("ML_TIMEOUT_SECONDS", 15)) * time.Second,
+		JWTSecret:    getEnv("JWT_SECRET", "change-me-in-production"),
+		AgentBaseURL:    getEnv("AGENT_BASE_URL", "http://localhost:11434"),
+		AgentModel:      getEnv("AGENT_MODEL", "gemma2:2b"),
+		AgentServiceURL: getEnv("AGENT_SERVICE_URL", "http://agent-service:8090"),
 	}
 }
 
