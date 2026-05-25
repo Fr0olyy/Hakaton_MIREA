@@ -1,0 +1,26 @@
+[
+  {
+    "task_type": "fix_detection_annotations",
+    "target": "invalid_bboxes",
+    "target_count": 1,
+    "priority": "high",
+    "status": "open",
+    "reason": "Some YOLO bounding boxes are outside normalized 0..1 range.",
+    "expected_impact": "Improve detection annotation quality and reduce training errors.",
+    "risk": "high",
+    "source_action": "fix_invalid_bboxes",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_tiny_detection_boxes",
+    "target": "tiny_boxes",
+    "target_count": 1,
+    "priority": "medium",
+    "status": "open",
+    "reason": "Some YOLO boxes are too small and may add training noise.",
+    "expected_impact": "Reduce noisy annotations and improve detector stability.",
+    "risk": "medium",
+    "source_action": "review_tiny_boxes",
+    "owner_role": "Domain Expert"
+  }
+]

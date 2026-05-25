@@ -1,0 +1,14 @@
+[
+  {
+    "type": "FIX_INVALID_BBOXES",
+    "priority": "high",
+    "title": "Fix invalid YOLO bounding boxes",
+    "description": "Some YOLO annotations contain coordinates outside the normalized 0..1 range."
+  },
+  {
+    "type": "REVIEW_TINY_BOXES",
+    "priority": "medium",
+    "title": "Review tiny bounding boxes",
+    "description": "Some objects have extremely small bounding boxes and may add noise to detection training."
+  }
+]

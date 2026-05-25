@@ -1,0 +1,163 @@
+{
+  "status": "completed",
+  "modality": "image_detection_yolo",
+  "task_type": "detection",
+  "dataset_metrics": {
+    "total_label_files": 3,
+    "cv_quality_score": 83.33333333333333,
+    "files_needing_review": 1,
+    "out_of_bounds_files_count": 1,
+    "tiny_boxes_files_count": 1
+  },
+  "object_metrics": [
+    {
+      "id": "0",
+      "file_path": "data/demo/yolo/labels/img_001.txt",
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "cv_quality_score": 100.0,
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical YOLO annotation issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "1",
+      "file_path": "data/demo/yolo/labels/img_002.txt",
+      "status": "warning",
+      "reasons": [
+        "bbox_out_of_bounds",
+        "tiny_boxes"
+      ],
+      "recommendation": "fix_invalid_bboxes",
+      "cv_quality_score": 50.0,
+      "recommended_action": "fix_invalid_bboxes",
+      "action_confidence": 0.95,
+      "action_reason": "YOLO annotation contains bounding boxes outside normalized 0..1 range.",
+      "action_risk": "high"
+    },
+    {
+      "id": "2",
+      "file_path": "data/demo/yolo/labels/img_003.txt",
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "cv_quality_score": 100.0,
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical YOLO annotation issues detected.",
+      "action_risk": "low"
+    }
+  ],
+  "review_queue": [
+    {
+      "id": "1",
+      "file_path": "data/demo/yolo/labels/img_002.txt",
+      "status": "warning",
+      "reasons": [
+        "bbox_out_of_bounds",
+        "tiny_boxes"
+      ],
+      "recommendation": "fix_invalid_bboxes",
+      "cv_quality_score": 50.0,
+      "recommended_action": "fix_invalid_bboxes",
+      "action_confidence": 0.95,
+      "action_reason": "YOLO annotation contains bounding boxes outside normalized 0..1 range.",
+      "action_risk": "high"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "FIX_INVALID_BBOXES",
+      "priority": "high",
+      "title": "Fix invalid YOLO bounding boxes",
+      "description": "Some YOLO annotations contain coordinates outside the normalized 0..1 range."
+    },
+    {
+      "type": "REVIEW_TINY_BOXES",
+      "priority": "medium",
+      "title": "Review tiny bounding boxes",
+      "description": "Some objects have extremely small bounding boxes and may add noise to detection training."
+    }
+  ],
+  "roadmap": [],
+  "collection_tasks": [
+    {
+      "task_type": "fix_detection_annotations",
+      "target": "invalid_bboxes",
+      "target_count": 1,
+      "priority": "high",
+      "status": "open",
+      "reason": "Some YOLO bounding boxes are outside normalized 0..1 range.",
+      "expected_impact": "Improve detection annotation quality and reduce training errors.",
+      "risk": "high",
+      "source_action": "fix_invalid_bboxes",
+      "owner_role": "Annotator"
+    },
+    {
+      "task_type": "review_tiny_detection_boxes",
+      "target": "tiny_boxes",
+      "target_count": 1,
+      "priority": "medium",
+      "status": "open",
+      "reason": "Some YOLO boxes are too small and may add training noise.",
+      "expected_impact": "Reduce noisy annotations and improve detector stability.",
+      "risk": "medium",
+      "source_action": "review_tiny_boxes",
+      "owner_role": "Domain Expert"
+    }
+  ],
+  "synthetic_tasks": [
+    {
+      "task_type": "collect_or_generate_detection_edge_cases",
+      "target": "small_objects",
+      "target_count": 1,
+      "priority": "medium",
+      "status": "draft",
+      "reason": "Detection dataset contains tiny boxes. More valid small-object examples may be needed.",
+      "prompt": "Generate realistic images with small but visible objects, clear background, valid object boundaries, detection-friendly composition.",
+      "negative_prompt": "object too small to see, blurry, occluded object, invalid bbox, distorted scene",
+      "expected_impact": "Improve detector stability on small objects.",
+      "risk": "medium",
+      "synthetic_bias_risk": "medium",
+      "requires_human_validation": true,
+      "owner_role": "ML Engineer",
+      "source_action": "review_tiny_boxes"
+    }
+  ],
+  "class_action_plan": [
+    {
+      "target": "invalid_bboxes",
+      "target_type": "detection_annotation_issue",
+      "recommended_action": "fix_invalid_bboxes",
+      "priority": "high",
+      "reason": "Some YOLO bounding boxes are outside normalized 0..1 range.",
+      "risk": "high",
+      "affected_files_count": 1
+    },
+    {
+      "target": "tiny_boxes",
+      "target_type": "detection_annotation_issue",
+      "recommended_action": "review_tiny_boxes",
+      "priority": "medium",
+      "reason": "Some YOLO boxes are too small and may add training noise.",
+      "risk": "medium",
+      "affected_files_count": 1
+    }
+  ],
+  "exports": {
+    "dataset_v2_conservative_csv": "outputs/smoke_yolo/dataset_v2_conservative.csv",
+    "dataset_v2_balanced_csv": "outputs/smoke_yolo/dataset_v2_balanced.csv",
+    "dataset_v2_aggressive_csv": "outputs/smoke_yolo/dataset_v2_aggressive.csv",
+    "dataset_strategy_summary_json": "outputs/smoke_yolo/dataset_strategy_summary.json",
+    "agent_context_json": "outputs/smoke_yolo/agent_context.json"
+  },
+  "warnings": [],
+  "errors": [],
+  "metadata": {
+    "data_dir": "data/demo/yolo",
+    "label_files_count": 3,
+    "data_action_policy_applied": true
+  }
+}

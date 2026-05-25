@@ -1,0 +1,41 @@
+[
+  {
+    "id": "6",
+    "row_index": 5,
+    "status": "warning",
+    "reasons": [
+      "missing_values"
+    ],
+    "recommendation": "fix_missing_values",
+    "recommended_action": "fix_missing_values",
+    "action_confidence": 0.8,
+    "action_reason": "Row contains missing values.",
+    "action_risk": "medium"
+  },
+  {
+    "id": "7",
+    "row_index": 6,
+    "status": "warning",
+    "reasons": [
+      "outlier"
+    ],
+    "recommendation": "review_outlier",
+    "recommended_action": "review_outlier",
+    "action_confidence": 0.75,
+    "action_reason": "Row contains statistical outlier values.",
+    "action_risk": "medium"
+  },
+  {
+    "id": "8",
+    "row_index": 7,
+    "status": "warning",
+    "reasons": [
+      "missing_values"
+    ],
+    "recommendation": "fix_missing_values",
+    "recommended_action": "fix_missing_values",
+    "action_confidence": 0.8,
+    "action_reason": "Row contains missing values.",
+    "action_risk": "medium"
+  }
+]

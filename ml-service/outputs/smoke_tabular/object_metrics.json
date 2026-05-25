@@ -1,0 +1,118 @@
+[
+  {
+    "id": "1",
+    "row_index": 0,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "2",
+    "row_index": 1,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "3",
+    "row_index": 2,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "4",
+    "row_index": 3,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "5",
+    "row_index": 4,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "6",
+    "row_index": 5,
+    "status": "warning",
+    "reasons": [
+      "missing_values"
+    ],
+    "recommendation": "fix_missing_values",
+    "recommended_action": "fix_missing_values",
+    "action_confidence": 0.8,
+    "action_reason": "Row contains missing values.",
+    "action_risk": "medium"
+  },
+  {
+    "id": "7",
+    "row_index": 6,
+    "status": "warning",
+    "reasons": [
+      "outlier"
+    ],
+    "recommendation": "review_outlier",
+    "recommended_action": "review_outlier",
+    "action_confidence": 0.75,
+    "action_reason": "Row contains statistical outlier values.",
+    "action_risk": "medium"
+  },
+  {
+    "id": "8",
+    "row_index": 7,
+    "status": "warning",
+    "reasons": [
+      "missing_values"
+    ],
+    "recommendation": "fix_missing_values",
+    "recommended_action": "fix_missing_values",
+    "action_confidence": 0.8,
+    "action_reason": "Row contains missing values.",
+    "action_risk": "medium"
+  },
+  {
+    "id": "9",
+    "row_index": 8,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "10",
+    "row_index": 9,
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical tabular issues detected.",
+    "action_risk": "low"
+  }
+]

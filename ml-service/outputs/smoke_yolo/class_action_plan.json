@@ -1,0 +1,20 @@
+[
+  {
+    "target": "invalid_bboxes",
+    "target_type": "detection_annotation_issue",
+    "recommended_action": "fix_invalid_bboxes",
+    "priority": "high",
+    "reason": "Some YOLO bounding boxes are outside normalized 0..1 range.",
+    "risk": "high",
+    "affected_files_count": 1
+  },
+  {
+    "target": "tiny_boxes",
+    "target_type": "detection_annotation_issue",
+    "recommended_action": "review_tiny_boxes",
+    "priority": "medium",
+    "reason": "Some YOLO boxes are too small and may add training noise.",
+    "risk": "medium",
+    "affected_files_count": 1
+  }
+]

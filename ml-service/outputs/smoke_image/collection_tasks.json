@@ -1,0 +1,86 @@
+[
+  {
+    "task_type": "review_real_labels",
+    "target_class": "cat",
+    "target_count": 10,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_real_labels",
+    "target_class": "cow",
+    "target_count": 13,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_real_labels",
+    "target_class": "butterfly",
+    "target_count": 19,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_real_labels",
+    "target_class": "squirrel",
+    "target_count": 10,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_real_labels",
+    "target_class": "horse",
+    "target_count": 20,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_real_labels",
+    "target_class": "dog",
+    "target_count": 13,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  },
+  {
+    "task_type": "review_real_labels",
+    "target_class": "elephant",
+    "target_count": 18,
+    "priority": "high",
+    "status": "open",
+    "reason": "Class has many suspected label errors and needs annotation review.",
+    "expected_impact": "Improve label quality and reduce training noise.",
+    "risk": "high",
+    "source_action": "review_labels",
+    "owner_role": "Annotator"
+  }
+]
