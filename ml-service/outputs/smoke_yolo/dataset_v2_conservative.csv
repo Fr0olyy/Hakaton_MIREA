@@ -1,0 +1,4 @@
+id,file_path,status,reasons,recommendation,cv_quality_score,recommended_action,action_confidence,action_reason,action_risk
+0,data/demo/yolo/labels/img_001.txt,ok,[],keep,100.0,keep,0.9,No critical YOLO annotation issues detected.,low
+1,data/demo/yolo/labels/img_002.txt,warning,"['bbox_out_of_bounds', 'tiny_boxes']",fix_invalid_bboxes,50.0,fix_invalid_bboxes,0.95,YOLO annotation contains bounding boxes outside normalized 0..1 range.,high
+2,data/demo/yolo/labels/img_003.txt,ok,[],keep,100.0,keep,0.9,No critical YOLO annotation issues detected.,low

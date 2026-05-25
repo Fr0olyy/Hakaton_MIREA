@@ -1,0 +1,41 @@
+[
+  {
+    "id": "0",
+    "file_path": "data/demo/yolo/labels/img_001.txt",
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "cv_quality_score": 100.0,
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical YOLO annotation issues detected.",
+    "action_risk": "low"
+  },
+  {
+    "id": "1",
+    "file_path": "data/demo/yolo/labels/img_002.txt",
+    "status": "warning",
+    "reasons": [
+      "bbox_out_of_bounds",
+      "tiny_boxes"
+    ],
+    "recommendation": "fix_invalid_bboxes",
+    "cv_quality_score": 50.0,
+    "recommended_action": "fix_invalid_bboxes",
+    "action_confidence": 0.95,
+    "action_reason": "YOLO annotation contains bounding boxes outside normalized 0..1 range.",
+    "action_risk": "high"
+  },
+  {
+    "id": "2",
+    "file_path": "data/demo/yolo/labels/img_003.txt",
+    "status": "ok",
+    "reasons": [],
+    "recommendation": "keep",
+    "cv_quality_score": 100.0,
+    "recommended_action": "keep",
+    "action_confidence": 0.9,
+    "action_reason": "No critical YOLO annotation issues detected.",
+    "action_risk": "low"
+  }
+]

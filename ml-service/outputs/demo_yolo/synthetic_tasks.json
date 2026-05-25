@@ -1,0 +1,18 @@
+[
+  {
+    "task_type": "collect_or_generate_detection_edge_cases",
+    "target": "small_objects",
+    "target_count": 1,
+    "priority": "medium",
+    "status": "draft",
+    "reason": "Detection dataset contains tiny boxes. More valid small-object examples may be needed.",
+    "prompt": "Generate realistic images with small but visible objects, clear background, valid object boundaries, detection-friendly composition.",
+    "negative_prompt": "object too small to see, blurry, occluded object, invalid bbox, distorted scene",
+    "expected_impact": "Improve detector stability on small objects.",
+    "risk": "medium",
+    "synthetic_bias_risk": "medium",
+    "requires_human_validation": true,
+    "owner_role": "ML Engineer",
+    "source_action": "review_tiny_boxes"
+  }
+]

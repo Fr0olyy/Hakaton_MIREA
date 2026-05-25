@@ -1,0 +1,15 @@
+{
+  "total_rows": 10,
+  "total_columns": 6,
+  "tabular_quality_score": 85.0,
+  "adapter_status": "ready",
+  "missing_columns_count": 2,
+  "rows_with_any_nan_fraction": 0.2,
+  "duplicate_rows_count": 0,
+  "duplicate_rows_fraction": 0.0,
+  "outliers_total_count": 1,
+  "rows_with_outliers_fraction": 0.1,
+  "constant_columns_count": 0,
+  "high_cardinality_columns_count": 1,
+  "target_leakage_status": "ok"
+}

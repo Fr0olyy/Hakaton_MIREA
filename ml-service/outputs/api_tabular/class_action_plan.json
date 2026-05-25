@@ -1,0 +1,29 @@
+[
+  {
+    "target": "missing_values",
+    "target_type": "tabular_issue",
+    "recommended_action": "fix_missing_values",
+    "priority": "medium",
+    "reason": "Some rows contain missing values.",
+    "risk": "medium",
+    "affected_fraction": 0.2
+  },
+  {
+    "target": "numeric_outliers",
+    "target_type": "tabular_issue",
+    "recommended_action": "review_outliers",
+    "priority": "medium",
+    "reason": "Some numeric values look like statistical outliers.",
+    "risk": "medium",
+    "affected_count": 1
+  },
+  {
+    "target": "high_cardinality_columns",
+    "target_type": "tabular_issue",
+    "recommended_action": "review_or_drop_high_cardinality_columns",
+    "priority": "medium",
+    "reason": "Some columns look like IDs or have too many unique values.",
+    "risk": "medium",
+    "affected_count": 1
+  }
+]
