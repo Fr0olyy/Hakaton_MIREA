@@ -45,7 +45,11 @@ func (s *Service) CreateCollectionTask(ctx context.Context, projectID, userID uu
 }
 
 func (s *Service) ListCollectionTasks(ctx context.Context, projectID uuid.UUID) ([]models.CollectionTask, error) {
-	return s.repo.ListCollectionTasks(ctx, projectID)
+	tasks, err := s.repo.ListCollectionTasks(ctx, projectID)
+	if tasks == nil {
+		tasks = []models.CollectionTask{}
+	}
+	return tasks, err
 }
 
 func (s *Service) UpdateCollectionTask(ctx context.Context, projectID, taskID uuid.UUID, updates map[string]any) (models.CollectionTask, error) {
@@ -76,7 +80,11 @@ func (s *Service) CreateSyntheticTask(ctx context.Context, projectID, userID uui
 }
 
 func (s *Service) ListSyntheticTasks(ctx context.Context, projectID uuid.UUID) ([]models.SyntheticTask, error) {
-	return s.repo.ListSyntheticTasks(ctx, projectID)
+	tasks, err := s.repo.ListSyntheticTasks(ctx, projectID)
+	if tasks == nil {
+		tasks = []models.SyntheticTask{}
+	}
+	return tasks, err
 }
 
 func (s *Service) UpdateSyntheticTask(ctx context.Context, projectID, taskID uuid.UUID, updates map[string]any) (models.SyntheticTask, error) {

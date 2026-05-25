@@ -35,10 +35,12 @@ services:
       ML_SERVICE_URL: http://ml-service:8000
       ML_TIMEOUT_SECONDS: 15
       AGENT_SERVICE_URL: http://agent-service:8090
+      DEMO_DATA_DIR: /app/ml-data
     ports:
       - "${BACKEND_PORT:-8080}:8080"
     volumes:
       - backend_storage:/app/storage
+      - ../ml-service/data:/app/ml-data:ro
     depends_on:
       postgres:
         condition: service_healthy

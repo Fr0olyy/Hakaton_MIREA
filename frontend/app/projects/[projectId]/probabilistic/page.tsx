@@ -59,7 +59,7 @@ export default function ProbabilisticPage() {
       <ProjectNav projectId={projectId} />
       <PageHeader
         title="Probabilistic Analysis"
-        description={`Metrics count: ${data.metrics.length}. Entropy, confidence, uncertainty, label risk, and class deficit are normalized for Level 1 review.`}
+        description={`Metrics count: ${data.metrics.length}. Entropy, confidence, uncertainty, label risk, and class deficit are normalized for Level 2 review.`}
       />
 
       <div className="grid gap-4 lg:grid-cols-2">

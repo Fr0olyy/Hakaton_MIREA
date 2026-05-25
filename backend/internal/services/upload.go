@@ -52,24 +52,28 @@ func (s *Service) Upload(ctx context.Context, projectID uuid.UUID, datasetHeader
 		}
 	}
 
+	return s.uploadFromSavedDataset(ctx, project, datasetPath)
+}
+
+func (s *Service) uploadFromSavedDataset(ctx context.Context, project models.Project, datasetPath string) (UploadResult, error) {
 	objects, invalid, err := s.parseCSV(project, datasetPath)
 	if err != nil {
 		return UploadResult{}, err
 	}
-	if err := s.storage.EnsureImageAliases(projectID, objectFilePaths(objects)); err != nil {
+	if err := s.storage.EnsureImageAliases(project.ID, objectFilePaths(objects)); err != nil {
 		return UploadResult{}, err
 	}
 	if err := writeNormalizedDataset(datasetPath, objects); err != nil {
 		return UploadResult{}, err
 	}
 
-	versionNumber, err := s.repo.NextDatasetVersionNumber(ctx, projectID)
+	versionNumber, err := s.repo.NextDatasetVersionNumber(ctx, project.ID)
 	if err != nil {
 		return UploadResult{}, err
 	}
 	version := models.DatasetVersion{
 		ID:             uuid.New(),
-		ProjectID:      projectID,
+		ProjectID:      project.ID,
 		VersionName:    "v" + strconv.Itoa(versionNumber),
 		Status:         "uploaded",
 		ObjectsCount:   len(objects),
@@ -169,7 +173,7 @@ func (s *Service) parseCSV(project models.Project, datasetPath string) ([]models
 		return nil, 0, err
 	}
 	indexes := headerIndexes(headers)
-	if project.Modality == "image" {
+	if isImageClassificationProject(project) {
 		if _, ok := indexes["file_path"]; !ok {
 			return nil, 0, badRequest("image classification csv must contain file_path column")
 		}
@@ -201,7 +205,7 @@ func (s *Service) parseCSV(project models.Project, datasetPath string) ([]models
 		object.ExternalID = firstNonEmpty(csvValue(record, indexes, "external_id"), csvValue(record, indexes, "id"))
 		object.FilePath = csvValue(record, indexes, "file_path")
 		object.TextContent = csvValue(record, indexes, "text_content")
-		object.Label = csvValue(record, indexes, "label")
+		object.Label = firstNonEmpty(csvValue(record, indexes, "label"), csvValue(record, indexes, "target"), csvValue(record, indexes, "target_label"), csvValue(record, indexes, "class"))
 		object.PredictedLabel = csvValue(record, indexes, "predicted_label")
 		object.Split = csvValue(record, indexes, "split")
 		object.Source = csvValue(record, indexes, "source")
@@ -242,7 +246,7 @@ func (s *Service) validateObject(project models.Project, classSet map[string]str
 		}
 	}
 
-	if project.Modality == "image" {
+	if isImageClassificationProject(project) {
 		switch {
 		case strings.TrimSpace(object.FilePath) == "":
 			issues = append(issues, "file_path is required")
@@ -262,7 +266,7 @@ func (s *Service) validateObject(project models.Project, classSet map[string]str
 		}
 	}
 
-	if strings.TrimSpace(object.Label) == "" {
+	if strings.TrimSpace(object.Label) == "" && (isImageClassificationProject(project) || len(classSet) > 0) {
 		issues = append(issues, "label is required")
 		setStatus(statusMissingLabel)
 	} else if len(classSet) > 0 {
@@ -272,7 +276,7 @@ func (s *Service) validateObject(project models.Project, classSet map[string]str
 		}
 	}
 
-	if object.FilePath == "" && object.TextContent == "" {
+	if isImageLikeProject(project) && object.FilePath == "" && object.TextContent == "" {
 		issues = append(issues, "object has no file_path or text_content")
 		setStatus(statusInvalid)
 	}
@@ -316,7 +320,7 @@ func probabilityColumns(record, headers []string) map[string]float64 {
 
 func isKnownColumn(name string) bool {
 	switch name {
-	case "id", "external_id", "file_path", "text_content", "label", "predicted_label", "confidence", "split", "source", "annotator":
+	case "id", "external_id", "file_path", "text_content", "label", "target", "target_label", "class", "predicted_label", "confidence", "split", "source", "annotator":
 		return true
 	default:
 		return false

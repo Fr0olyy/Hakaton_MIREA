@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
-import { Check, Eye, Send, ShieldX, Tag } from "lucide-react";
+import { Check, Eye, MessageSquare, Send, ShieldX, Tag } from "lucide-react";
 import { getReviewQueue } from "@/lib/api";
+import { actionConfidence, actionReason, actionRisk, recommendedAction } from "@/lib/level2";
 import type { ReviewQueueItem } from "@/lib/types";
 import { apiPath, formatPercent, formatScore, numericProbabilityEntries } from "@/lib/utils";
 import { classOptions, reasonOptions, statusOptions } from "@/lib/derived";
@@ -32,6 +33,7 @@ export default function ActiveLearningQueuePage() {
   const [status, setStatus] = useState("all");
   const [reason, setReason] = useState("all");
   const [label, setLabel] = useState("all");
+  const [quickFilter, setQuickFilter] = useState("all");
   const [selected, setSelected] = useState<ReviewQueueItem | null>(null);
   const [decisions, setDecisions] = useState<Record<string, Decision>>({});
 
@@ -48,10 +50,15 @@ export default function ActiveLearningQueuePage() {
         const itemStatus = decisions[item.object.id]?.status || item.object.status || "unknown";
         const reasons = item.metric.reasons || [];
         const itemLabel = item.object.label || "unlabeled";
-        return (status === "all" || itemStatus === status) && (reason === "all" || reasons.includes(reason)) && (label === "all" || itemLabel === label);
+        return (
+          (status === "all" || itemStatus === status) &&
+          (reason === "all" || reasons.includes(reason)) &&
+          (label === "all" || itemLabel === label) &&
+          matchesQuickFilter(item, quickFilter)
+        );
       })
       .sort((a, b) => b.metric.object_utility_score - a.metric.object_utility_score);
-  }, [queue, status, reason, label, decisions]);
+  }, [queue, status, reason, label, quickFilter, decisions]);
 
   function applyDecision(item: ReviewQueueItem, nextStatus: string, note?: string) {
     setDecisions((current) => ({
@@ -83,7 +90,7 @@ export default function ActiveLearningQueuePage() {
       <ProjectNav projectId={projectId} />
       <PageHeader title="Active Learning Queue" description="Objects sorted by utility and review need. Use filters to focus on statuses, reasons, and classes." />
 
-      <div className="mb-4 grid gap-3 md:grid-cols-3">
+      <div className="mb-4 grid gap-3 md:grid-cols-4">
         <Select value={status} onChange={(event) => setStatus(event.target.value)}>
           <option value="all">All statuses</option>
           {statusOptions(queue).map((option) => (
@@ -113,6 +120,17 @@ export default function ActiveLearningQueuePage() {
             </option>
           ))}
         </Select>
+        <Select value={quickFilter} onChange={(event) => setQuickFilter(event.target.value)}>
+          <option value="all">All risk groups</option>
+          <option value="high">high risk</option>
+          <option value="medium">medium risk</option>
+          <option value="label_errors">label errors</option>
+          <option value="bad_quality">bad quality</option>
+          <option value="duplicates">duplicates</option>
+          <option value="outliers">outliers</option>
+          <option value="invalid_bboxes">invalid bboxes</option>
+          <option value="tiny_boxes">tiny boxes</option>
+        </Select>
       </div>
 
       <Card>
@@ -128,7 +146,10 @@ export default function ActiveLearningQueuePage() {
                 <TableHead>object_utility_score</TableHead>
                 <TableHead>status</TableHead>
                 <TableHead>reasons</TableHead>
-                <TableHead>recommendation</TableHead>
+                <TableHead>recommended_action</TableHead>
+                <TableHead>action_confidence</TableHead>
+                <TableHead>action_reason</TableHead>
+                <TableHead>action_risk</TableHead>
                 <TableHead />
               </TableRow>
             </TableHeader>
@@ -136,7 +157,7 @@ export default function ActiveLearningQueuePage() {
               {filtered.map((item) => {
                 const decision = decisions[item.object.id];
                 return (
-                  <TableRow key={item.object.id}>
+                  <TableRow key={item.object.id} className={actionRisk(item.object, item.metric) === "high" ? "bg-red-50/60" : ""}>
                     <TableCell>
                       <button className="h-16 w-20 overflow-hidden rounded-md border bg-muted" onClick={() => setSelected(item)}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -167,7 +188,14 @@ export default function ActiveLearningQueuePage() {
                         ))}
                       </div>
                     </TableCell>
-                    <TableCell className="max-w-48 text-muted-foreground">{item.metric.recommendation || "-"}</TableCell>
+                    <TableCell className="max-w-48 text-muted-foreground">{recommendedAction(item.object, item.metric)}</TableCell>
+                    <TableCell>{formatPercent(actionConfidence(item.object, item.metric))}</TableCell>
+                    <TableCell className="max-w-56 text-muted-foreground">{actionReason(item.object, item.metric)}</TableCell>
+                    <TableCell>
+                      <Badge variant={actionRisk(item.object, item.metric) === "high" ? "danger" : actionRisk(item.object, item.metric) === "medium" ? "warning" : "muted"}>
+                        {actionRisk(item.object, item.metric)}
+                      </Badge>
+                    </TableCell>
                     <TableCell>
                       <Button variant="outline" size="sm" onClick={() => setSelected(item)}>
                         <Eye />
@@ -290,6 +318,16 @@ function ObjectCard({
               <Send />
               Send to expert review
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                const comment = window.prompt("Comment");
+                if (comment) onDecision(item, decision?.status || item.object.status, comment);
+              }}
+            >
+              <MessageSquare />
+              Add Comment
+            </Button>
           </div>
         </div>
       </div>
@@ -304,4 +342,19 @@ function Info({ label, value }: { label: string; value: string }) {
       <div className="mt-1 break-words text-sm font-medium">{value}</div>
     </div>
   );
+}
+
+function matchesQuickFilter(item: ReviewQueueItem, filter: string) {
+  if (filter === "all") return true;
+  if (filter === "high" || filter === "medium") return actionRisk(item.object, item.metric) === filter;
+  const text = `${item.object.status} ${item.metric.recommendation || ""} ${(item.metric.reasons || []).join(" ")}`.toLowerCase();
+  const needles: Record<string, string[]> = {
+    label_errors: ["label", "suspected_label_error"],
+    bad_quality: ["bad_quality", "quality", "blur", "dark"],
+    duplicates: ["duplicate"],
+    outliers: ["outlier"],
+    invalid_bboxes: ["invalid_bbox", "invalid bbox", "out_of_bounds"],
+    tiny_boxes: ["tiny", "small bbox", "tiny_boxes"],
+  };
+  return (needles[filter] || []).some((needle) => text.includes(needle));
 }

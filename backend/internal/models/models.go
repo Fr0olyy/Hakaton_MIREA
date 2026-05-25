@@ -149,6 +149,9 @@ type AnalysisJob struct {
 	ProgressPercent  int                `json:"progress_percent"`
 	ProgressStage    string             `json:"progress_stage,omitempty"`
 	OutputFiles      map[string]string  `json:"output_files,omitempty"`
+	Files            map[string]string  `json:"files,omitempty"`
+	Warnings         []string           `json:"warnings,omitempty"`
+	Errors           []string           `json:"errors,omitempty"`
 	StartedAt        time.Time          `json:"started_at"`
 	FinishedAt       time.Time          `json:"finished_at,omitempty"`
 }

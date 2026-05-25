@@ -31,7 +31,7 @@ export default function RoadmapPage() {
       <ProjectNav projectId={projectId} />
       <PageHeader
         title="Dataset Roadmap"
-        description="Prioritized next steps to move the dataset from Level 1 diagnostics to a cleaner training-ready version."
+        description="Prioritized next steps to move the dataset from diagnostics to a cleaner training-ready version."
       />
       {loading ? <LoadingState label="Loading roadmap" /> : null}
       {error ? <ErrorState message={error} /> : null}

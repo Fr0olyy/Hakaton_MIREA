@@ -29,7 +29,7 @@ export default function RecommendationsPage() {
   return (
     <>
       <ProjectNav projectId={projectId} />
-      <PageHeader title="Recommendations" description="Actionable fixes and curation guidance generated from Level 1 analysis." />
+      <PageHeader title="Recommendations" description="Actionable fixes and curation guidance generated from analysis." />
       {loading ? <LoadingState label="Loading recommendations" /> : null}
       {error ? <ErrorState message={error} /> : null}
 

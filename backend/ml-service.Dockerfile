@@ -1,6 +1,7 @@
 FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim
 
 WORKDIR /app/ml-service
+ENV UV_HTTP_TIMEOUT=180
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

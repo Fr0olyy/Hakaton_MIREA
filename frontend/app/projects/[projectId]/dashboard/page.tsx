@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { AlertTriangle, Database, RefreshCw } from "lucide-react";
-import { getDashboard, getProbabilisticAnalysis, getReviewQueue, listProjects } from "@/lib/api";
-import type { Dashboard, ProbabilisticAnalysis, ReviewQueueItem } from "@/lib/types";
+import { getDashboard, getProbabilisticAnalysis, getRecommendations, getReviewQueue, listAllObjects, listProjects } from "@/lib/api";
+import { isImageProject, isTabularProject, isYoloProject, modalityLabel } from "@/lib/level2";
+import type { Dashboard, DataObject, ProbabilisticAnalysis, Recommendation, ReviewQueueItem } from "@/lib/types";
 import { dashboardCounters } from "@/lib/derived";
 import { formatNumber, formatScore } from "@/lib/utils";
 import { ProjectNav } from "@/components/project-nav";
@@ -23,17 +24,21 @@ export default function DashboardPage() {
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [probabilistic, setProbabilistic] = useState<ProbabilisticAnalysis | null>(null);
   const [queue, setQueue] = useState<ReviewQueueItem[]>([]);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [objects, setObjects] = useState<DataObject[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   function load() {
     setLoading(true);
     setError("");
-    Promise.all([getDashboard(projectId), getProbabilisticAnalysis(projectId), getReviewQueue(projectId)])
-      .then(([dashboardData, probabilisticData, queueData]) => {
+    Promise.all([getDashboard(projectId), getProbabilisticAnalysis(projectId), getReviewQueue(projectId), getRecommendations(projectId), listAllObjects(projectId)])
+      .then(([dashboardData, probabilisticData, queueData, recommendationData, objectData]) => {
         setDashboard(dashboardData);
         setProbabilistic(probabilisticData);
         setQueue(queueData);
+        setRecommendations(recommendationData);
+        setObjects(objectData.objects || []);
       })
       .catch(async (err: Error) => {
         if (err.message === "not found") {
@@ -72,6 +77,10 @@ export default function DashboardPage() {
   }
 
   const counters = dashboardCounters(dashboard, probabilistic?.metrics || [], queue);
+  const modality = dashboard.project.modality;
+  const tabularColumns = inferMetadataColumns(objects);
+  const yoloInvalid = countObjectsByNeed(queue, ["out_of_bounds", "invalid bbox", "invalid_bbox"]);
+  const yoloTiny = countObjectsByNeed(queue, ["tiny", "small bbox", "tiny_boxes"]);
 
   return (
     <>
@@ -87,30 +96,64 @@ export default function DashboardPage() {
               Refresh
             </Button>
             <StatusBadge status={dashboard.dataset_version.status} />
+            <StatusBadge status={modalityLabel(modality)} />
           </>
         }
       />
 
-      <div className="grid metric-grid gap-3">
-        <MetricCard
-          label="total_objects"
-          value={formatNumber(counters.totalObjects)}
-          tone="blue"
-          detail={
-            <div className="space-y-1">
-              <div>dataset_version: {formatNumber(counters.countSources.datasetVersion || 0)}</div>
-              <div>status_counts sum: {formatNumber(counters.countSources.statusCounts || 0)}</div>
-              <div>metrics rows: {formatNumber(counters.countSources.metrics || 0)}</div>
-            </div>
-          }
-        />
-        <MetricCard label="classes_count" value={formatNumber(counters.classesCount)} tone="green" />
-        <MetricCard label="dataset_readiness_score" value={formatScore(counters.readinessScore, 1)} hint="0..100" tone="green" />
+      <div className="mb-4 grid metric-grid gap-3">
+        <MetricCard label="status" value={dashboard.dataset_version.status} tone="slate" />
+        <MetricCard label="modality" value={modalityLabel(modality)} tone="blue" />
+        <MetricCard label="task_type" value={dashboard.project.task_type} tone="slate" />
+        <MetricCard label="objects_count" value={formatNumber(counters.totalObjects)} tone="blue" />
         <MetricCard label="review_queue_count" value={formatNumber(counters.reviewQueueCount)} tone="orange" />
-        <MetricCard label="suspected_label_errors" value={formatNumber(counters.suspectedLabelErrors)} tone="red" />
-        <MetricCard label="duplicates_count" value={formatNumber(counters.duplicates)} tone="orange" />
-        <MetricCard label="bad_quality_count" value={formatNumber(counters.badQuality)} tone="red" />
-        <MetricCard label="rare_classes_count" value={formatNumber(counters.rareClasses)} tone="slate" />
+        <MetricCard label="recommendations_count" value={formatNumber(recommendations.length)} tone="green" />
+      </div>
+
+      <div className="grid metric-grid gap-3">
+        {isImageProject(dashboard.project) ? (
+          <>
+            <MetricCard
+              label="total_objects"
+              value={formatNumber(counters.totalObjects)}
+              tone="blue"
+              detail={
+                <div className="space-y-1">
+                  <div>dataset_version: {formatNumber(counters.countSources.datasetVersion || 0)}</div>
+                  <div>status_counts sum: {formatNumber(counters.countSources.statusCounts || 0)}</div>
+                  <div>metrics rows: {formatNumber(counters.countSources.metrics || 0)}</div>
+                </div>
+              }
+            />
+            <MetricCard label="classes_count" value={formatNumber(counters.classesCount)} tone="green" />
+            <MetricCard label="dataset_readiness_score" value={formatScore(counters.readinessScore, 1)} hint="0..100" tone="green" />
+            <MetricCard label="dataset_v2_objects" value={formatNumber(Math.max(0, counters.totalObjects - counters.reviewQueueCount))} tone="green" />
+            <MetricCard label="duplicates_count" value={formatNumber(counters.duplicates)} tone="orange" />
+            <MetricCard label="bad_quality_count" value={formatNumber(counters.badQuality)} tone="red" />
+            <MetricCard label="suspected_label_errors_count" value={formatNumber(counters.suspectedLabelErrors)} tone="red" />
+            <MetricCard label="hard_examples_count" value={formatNumber(countMetrics(probabilistic?.metrics || [], (metric) => metric.uncertainty_score >= 0.5))} tone="orange" />
+          </>
+        ) : null}
+        {isTabularProject(dashboard.project) ? (
+          <>
+            <MetricCard label="tabular_quality_score" value={formatScore(counters.readinessScore, 1)} hint="0..100" tone="green" />
+            <MetricCard label="total_rows" value={formatNumber(counters.totalObjects)} tone="blue" />
+            <MetricCard label="total_columns" value={formatNumber(tabularColumns.length)} tone="slate" />
+            <MetricCard label="missing_columns_count" value={formatNumber(countColumnsByName(tabularColumns, ["missing", "nan", "null"]))} tone="orange" />
+            <MetricCard label="rows_with_any_nan_fraction" value={formatScore(fractionByReason(queue, ["missing", "nan", "null"]), 3)} tone="orange" />
+            <MetricCard label="outliers_total_count" value={formatNumber(countObjectsByNeed(queue, ["outlier"]))} tone="red" />
+            <MetricCard label="high_cardinality_columns_count" value={formatNumber(countColumnsByName(tabularColumns, ["cardinality", "unique"]))} tone="slate" />
+          </>
+        ) : null}
+        {isYoloProject(dashboard.project) ? (
+          <>
+            <MetricCard label="cv_quality_score" value={formatScore(counters.readinessScore, 1)} hint="0..100" tone="green" />
+            <MetricCard label="total_label_files" value={formatNumber(counters.totalObjects)} tone="blue" />
+            <MetricCard label="files_needing_review" value={formatNumber(counters.reviewQueueCount)} tone="orange" />
+            <MetricCard label="out_of_bounds_files_count" value={formatNumber(yoloInvalid)} tone="red" />
+            <MetricCard label="tiny_boxes_files_count" value={formatNumber(yoloTiny)} tone="orange" />
+          </>
+        ) : null}
       </div>
 
       {counters.hasCountMismatch ? (
@@ -183,4 +226,28 @@ function Info({ label, value }: { label: string; value: string }) {
       </div>
     </div>
   );
+}
+
+function inferMetadataColumns(objects: DataObject[]) {
+  return Array.from(new Set(objects.flatMap((object) => Object.keys(object.metadata || {}).filter((key) => key !== "probabilities" && key !== "validation_errors")))).sort();
+}
+
+function countMetrics<T>(items: T[], predicate: (item: T) => boolean) {
+  return items.reduce((count, item) => count + (predicate(item) ? 1 : 0), 0);
+}
+
+function countColumnsByName(columns: string[], needles: string[]) {
+  return columns.filter((column) => needles.some((needle) => column.toLowerCase().includes(needle))).length;
+}
+
+function countObjectsByNeed(queue: ReviewQueueItem[], needles: string[]) {
+  return queue.filter((item) => {
+    const text = `${item.object.status} ${item.metric.recommendation || ""} ${(item.metric.reasons || []).join(" ")}`.toLowerCase();
+    return needles.some((needle) => text.includes(needle));
+  }).length;
+}
+
+function fractionByReason(queue: ReviewQueueItem[], needles: string[]) {
+  if (!queue.length) return 0;
+  return countObjectsByNeed(queue, needles) / queue.length;
 }

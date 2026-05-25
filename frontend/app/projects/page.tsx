@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, BarChart3, Plus, RefreshCw, Upload } from "lucide-react";
-import { getDashboard, listProjects } from "@/lib/api";
-import type { Dashboard, Project } from "@/lib/types";
+import { createDemoProject, getDashboard, listDemoDatasets, listProjects } from "@/lib/api";
+import { modalityLabel } from "@/lib/level2";
+import type { Dashboard, DemoDataset, Project } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,16 +14,19 @@ import { ErrorState, LoadingState } from "@/components/state";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [demos, setDemos] = useState<DemoDataset[]>([]);
   const [snapshots, setSnapshots] = useState<Record<string, Dashboard | null>>({});
   const [loading, setLoading] = useState(true);
+  const [creatingDemo, setCreatingDemo] = useState("");
   const [error, setError] = useState("");
 
   function load() {
     setLoading(true);
     setError("");
-    listProjects()
-      .then(async (items) => {
+    Promise.all([listProjects(), listDemoDatasets().catch(() => [])])
+      .then(async ([items, demoItems]) => {
         setProjects(items);
+        setDemos(demoItems);
         const loaded = await Promise.all(
           items.map(async (project) => {
             try {
@@ -40,12 +44,25 @@ export default function ProjectsPage() {
 
   useEffect(load, []);
 
+  async function onCreateDemo(modality: string) {
+    setCreatingDemo(modality);
+    setError("");
+    try {
+      const result = await createDemoProject(modality);
+      window.location.href = `/projects/${result.project.id}/dashboard`;
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setCreatingDemo("");
+    }
+  }
+
   return (
     <>
       <PageHeader
-        eyebrow="Level 1"
+        eyebrow="Level 2"
         title="Projects"
-        description="Create an image classification dataset project, upload CSV/images, run ML analysis, and export a curated dataset."
+        description="Create image, tabular, or YOLO dataset projects, run analysis, review risky objects, and plan the next dataset version."
         actions={
           <>
             <Button variant="outline" onClick={load}>
@@ -66,13 +83,31 @@ export default function ProjectsPage() {
       {error ? <ErrorState message={error} /> : null}
 
       {!loading && !error && (
+        <>
+        <div className="mb-5 grid gap-3 md:grid-cols-3">
+          {demos.map((demo) => (
+            <Card key={demo.modality}>
+              <CardHeader>
+                <CardTitle>{demo.label}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm leading-6 text-muted-foreground">{demo.description}</p>
+                <Button onClick={() => onCreateDemo(demo.modality)} disabled={creatingDemo !== ""}>
+                  <Plus />
+                  {creatingDemo === demo.modality ? "Creating" : "Create analyzed demo"}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project) => (
             <Card key={project.id} className="overflow-hidden">
               <CardHeader>
                 <div className="flex items-start justify-between gap-3">
                   <CardTitle>{project.name}</CardTitle>
-                  <Badge variant="success">{project.modality}</Badge>
+                  <Badge variant="success">{modalityLabel(project.modality)}</Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -114,7 +149,7 @@ export default function ProjectsPage() {
             <Card className="md:col-span-2 xl:col-span-3">
               <CardContent className="flex flex-col items-center justify-center gap-3 p-10 text-center">
                 <div className="text-base font-medium">No projects yet</div>
-                <p className="max-w-md text-sm text-muted-foreground">Start with a Level 1 image classification project and upload dataset.csv plus images.zip.</p>
+                <p className="max-w-md text-sm text-muted-foreground">Start with a dataset modality and upload the files needed for analysis.</p>
                 <Button asChild>
                   <Link href="/projects/new">
                     <Plus />
@@ -125,6 +160,7 @@ export default function ProjectsPage() {
             </Card>
           ) : null}
         </div>
+        </>
       )}
     </>
   );

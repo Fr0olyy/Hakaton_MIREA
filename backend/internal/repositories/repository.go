@@ -1071,6 +1071,7 @@ func scanAnalysisJob(row scanner) (models.AnalysisJob, error) {
 		if err := json.Unmarshal(outputFiles, &job.OutputFiles); err != nil {
 			return job, err
 		}
+		job.Files = job.OutputFiles
 	}
 	return job, nil
 }

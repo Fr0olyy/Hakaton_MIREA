@@ -81,7 +81,7 @@ export default function ExportPage() {
       <ProjectNav projectId={projectId} />
       <PageHeader
         title="Export"
-        description="Generate Dataset v2 and download the Level 1 artifacts."
+        description="Generate Dataset v2 and download the analysis artifacts."
         actions={
           <Button onClick={() => void ensureExport()} disabled={busy !== ""}>
             <Archive />

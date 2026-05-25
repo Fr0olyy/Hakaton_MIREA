@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Database, FolderKanban, Github } from "lucide-react";
+import { Database, FolderKanban } from "lucide-react";
+import { RoleSelector } from "@/components/role-selector";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
@@ -17,10 +18,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <FolderKanban className="h-4 w-4" />
               Projects
             </Link>
-            <span className="hidden items-center gap-2 rounded-md px-3 py-2 text-xs md:flex">
-              <Github className="h-4 w-4" />
-              Level 1
-            </span>
+            <div className="hidden md:block">
+              <RoleSelector />
+            </div>
           </nav>
         </div>
       </header>

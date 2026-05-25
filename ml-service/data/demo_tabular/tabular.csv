@@ -1,0 +1,21 @@
+id     , age, tenure_months, monthly_spend, support_tickets, plan      , country, last_login_days, feature_usage_score, label , predicted_label, confidence
+tab_001,  28,             4,          19.9,               3, basic     , US     ,              21,                0.24, churn , churn          ,       0.82
+tab_002,  41,            36,          89.5,               0, pro       , DE     ,               2,                0.91, retain, retain         ,       0.94
+tab_003,  35,            12,          49.0,               1, standard  , FR     ,               8,                0.63, retain, retain         ,       0.78
+tab_004,  52,             2,          14.5,               6, basic     , US     ,              35,                0.12, churn , churn          ,       0.88
+tab_005,  23,            18,          59.0,               0, standard  , BR     ,               4,                0.76, retain, retain         ,       0.86
+tab_006,  46,             9,         129.0,               4, enterprise, UK     ,              18,                0.42, churn , retain         ,       0.57
+tab_007,  31,            27,          72.5,               1, pro       , US     ,               3,                0.83, retain, retain         ,       0.91
+tab_008,  39,             1,           9.9,               8, basic     , IN     ,              44,                0.07, churn , churn          ,       0.96
+tab_009,  44,            48,         199.0,               0, enterprise, DE     ,               1,                0.98, retain, retain         ,       0.97
+tab_010,  29,             7,          39.0,               2, standard  , US     ,              14,                0.51, churn , churn          ,       0.69
+tab_011,  57,            31,          88.0,               1, pro       , FR     ,               6,                0.73, retain, retain         ,       0.84
+tab_012,  33,             5,          24.0,               5, basic     , BR     ,              29,                0.22, churn , retain         ,       0.53
+tab_013,  49,            14,         149.0,               2, enterprise, UK     ,               9,                0.68, retain, churn          ,       0.58
+tab_014,  26,            22,          54.0,               0, standard  , IN     ,               5,                0.81, retain, retain         ,       0.9
+tab_015,  61,             3,          18.0,               7, basic     , US     ,              39,                0.1 , churn , churn          ,       0.93
+tab_016,  37,            40,          94.0,               1, pro       , DE     ,               2,                0.89, retain, retain         ,       0.95
+tab_017,  42,              ,          74.0,               2, pro       , US     ,              11,                0.57, retain, retain         ,       0.66
+tab_018,  30,             6,              ,               4, basic     , FR     ,              25,                0.19, churn , churn          ,       0.79
+tab_019,  54,            19,         980.0,               0, enterprise, US     ,               3,                0.88, retain, retain         ,       0.72
+tab_020,  25,             8,          34.0,               3, standard  , BR     ,                ,                0.36, churn , churn          ,       0.61

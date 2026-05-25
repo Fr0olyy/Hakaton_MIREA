@@ -1,0 +1,9 @@
+id      , file_path           , label  , predicted_label, confidence, split, source   , bbox_count, invalid_bboxes, tiny_boxes, action_risk, action_reason
+yolo_001, labels/image_001.txt, person , person         ,       0.91, train, yolo_demo,          3,              0,          0, low        , valid annotations
+yolo_002, labels/image_002.txt, vehicle, vehicle        ,       0.86, train, yolo_demo,          2,              0,          1, medium     , tiny box should be checked
+yolo_003, labels/image_003.txt, sign   , sign           ,       0.74, train, yolo_demo,          4,              1,          0, high       , bbox coordinates are out of bounds
+yolo_004, labels/image_004.txt, person , vehicle        ,       0.52, val  , yolo_demo,          1,              0,          1, medium     , small object may be mislabeled
+yolo_005, labels/image_005.txt, vehicle, vehicle        ,       0.96, train, yolo_demo,          5,              0,          0, low        , valid annotations
+yolo_006, labels/image_006.txt, sign   , person         ,       0.49, val  , yolo_demo,          2,              1,          1, high       , invalid bbox and low confidence
+yolo_007, labels/image_007.txt, person , person         ,       0.83, train, yolo_demo,          2,              0,          0, low        , valid annotations
+yolo_008, labels/image_008.txt, vehicle, vehicle        ,       0.67, train, yolo_demo,          3,              0,          1, medium     , tiny box may hurt detector training

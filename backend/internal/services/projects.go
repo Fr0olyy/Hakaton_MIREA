@@ -16,8 +16,8 @@ func (s *Service) CreateProject(ctx context.Context, req CreateProjectRequest, c
 	if req.Name == "" || req.Modality == "" || req.TaskType == "" {
 		return models.Project{}, badRequest("name, modality and task_type are required")
 	}
-	if req.Modality != "image" || req.TaskType != "classification" {
-		return models.Project{}, badRequest("Level 1 supports only modality=image and task_type=classification")
+	if !isSupportedProjectType(req.Modality, req.TaskType) {
+		return models.Project{}, badRequest("unsupported modality/task_type combination")
 	}
 
 	project := models.Project{
@@ -52,8 +52,29 @@ func (s *Service) ListProjects(ctx context.Context) ([]models.Project, error) {
 	return s.repo.ListProjects(ctx)
 }
 
-func (s *Service) GetProject(ctx context.Context, id uuid.UUID) (models.Project, error) {
-	return s.repo.GetProject(ctx, id)
+func (s *Service) GetProject(ctx context.Context, projectID uuid.UUID) (models.Project, error) {
+	return s.repo.GetProject(ctx, projectID)
+}
+
+func isSupportedProjectType(modality, taskType string) bool {
+	switch modality {
+	case "image", "image_classification":
+		return taskType == "classification"
+	case "tabular_classification":
+		return taskType == "classification"
+	case "image_detection_yolo":
+		return taskType == "detection" || taskType == "object_detection"
+	default:
+		return false
+	}
+}
+
+func isImageClassificationProject(project models.Project) bool {
+	return (project.Modality == "image" || project.Modality == "image_classification") && project.TaskType == "classification"
+}
+
+func isImageLikeProject(project models.Project) bool {
+	return project.Modality == "image" || project.Modality == "image_classification" || project.Modality == "image_detection_yolo"
 }
 
 func normalizeClasses(classes []string) []string {

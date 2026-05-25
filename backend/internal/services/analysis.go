@@ -51,7 +51,9 @@ func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.Anal
 	}
 
 	result, err := s.analyzeWithMLService(ctx, project, version, objects)
+	var warnings []string
 	if err != nil {
+		warnings = append(warnings, "ML-service analysis was not used: "+err.Error()+". Backend local analysis completed instead.")
 		result = s.analyzeLocal(project, version, objects)
 	}
 	outputFiles := result.outputFiles
@@ -63,6 +65,11 @@ func (s *Service) Analyze(ctx context.Context, projectID uuid.UUID) (models.Anal
 		return job, err
 	}
 	job.Status = "completed"
+	job.ProgressPercent = 100
+	job.ProgressStage = "done"
+	job.OutputFiles = outputFiles
+	job.Files = outputFiles
+	job.Warnings = warnings
 	job.FinishedAt = time.Now()
 	return job, nil
 }

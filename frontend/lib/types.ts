@@ -1,12 +1,16 @@
 export type Project = {
   id: string;
   name: string;
-  modality: string;
+  modality: Modality | string;
   task_type: string;
   classes?: string[];
   created_at: string;
   updated_at: string;
 };
+
+export type Modality = "image" | "image_classification" | "tabular_classification" | "image_detection_yolo";
+
+export type ProjectRole = "admin" | "ml_engineer" | "annotator" | "domain_expert" | "data_analyst";
 
 export type DatasetVersion = {
   id: string;
@@ -119,6 +123,12 @@ export type AnalysisJob = {
   dataset_version_id: string;
   status: string;
   error_message?: string;
+  progress_percent?: number;
+  progress_stage?: string;
+  output_files?: Record<string, string>;
+  files?: Record<string, string>;
+  warnings?: string[];
+  errors?: string[];
   started_at: string;
   finished_at?: string;
 };
@@ -140,7 +150,128 @@ export type ExportArtifact = {
 
 export type AgentSummary = {
   summary: string;
-  dashboard: Dashboard;
-  recommendations: Recommendation[];
-  roadmap: RoadmapItem[];
+  dashboard?: Dashboard;
+  recommendations?: Recommendation[];
+  roadmap?: RoadmapItem[];
+  key_findings?: string[];
+  risks?: string[];
+  recommended_next_steps?: string[];
+  used_context_fields?: string[];
+};
+
+export type ListObjectsResult = {
+  objects: DataObject[];
+  total: number;
+  page: number;
+  per_page: number;
+  total_pages: number;
+};
+
+export type ObjectAction = {
+  id: string;
+  project_id: string;
+  object_id: string;
+  user_id: string;
+  action: string;
+  old_value?: string;
+  new_value?: string;
+  comment?: string;
+  created_at: string;
+};
+
+export type ObjectComment = {
+  id: string;
+  project_id: string;
+  object_id: string;
+  user_id: string;
+  text: string;
+  created_at: string;
+};
+
+export type ObjectDetail = DataObject & {
+  actions?: ObjectAction[];
+  comments?: ObjectComment[];
+};
+
+export type CollectionTask = {
+  id: string;
+  project_id: string;
+  target_class?: string;
+  target?: string;
+  task_type?: string;
+  target_count: number;
+  priority: string;
+  risk: string;
+  status: string;
+  reason?: string;
+  expected_impact?: string;
+  owner_role?: string;
+  created_by?: string;
+  created_at: string;
+};
+
+export type SyntheticTask = {
+  id: string;
+  project_id: string;
+  target_class?: string;
+  target?: string;
+  task_type?: string;
+  target_count: number;
+  prompt?: string;
+  negative_prompt?: string;
+  expected_impact?: string;
+  risk: string;
+  synthetic_bias_risk?: string;
+  requires_human_validation?: boolean;
+  owner_role?: string;
+  priority?: string;
+  status: string;
+  created_by?: string;
+  created_at: string;
+};
+
+export type ClassActionPlanItem = {
+  class?: string;
+  target_class?: string;
+  problem?: string;
+  issue?: string;
+  objects_count?: number;
+  target_count?: number;
+  class_deficit_score?: number;
+  review_objects_count?: number;
+  label_error_count?: number;
+  hard_examples_count?: number;
+  missing_values?: number;
+  numeric_outliers?: number;
+  high_cardinality_columns?: number;
+  invalid_bboxes?: number;
+  tiny_boxes?: number;
+  affected_files_count?: number;
+  recommended_action?: string;
+  priority?: string | number;
+  risk?: string;
+  reason?: string;
+  expected_impact?: string;
+  real_collection_priority?: number;
+  synthetic_data_candidate_score?: number;
+};
+
+export type AgentResponse = {
+  summary: string;
+  key_findings?: string[];
+  risks?: string[];
+  recommended_next_steps?: string[];
+  used_context_fields?: string[];
+};
+
+export type DemoDataset = {
+  modality: Modality | string;
+  label: string;
+  description: string;
+};
+
+export type DemoProjectResult = {
+  project: Project;
+  upload_result: UploadResult;
+  analysis_job: AnalysisJob;
 };

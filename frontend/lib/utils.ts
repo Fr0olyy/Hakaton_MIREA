@@ -24,7 +24,17 @@ export function formatPercent(value: number | undefined | null, digits = 1) {
 }
 
 export function apiPath(path: string) {
-  return `/api/backend${path.startsWith("/") ? path : `/${path}`}`;
+  const base = "/api/backend";
+
+  let normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+  // requestJSON часто вызывает "/api/projects",
+  // но proxy frontend уже сам находится на "/api/backend".
+  // Поэтому убираем frontend-level "/api", чтобы не получать:
+  // /api/backend/api/projects
+  normalizedPath = normalizedPath.replace(/^\/api(?=\/)/, "");
+
+  return `${base}${normalizedPath}`;
 }
 
 export function numericProbabilityEntries(probabilities?: Record<string, unknown>) {

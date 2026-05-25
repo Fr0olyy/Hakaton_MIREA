@@ -40,7 +40,7 @@ func (s *Service) analyzeWithMLService(ctx context.Context, project models.Proje
 	if s.ml == nil {
 		return localAnalysis{}, errors.New("ml-service client is not configured")
 	}
-	if project.Modality != "image" || project.TaskType != "classification" {
+	if !isImageClassificationProject(project) {
 		return localAnalysis{}, errors.New("ml-service supports only image classification projects")
 	}
 

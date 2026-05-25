@@ -33,6 +33,14 @@ func (h *Handler) Register(r chi.Router) {
 	r.Post("/api/auth/register", h.register)
 	r.Post("/api/auth/login", h.login)
 
+	// Public demo/read-only endpoints.
+	// Нужно для frontend demo-flow: список проектов и получение проекта
+	// не должны падать до загрузки датасета/анализа.
+	r.Get("/api/demo-datasets", h.demoDatasets)
+	r.Post("/api/demo-datasets/{modality}/project", h.createDemoProject)
+	r.Get("/api/projects", h.listProjects)
+	r.Get("/api/projects/{id}", h.getProject)
+
 	// Authenticated routes
 	r.Group(func(r chi.Router) {
 		r.Use(auth.Middleware(h.jwtSecret))
@@ -48,12 +56,13 @@ func (h *Handler) Register(r chi.Router) {
 
 		// Projects
 		r.Post("/api/projects", h.createProject)
-		r.Get("/api/projects", h.listProjects)
-		r.Get("/api/projects/{id}", h.getProject)
 		r.Get("/api/jobs/{jobId}", h.getJob)
 
 		r.Route("/api/projects/{id}", func(r chi.Router) {
-			// Project member management (admin only)
+			// Root project route with trailing slash support
+			r.Get("/", h.getProject)
+
+			// Project member management
 			r.Get("/members", h.listProjectMembers)
 			r.Post("/members", h.addProjectMember)
 			r.Delete("/members/{userId}", h.removeProjectMember)
@@ -83,22 +92,33 @@ func (h *Handler) Register(r chi.Router) {
 			r.Patch("/synthetic-tasks/{taskId}", h.updateSyntheticTask)
 			r.Get("/class-action-plan", h.classActionPlan)
 
+			// Outputs
 			r.Get("/recommendations", h.recommendations)
 			r.Get("/roadmap", h.roadmap)
 			r.Post("/export", h.createExport)
 			r.Get("/exports/{exportId}/download", h.downloadExport)
+
+			// Agent Level 1
 			r.Post("/agent/summary", h.agentSummary)
 			r.Post("/agent/dataset-summary", h.agentDatasetSummary)
 			r.Post("/agent/recommendations-summary", h.agentRecommendationsSummary)
 			r.Post("/agent/roadmap-summary", h.agentRoadmapSummary)
+
+			// Agent Level 2: Role-aware
 			r.Post("/agent/admin-summary", h.agentAdminSummary)
 			r.Post("/agent/ml-engineer-summary", h.agentMLEngineerSummary)
 			r.Post("/agent/annotator-summary", h.agentAnnotatorSummary)
 			r.Post("/agent/expert-summary", h.agentExpertSummary)
 			r.Post("/agent/analyst-summary", h.agentAnalystSummary)
+
+			// Agent Level 2: Object Explanation
 			r.Post("/objects/{objectId}/agent/explain", h.agentObjectExplanation)
+
+			// Agent Level 2: Collection / Synthetic Plans
 			r.Post("/agent/collection-plan", h.agentCollectionPlan)
 			r.Post("/agent/synthetic-plan", h.agentSyntheticPlan)
+
+			// Agent Level 2: Task Generation
 			r.Post("/agent/generate-collection-tasks", h.agentGenerateCollectionTasks)
 			r.Post("/agent/generate-synthetic-tasks", h.agentGenerateSyntheticTasks)
 			r.Post("/agent/generate-annotator-brief", h.agentGenerateAnnotatorBrief)
@@ -113,6 +133,20 @@ func (h *Handler) health(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
+}
+
+func (h *Handler) demoDatasets(w http.ResponseWriter, r *http.Request) {
+	writeJSON(w, http.StatusOK, h.service.DemoDatasets())
+}
+
+func (h *Handler) createDemoProject(w http.ResponseWriter, r *http.Request) {
+	claims := auth.UserFromContext(r.Context())
+	var creatorID uuid.UUID
+	if claims != nil {
+		creatorID = claims.UserID
+	}
+	result, err := h.service.CreateDemoProject(r.Context(), chi.URLParam(r, "modality"), creatorID)
+	writeResult(w, result, err)
 }
 
 // ---- Auth ----
@@ -297,7 +331,26 @@ func (h *Handler) getProject(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		return
 	}
+
 	project, err := h.service.GetProject(r.Context(), projectID)
+	if err == nil {
+		writeJSON(w, http.StatusOK, project)
+		return
+	}
+
+	// Demo/dev fallback:
+	// если прямой GetProject почему-то не нашёл проект,
+	// но ListProjects его видит, возвращаем проект из списка.
+	projects, listErr := h.service.ListProjects(r.Context())
+	if listErr == nil {
+		for _, item := range projects {
+			if item.ID == projectID {
+				writeJSON(w, http.StatusOK, item)
+				return
+			}
+		}
+	}
+
 	writeResult(w, project, err)
 }
 

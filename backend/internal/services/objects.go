@@ -63,6 +63,15 @@ func (s *Service) ListObjects(ctx context.Context, projectID uuid.UUID, page, pe
 	if err != nil {
 		return ListObjectsResult{}, err
 	}
+	metrics, err := s.repo.ListMetrics(ctx, version.ID)
+	if err == nil {
+		metricsByObject := mapObjectsMetrics(metrics)
+		for i := range objects {
+			if metric, ok := metricsByObject[objects[i].ID]; ok {
+				objects[i].Metrics = &metric
+			}
+		}
+	}
 
 	totalPages := int(math.Ceil(float64(total) / float64(perPage)))
 	return ListObjectsResult{
