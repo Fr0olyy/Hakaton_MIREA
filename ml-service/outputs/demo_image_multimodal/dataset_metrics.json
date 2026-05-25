@@ -1,0 +1,44 @@
+{
+  "total_objects": 1200,
+  "dataset_v2_objects": 1064,
+  "classes_count": 10,
+  "dataset_readiness_score": 96.94892361111111,
+  "duplicates_count": 6,
+  "bad_quality_count": 1,
+  "suspected_label_errors_count": 129,
+  "hard_examples_count": 120,
+  "rare_class_candidates_count": 0,
+  "review_queue_count": 211,
+  "class_distribution": {
+    "elephant": 124,
+    "dog": 123,
+    "horse": 122,
+    "butterfly": 121,
+    "squirrel": 121,
+    "spider": 120,
+    "chicken": 118,
+    "sheep": 118,
+    "cow": 117,
+    "cat": 116
+  },
+  "status_distribution": {
+    "ok": 989,
+    "suspected_label_error": 129,
+    "hard_example": 75,
+    "duplicate": 6,
+    "bad_quality": 1
+  },
+  "main_problems": [
+    "label_noise",
+    "many_hard_examples"
+  ],
+  "readiness_components": {
+    "imbalance_index": 0.009166666666666663,
+    "class_balance_score": 0.9908333333333333,
+    "label_quality_score": 0.8971236111111112,
+    "data_quality_score": 0.995,
+    "diversity_score": 0.995,
+    "duplicate_ratio": 0.005,
+    "low_duplicate_score": 0.995
+  }
+}

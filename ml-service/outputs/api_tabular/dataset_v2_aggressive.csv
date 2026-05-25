@@ -1,0 +1,8 @@
+id,row_index,status,reasons,recommendation,recommended_action,action_confidence,action_reason,action_risk
+1,0,ok,[],keep,keep,0.9,No critical tabular issues detected.,low
+2,1,ok,[],keep,keep,0.9,No critical tabular issues detected.,low
+3,2,ok,[],keep,keep,0.9,No critical tabular issues detected.,low
+4,3,ok,[],keep,keep,0.9,No critical tabular issues detected.,low
+5,4,ok,[],keep,keep,0.9,No critical tabular issues detected.,low
+9,8,ok,[],keep,keep,0.9,No critical tabular issues detected.,low
+10,9,ok,[],keep,keep,0.9,No critical tabular issues detected.,low

@@ -1,84 +1,44 @@
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
-from ml_service.pipeline.pipeline import run_pipeline
+from ml_service.pipeline.multimodal_pipeline import run_multimodal_pipeline
 
 
-app = FastAPI(
-    title="DataForge ML Service",
-    description="ML analysis service for dataset diagnostics and curation",
-    version="0.1.0",
-)
+app = FastAPI(title="DataForge ML Service", version="2.0.0")
 
 
 class AnalyzeRequest(BaseModel):
-    dataset_path: str = Field(
-        ...,
-        description="Path to dataset.csv",
-        examples=["data/demo/dataset.csv"],
-    )
-    images_dir: str = Field(
-        ...,
-        description="Path to images directory",
-        examples=["data/demo/images"],
-    )
-    output_dir: str = Field(
-        ...,
-        description="Path to output directory",
-        examples=["outputs/demo"],
-    )
-
-
-class AnalyzeResponse(BaseModel):
-    status: str
-    objects_count: int
-    dataset_v2_objects_count: int
-    review_queue_count: int
-    dataset_readiness_score: float
-    output_dir: str
-    files: dict[str, str]
-    data: dict[str, Any]
+    modality: str = Field(default="image_classification")
+    task_type: str = Field(default="classification")
+    dataset_path: str | None = None
+    data_dir: str | None = None
+    output_dir: str = Field(default="outputs/api_analysis")
+    project_id: str | None = None
+    extra: dict[str, Any] = Field(default_factory=dict)
 
 
 @app.get("/health")
-def health_check() -> dict:
+def health():
     return {
         "status": "ok",
-        "service": "dataforge-ml-service",
+        "service": "ml-service",
+        "version": "2.0.0",
     }
 
 
-@app.post("/analyze", response_model=AnalyzeResponse)
-def analyze_dataset(request: AnalyzeRequest) -> dict:
-    dataset_path = Path(request.dataset_path)
-    images_dir = Path(request.images_dir)
-    output_dir = Path(request.output_dir)
+@app.post("/analyze")
+def analyze(request: AnalyzeRequest):
+    result = run_multimodal_pipeline(
+        modality=request.modality,
+        task_type=request.task_type,
+        dataset_path=request.dataset_path,
+        data_dir=request.data_dir,
+        output_dir=request.output_dir,
+        project_id=request.project_id,
+        extra=request.extra,
+    )
 
-    if not dataset_path.exists():
-        raise HTTPException(
-            status_code=400,
-            detail=f"dataset_path not found: {dataset_path}",
-        )
-
-    if not images_dir.exists():
-        raise HTTPException(
-            status_code=400,
-            detail=f"images_dir not found: {images_dir}",
-        )
-
-    try:
-        result = run_pipeline(
-            dataset_path=dataset_path,
-            images_dir=images_dir,
-            output_dir=output_dir,
-        )
-        return result
-
-    except Exception as error:
-        raise HTTPException(
-            status_code=500,
-            detail=f"ML analysis failed: {str(error)}",
-        ) from error
+    return result

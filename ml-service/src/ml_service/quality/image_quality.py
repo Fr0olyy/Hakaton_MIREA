@@ -94,7 +94,10 @@ def compute_image_quality(df: pd.DataFrame) -> pd.DataFrame:
     rows = []
 
     for _, row in df.iterrows():
-        image_path = row.get("resolved_path") or row.get("absolute_path")
+        image_path = row.get("resolved_path")
+
+        if not image_path:
+            image_path = row.get("absolute_path")
 
         if not image_path:
             image_path = row.get("file_path")

@@ -1,0 +1,38 @@
+[
+  {
+    "task_type": "fix_tabular_missing_values",
+    "target": "missing_values",
+    "target_count": null,
+    "priority": "medium",
+    "status": "open",
+    "reason": "Some rows contain missing values.",
+    "expected_impact": "Improve feature completeness and reduce training instability.",
+    "risk": "medium",
+    "source_action": "fix_missing_values",
+    "owner_role": "Data Analyst"
+  },
+  {
+    "task_type": "review_tabular_outliers",
+    "target": "numeric_outliers",
+    "target_count": 1,
+    "priority": "medium",
+    "status": "open",
+    "reason": "Some numeric values look like statistical outliers.",
+    "expected_impact": "Reduce noise and detect possible data entry errors.",
+    "risk": "medium",
+    "source_action": "review_outliers",
+    "owner_role": "Data Analyst"
+  },
+  {
+    "task_type": "review_high_cardinality_features",
+    "target": "high_cardinality_columns",
+    "target_count": 1,
+    "priority": "medium",
+    "status": "open",
+    "reason": "Some columns look like IDs or have too many unique values.",
+    "expected_impact": "Reduce overfitting risk and improve feature quality.",
+    "risk": "medium",
+    "source_action": "review_or_drop_high_cardinality_columns",
+    "owner_role": "Data Analyst"
+  }
+]

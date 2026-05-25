@@ -1,0 +1,286 @@
+{
+  "status": "completed",
+  "modality": "tabular_classification",
+  "task_type": "classification",
+  "dataset_metrics": {
+    "total_rows": 10,
+    "total_columns": 6,
+    "tabular_quality_score": 85.0,
+    "adapter_status": "ready",
+    "missing_columns_count": 2,
+    "rows_with_any_nan_fraction": 0.2,
+    "duplicate_rows_count": 0,
+    "duplicate_rows_fraction": 0.0,
+    "outliers_total_count": 1,
+    "rows_with_outliers_fraction": 0.1,
+    "constant_columns_count": 0,
+    "high_cardinality_columns_count": 1,
+    "target_leakage_status": "ok"
+  },
+  "object_metrics": [
+    {
+      "id": "1",
+      "row_index": 0,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "2",
+      "row_index": 1,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "3",
+      "row_index": 2,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "4",
+      "row_index": 3,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "5",
+      "row_index": 4,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "6",
+      "row_index": 5,
+      "status": "warning",
+      "reasons": [
+        "missing_values"
+      ],
+      "recommendation": "fix_missing_values",
+      "recommended_action": "fix_missing_values",
+      "action_confidence": 0.8,
+      "action_reason": "Row contains missing values.",
+      "action_risk": "medium"
+    },
+    {
+      "id": "7",
+      "row_index": 6,
+      "status": "warning",
+      "reasons": [
+        "outlier"
+      ],
+      "recommendation": "review_outlier",
+      "recommended_action": "review_outlier",
+      "action_confidence": 0.75,
+      "action_reason": "Row contains statistical outlier values.",
+      "action_risk": "medium"
+    },
+    {
+      "id": "8",
+      "row_index": 7,
+      "status": "warning",
+      "reasons": [
+        "missing_values"
+      ],
+      "recommendation": "fix_missing_values",
+      "recommended_action": "fix_missing_values",
+      "action_confidence": 0.8,
+      "action_reason": "Row contains missing values.",
+      "action_risk": "medium"
+    },
+    {
+      "id": "9",
+      "row_index": 8,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    },
+    {
+      "id": "10",
+      "row_index": 9,
+      "status": "ok",
+      "reasons": [],
+      "recommendation": "keep",
+      "recommended_action": "keep",
+      "action_confidence": 0.9,
+      "action_reason": "No critical tabular issues detected.",
+      "action_risk": "low"
+    }
+  ],
+  "review_queue": [
+    {
+      "id": "6",
+      "row_index": 5,
+      "status": "warning",
+      "reasons": [
+        "missing_values"
+      ],
+      "recommendation": "fix_missing_values",
+      "recommended_action": "fix_missing_values",
+      "action_confidence": 0.8,
+      "action_reason": "Row contains missing values.",
+      "action_risk": "medium"
+    },
+    {
+      "id": "7",
+      "row_index": 6,
+      "status": "warning",
+      "reasons": [
+        "outlier"
+      ],
+      "recommendation": "review_outlier",
+      "recommended_action": "review_outlier",
+      "action_confidence": 0.75,
+      "action_reason": "Row contains statistical outlier values.",
+      "action_risk": "medium"
+    },
+    {
+      "id": "8",
+      "row_index": 7,
+      "status": "warning",
+      "reasons": [
+        "missing_values"
+      ],
+      "recommendation": "fix_missing_values",
+      "recommended_action": "fix_missing_values",
+      "action_confidence": 0.8,
+      "action_reason": "Row contains missing values.",
+      "action_risk": "medium"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "FIX_MISSING_VALUES",
+      "priority": "medium",
+      "title": "Fix missing values",
+      "description": "Some rows contain missing values. Fill them or remove problematic rows."
+    },
+    {
+      "type": "REVIEW_OUTLIERS",
+      "priority": "medium",
+      "title": "Review numeric outliers",
+      "description": "Some numeric columns contain statistical outliers based on IQR."
+    },
+    {
+      "type": "REVIEW_HIGH_CARDINALITY_COLUMNS",
+      "priority": "medium",
+      "title": "Review high-cardinality columns",
+      "description": "Some columns look like IDs or contain too many unique values.",
+      "columns": [
+        "user_id"
+      ]
+    }
+  ],
+  "roadmap": [],
+  "collection_tasks": [
+    {
+      "task_type": "fix_tabular_missing_values",
+      "target": "missing_values",
+      "target_count": null,
+      "priority": "medium",
+      "status": "open",
+      "reason": "Some rows contain missing values.",
+      "expected_impact": "Improve feature completeness and reduce training instability.",
+      "risk": "medium",
+      "source_action": "fix_missing_values",
+      "owner_role": "Data Analyst"
+    },
+    {
+      "task_type": "review_tabular_outliers",
+      "target": "numeric_outliers",
+      "target_count": 1,
+      "priority": "medium",
+      "status": "open",
+      "reason": "Some numeric values look like statistical outliers.",
+      "expected_impact": "Reduce noise and detect possible data entry errors.",
+      "risk": "medium",
+      "source_action": "review_outliers",
+      "owner_role": "Data Analyst"
+    },
+    {
+      "task_type": "review_high_cardinality_features",
+      "target": "high_cardinality_columns",
+      "target_count": 1,
+      "priority": "medium",
+      "status": "open",
+      "reason": "Some columns look like IDs or have too many unique values.",
+      "expected_impact": "Reduce overfitting risk and improve feature quality.",
+      "risk": "medium",
+      "source_action": "review_or_drop_high_cardinality_columns",
+      "owner_role": "Data Analyst"
+    }
+  ],
+  "synthetic_tasks": [],
+  "class_action_plan": [
+    {
+      "target": "missing_values",
+      "target_type": "tabular_issue",
+      "recommended_action": "fix_missing_values",
+      "priority": "medium",
+      "reason": "Some rows contain missing values.",
+      "risk": "medium",
+      "affected_fraction": 0.2
+    },
+    {
+      "target": "numeric_outliers",
+      "target_type": "tabular_issue",
+      "recommended_action": "review_outliers",
+      "priority": "medium",
+      "reason": "Some numeric values look like statistical outliers.",
+      "risk": "medium",
+      "affected_count": 1
+    },
+    {
+      "target": "high_cardinality_columns",
+      "target_type": "tabular_issue",
+      "recommended_action": "review_or_drop_high_cardinality_columns",
+      "priority": "medium",
+      "reason": "Some columns look like IDs or have too many unique values.",
+      "risk": "medium",
+      "affected_count": 1
+    }
+  ],
+  "exports": {
+    "dataset_v2_conservative_csv": "outputs/api_tabular/dataset_v2_conservative.csv",
+    "dataset_v2_balanced_csv": "outputs/api_tabular/dataset_v2_balanced.csv",
+    "dataset_v2_aggressive_csv": "outputs/api_tabular/dataset_v2_aggressive.csv",
+    "dataset_strategy_summary_json": "outputs/api_tabular/dataset_strategy_summary.json",
+    "agent_context_json": "outputs/api_tabular/agent_context.json"
+  },
+  "warnings": [],
+  "errors": [],
+  "metadata": {
+    "dataset_path": "data/demo/tabular.csv",
+    "adapter_status": "ready",
+    "target_col": "target",
+    "data_action_policy_applied": true
+  }
+}

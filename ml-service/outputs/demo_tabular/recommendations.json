@@ -1,0 +1,23 @@
+[
+  {
+    "type": "FIX_MISSING_VALUES",
+    "priority": "medium",
+    "title": "Fix missing values",
+    "description": "Some rows contain missing values. Fill them or remove problematic rows."
+  },
+  {
+    "type": "REVIEW_OUTLIERS",
+    "priority": "medium",
+    "title": "Review numeric outliers",
+    "description": "Some numeric columns contain statistical outliers based on IQR."
+  },
+  {
+    "type": "REVIEW_HIGH_CARDINALITY_COLUMNS",
+    "priority": "medium",
+    "title": "Review high-cardinality columns",
+    "description": "Some columns look like IDs or contain too many unique values.",
+    "columns": [
+      "user_id"
+    ]
+  }
+]

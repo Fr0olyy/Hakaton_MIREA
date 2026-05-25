@@ -1,0 +1,13 @@
+[
+  {
+    "raw_objects_count":10,
+    "conservative_objects_count":10,
+    "balanced_objects_count":10,
+    "aggressive_objects_count":7,
+    "strategies":{
+      "conservative":"Remove only obvious harmful objects.",
+      "balanced":"Remove obvious harmful objects and risky review candidates.",
+      "aggressive":"Keep only objects that look safe for training."
+    }
+  }
+]
